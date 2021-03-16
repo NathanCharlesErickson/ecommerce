@@ -43,6 +43,10 @@
             "Amazon.Lambda.AspNetCoreServer": {
               "target": "Package",
               "version": "[5.3.0, )"
+            },
+            "React.Core": {
+              "target": "Package",
+              "version": "[5.2.11, )"
             }
           },
           "imports": [
