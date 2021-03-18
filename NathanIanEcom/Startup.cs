@@ -14,6 +14,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
+//Take 2 on testing git integration. Ian - 3/16/2021
+
 namespace NathanIanEcom
 {
     public class Startup
