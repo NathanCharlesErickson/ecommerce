@@ -25,9 +25,12 @@ namespace NathanIanEcom
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            DynamoDbApiKey = configuration["DynamoDb:ApiKey"];
+            DynamoDbSecret = configuration["DynamoDb:Secret"];
         }
 
-
+        public static String DynamoDbApiKey { get; set; }
+        public static String DynamoDbSecret { get; set; }
 
         public static IConfiguration Configuration { get; private set; }
 

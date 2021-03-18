@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\utili\\Source\\Repos\\ecommerce\\NathanIanEcom\\NathanIanEcom.csproj": {}
+    "C:\\Users\\utili\\source\\repos\\ecommerce\\NathanIanEcom\\NathanIanEcom.csproj": {}
   },
   "projects": {
-    "C:\\Users\\utili\\Source\\Repos\\ecommerce\\NathanIanEcom\\NathanIanEcom.csproj": {
+    "C:\\Users\\utili\\source\\repos\\ecommerce\\NathanIanEcom\\NathanIanEcom.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\utili\\Source\\Repos\\ecommerce\\NathanIanEcom\\NathanIanEcom.csproj",
+        "projectUniqueName": "C:\\Users\\utili\\source\\repos\\ecommerce\\NathanIanEcom\\NathanIanEcom.csproj",
         "projectName": "NathanIanEcom",
-        "projectPath": "C:\\Users\\utili\\Source\\Repos\\ecommerce\\NathanIanEcom\\NathanIanEcom.csproj",
+        "projectPath": "C:\\Users\\utili\\source\\repos\\ecommerce\\NathanIanEcom\\NathanIanEcom.csproj",
         "packagesPath": "C:\\Users\\utili\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\utili\\Source\\Repos\\ecommerce\\NathanIanEcom\\obj\\",
+        "outputPath": "C:\\Users\\utili\\source\\repos\\ecommerce\\NathanIanEcom\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
