@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ibLLWQJTnBm3AQahk0AaxVSoNp1s5LL5HwYnE9utlipAxjbyqCt+J6vOUb0Jo7lpudLnioEh9yAhhYoVeBS4gA==",
+  "dgSpecHash": "1vdNpkZaKzXdhIq9wwn12sIL7xC0elhSDVLeJ6O4WjVjytwSX+7z01aVGrxOOog0tyVA4HC7xA8yTfeAOf7y0Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\nerickson\\source\\repos\\NathanIanEcom\\NathanIanEcom\\NathanIanEcom.csproj",
   "expectedPackageFiles": [
@@ -11,6 +11,8 @@
     "C:\\Users\\nerickson\\.nuget\\packages\\amazon.lambda.core\\1.2.0\\amazon.lambda.core.1.2.0.nupkg.sha512",
     "C:\\Users\\nerickson\\.nuget\\packages\\amazon.lambda.logging.aspnetcore\\3.1.0\\amazon.lambda.logging.aspnetcore.3.1.0.nupkg.sha512",
     "C:\\Users\\nerickson\\.nuget\\packages\\amazon.lambda.serialization.systemtextjson\\2.1.0\\amazon.lambda.serialization.systemtextjson.2.1.0.nupkg.sha512",
+    "C:\\Users\\nerickson\\.nuget\\packages\\awssdk.core\\3.5.3.8\\awssdk.core.3.5.3.8.nupkg.sha512",
+    "C:\\Users\\nerickson\\.nuget\\packages\\awssdk.dynamodbv2\\3.5.4.37\\awssdk.dynamodbv2.3.5.4.37.nupkg.sha512",
     "C:\\Users\\nerickson\\.nuget\\packages\\javascriptengineswitcher.core\\3.1.0\\javascriptengineswitcher.core.3.1.0.nupkg.sha512",
     "C:\\Users\\nerickson\\.nuget\\packages\\jspool\\4.0.0\\jspool.4.0.0.nupkg.sha512",
     "C:\\Users\\nerickson\\.nuget\\packages\\microsoft.dotnet.platformabstractions\\2.1.0\\microsoft.dotnet.platformabstractions.2.1.0.nupkg.sha512",
