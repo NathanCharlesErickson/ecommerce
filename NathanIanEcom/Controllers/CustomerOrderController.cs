@@ -27,11 +27,11 @@ namespace NathanIanEcom.Controllers
         /*Gets a Product by it's Id*/
 
         [HttpGet("api/order/[action]")]
-        public async Task<CustomerOrders> getOrderById([FromBody] PKSKModel myInput)
+        public async Task<Customer> getOrderById([FromBody] PKSKModel myInput)
         {
             using (var context = new DynamoDBContext(createContext()))
             {
-                var data = await context.LoadAsync<CustomerOrders>(myInput.PK, myInput.SK);
+                var data = await context.LoadAsync<Customer>(myInput.PK, myInput.SK);
                 return data;
             }
             
@@ -39,11 +39,11 @@ namespace NathanIanEcom.Controllers
 
         /*get products by Order ID*/
         [HttpGet("api/order/[action]")]
-        public async Task<CustomerOrders> getProductByOrderId([FromBody] PKSKModel myInput)
+        public async Task<Customer> getProductByOrderId([FromBody] PKSKModel myInput)
         {
             using (var context = new DynamoDBContext(createContext()))
             {
-                var data = await context.LoadAsync<CustomerOrders>(myInput.PK, myInput.SK);
+                var data = await context.LoadAsync<Customer>(myInput.PK, myInput.SK);
                 return data;
             }
 

@@ -52,11 +52,11 @@ namespace NathanIanEcom.Controllers
         /* gets product by It's ID */
 
         [HttpGet("api/product/[action]")]
-        public async Task<Products> getProductById([FromBody] ProductModel myInput)
+        public async Task<Product> getProductById([FromBody] ProductModel myInput)
         {
             using (var context = new DynamoDBContext(createContext()))
             {
-                var data = await context.LoadAsync<Products>(myInput.ProductID);
+                var data = await context.LoadAsync<Product>(myInput.ProductID);
                 return data;
             }
 

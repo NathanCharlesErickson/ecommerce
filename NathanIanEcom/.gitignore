@@ -5,6 +5,7 @@ appsettings.json
 .DS_Store
 *.pyc
 nupkg/
+bin/
 
 # Visual Studio Code
 .vscode
