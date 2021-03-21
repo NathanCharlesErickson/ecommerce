@@ -16,28 +16,12 @@ namespace NathanIanEcom.Models
         [DynamoDBProperty]
         public String EntityType { get; set; }
         [DynamoDBProperty]
-        public DateTime CreatedDate { get; set; }
+        public String CreatedDate { get; set; }
         [DynamoDBProperty]
         public String Status { get; set; }
         [DynamoDBProperty]
         public String CustomerID { get; set; }
         [DynamoDBProperty]
         public String Address { get; set; }
-        [DynamoDBIgnore]
-        public String Email { get; set; }
-        [DynamoDBIgnore]
-        public String FirstName { get; set; }
-        [DynamoDBIgnore]
-        public String LastName { get; set; }
-        [DynamoDBIgnore]
-        public String Username { get; set; }
-        [DynamoDBIgnore]
-        public String ProductName { get; set; }
-        [DynamoDBIgnore]
-        public Int64 Quantity { get; set; }
-        [DynamoDBIgnore]
-        public Decimal Price { get; set; }
-        [DynamoDBIgnore]
-        public String ImageLink { get; set; }
     }
 }
