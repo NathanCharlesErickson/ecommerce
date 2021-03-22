@@ -26,7 +26,8 @@
         "dependencies": {
           "AWSSDK.Core": "3.5.3.8",
           "AWSSDK.DynamoDBv2": "3.5.4.37",
-          "Amazon.Lambda.AspNetCoreServer": "5.3.0",
+          "Amazon.Lambda.AspNetCoreServer": "5.3.1",
+          "Amazon.Lambda.Logging.AspNetCore": "3.1.0",
           "Newtonsoft.Json": "12.0.3",
           "React.Core": "5.2.11",
           "Microsoft.AspNetCore.Antiforgery": "3.1.0.0",
@@ -351,7 +352,7 @@
           "lib/netcoreapp3.1/Amazon.Lambda.ApplicationLoadBalancerEvents.dll": {}
         }
       },
-      "Amazon.Lambda.AspNetCoreServer/5.3.0": {
+      "Amazon.Lambda.AspNetCoreServer/5.3.1": {
         "dependencies": {
           "Amazon.Lambda.APIGatewayEvents": "2.4.0",
           "Amazon.Lambda.ApplicationLoadBalancerEvents": "2.1.0",
@@ -2538,12 +2539,12 @@
       "path": "amazon.lambda.applicationloadbalancerevents/2.1.0",
       "hashPath": "amazon.lambda.applicationloadbalancerevents.2.1.0.nupkg.sha512"
     },
-    "Amazon.Lambda.AspNetCoreServer/5.3.0": {
+    "Amazon.Lambda.AspNetCoreServer/5.3.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-b9TCHD4B+s/udRSjmZTfyEZAwLjo6jgr3w81H9QwVYiq6XPT4Qru++/LPFqgOlz8ZOfMjdY5kLUh9i4lhHOEAw==",
-      "path": "amazon.lambda.aspnetcoreserver/5.3.0",
-      "hashPath": "amazon.lambda.aspnetcoreserver.5.3.0.nupkg.sha512"
+      "sha512": "sha512-kmTsj46dqVn0IN5TIsVncDcLbRlsZo7cp/JZiQyeSXrofE58xDfj6qgsXSFSrofmJM/+5EBKUEQ8pbp9ss+VfA==",
+      "path": "amazon.lambda.aspnetcoreserver/5.3.1",
+      "hashPath": "amazon.lambda.aspnetcoreserver.5.3.1.nupkg.sha512"
     },
     "Amazon.Lambda.Core/1.2.0": {
       "type": "package",

@@ -25,15 +25,4 @@ namespace NathanIanEcom.Models
         public String PassHash { get; set; }
     }
 
-    public class PKSKModel
-    {
-        public String PK { get; set; }
-        public String SK { get; set; }
-    }
-
-    public class CustIdModel
-    {
-        public String CustomerID { get; set; }
-        public String SK { get; set; }
-    }
 }

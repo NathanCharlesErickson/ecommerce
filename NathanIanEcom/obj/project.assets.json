@@ -29,7 +29,7 @@
           "lib/netcoreapp3.1/Amazon.Lambda.ApplicationLoadBalancerEvents.dll": {}
         }
       },
-      "Amazon.Lambda.AspNetCoreServer/5.3.0": {
+      "Amazon.Lambda.AspNetCoreServer/5.3.1": {
         "type": "package",
         "dependencies": {
           "Amazon.Lambda.APIGatewayEvents": "2.4.0",
@@ -784,14 +784,14 @@
         "lib/netstandard2.0/Amazon.Lambda.ApplicationLoadBalancerEvents.xml"
       ]
     },
-    "Amazon.Lambda.AspNetCoreServer/5.3.0": {
-      "sha512": "b9TCHD4B+s/udRSjmZTfyEZAwLjo6jgr3w81H9QwVYiq6XPT4Qru++/LPFqgOlz8ZOfMjdY5kLUh9i4lhHOEAw==",
+    "Amazon.Lambda.AspNetCoreServer/5.3.1": {
+      "sha512": "kmTsj46dqVn0IN5TIsVncDcLbRlsZo7cp/JZiQyeSXrofE58xDfj6qgsXSFSrofmJM/+5EBKUEQ8pbp9ss+VfA==",
       "type": "package",
-      "path": "amazon.lambda.aspnetcoreserver/5.3.0",
+      "path": "amazon.lambda.aspnetcoreserver/5.3.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "amazon.lambda.aspnetcoreserver.5.3.0.nupkg.sha512",
+        "amazon.lambda.aspnetcoreserver.5.3.1.nupkg.sha512",
         "amazon.lambda.aspnetcoreserver.nuspec",
         "lib/netcoreapp3.1/Amazon.Lambda.AspNetCoreServer.dll",
         "lib/netcoreapp3.1/Amazon.Lambda.AspNetCoreServer.xml",
@@ -2932,29 +2932,26 @@
     ".NETCoreApp,Version=v3.1": [
       "AWSSDK.Core >= 3.5.3.8",
       "AWSSDK.DynamoDBv2 >= 3.5.4.37",
-      "Amazon.Lambda.AspNetCoreServer >= 5.3.0",
+      "Amazon.Lambda.AspNetCoreServer >= 5.3.1",
+      "Amazon.Lambda.Logging.AspNetCore >= 3.1.0",
       "Newtonsoft.Json >= 12.0.3",
       "React.Core >= 5.2.11"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\utili\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\nerickson\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\utili\\Source\\Repos\\ecommerce\\NathanIanEcom\\NathanIanEcom.csproj",
+      "projectUniqueName": "C:\\Users\\nerickson\\source\\repos\\NathanIanEcom\\NathanIanEcom\\NathanIanEcom.csproj",
       "projectName": "NathanIanEcom",
-      "projectPath": "C:\\Users\\utili\\Source\\Repos\\ecommerce\\NathanIanEcom\\NathanIanEcom.csproj",
-      "packagesPath": "C:\\Users\\utili\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\utili\\Source\\Repos\\ecommerce\\NathanIanEcom\\obj\\",
+      "projectPath": "C:\\Users\\nerickson\\source\\repos\\NathanIanEcom\\NathanIanEcom\\NathanIanEcom.csproj",
+      "packagesPath": "C:\\Users\\nerickson\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\nerickson\\source\\repos\\NathanIanEcom\\NathanIanEcom\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\utili\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\nerickson\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -2990,7 +2987,11 @@
           },
           "Amazon.Lambda.AspNetCoreServer": {
             "target": "Package",
-            "version": "[5.3.0, )"
+            "version": "[5.3.1, )"
+          },
+          "Amazon.Lambda.Logging.AspNetCore": {
+            "target": "Package",
+            "version": "[3.1.0, )"
           },
           "Newtonsoft.Json": {
             "target": "Package",

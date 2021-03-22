@@ -25,7 +25,7 @@ namespace NathanIanEcom.Controllers
         }
 
         /* gets all products */
-        [HttpGet("/api/products/[action]")]
+        [HttpGet("/api/product/[action]")]
         public async Task<List<Product>> getAllProd()
         {
             //Create a DynamoDB context, which allows for interaction with the DataModel
@@ -50,7 +50,7 @@ namespace NathanIanEcom.Controllers
         /* gets product by It's ID */
 
         [HttpGet("api/product/[action]")]
-        public async Task<Product> getProductById([FromBody] ProductModel myInput)
+        public async Task<Product> getProductById([FromBody] QueryOptions myInput)
         {
             using (var context = new DynamoDBContext(createContext()))
             {
@@ -60,9 +60,42 @@ namespace NathanIanEcom.Controllers
 
         }
 
-       
+        /* Create Product */
+        [HttpPost("/api/product/[action]")]
+        public async Task<StatusCodeResult> loadProduct([FromBody] Product myProd)
+        {
+            using (var context = new DynamoDBContext(createContext()))
+            {
+                Table products = Table.LoadTable(createContext(), "IanNathanProducts");
+                try
+                {
+                    await products.PutItemAsync(unwrapProduct(myProd));
+                    return StatusCode(201);
+                } catch (Exception ex)
+                {
+                   return StatusCode(500);
+                }
+                
+            }
 
-       
+        }
+
+        private Document unwrapProduct(Product product)
+        {
+            Document custDoc = new Document();
+            custDoc["ProductID"] = product.ProductID;
+            custDoc["Category"] = product.Category;
+            custDoc["Description"] = product.Description;
+            custDoc["ImageLink"] = product.ImageLink;
+            custDoc["Name"] = product.Name;
+            custDoc["Price"] = product.Price;
+            return custDoc;
+        }
+
+
+
+
+
 
 
 

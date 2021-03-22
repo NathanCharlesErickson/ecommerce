@@ -1,4 +1,3 @@
-C:\Users\nerickson\source\repos\NathanIanEcom\NathanIanEcom\bin\Debug\netcoreapp3.1\appsettings.Development.json
 C:\Users\nerickson\source\repos\NathanIanEcom\NathanIanEcom\bin\Debug\netcoreapp3.1\appsettings.json
 C:\Users\nerickson\source\repos\NathanIanEcom\NathanIanEcom\bin\Debug\netcoreapp3.1\aws-lambda-tools-defaults.json
 C:\Users\nerickson\source\repos\NathanIanEcom\NathanIanEcom\bin\Debug\netcoreapp3.1\NathanIanEcom.exe
@@ -36,7 +35,6 @@ C:\Users\nerickson\source\repos\NathanIanEcom\NathanIanEcom\obj\Debug\netcoreapp
 C:\Users\nerickson\source\repos\NathanIanEcom\NathanIanEcom\obj\Debug\netcoreapp3.1\NathanIanEcom.dll
 C:\Users\nerickson\source\repos\NathanIanEcom\NathanIanEcom\obj\Debug\netcoreapp3.1\NathanIanEcom.pdb
 C:\Users\nerickson\source\repos\NathanIanEcom\NathanIanEcom\obj\Debug\netcoreapp3.1\NathanIanEcom.genruntimeconfig.cache
-C:\Users\nerickson\source\repos\NathanIanEcom\NathanIanEcom\bin\Debug\netcoreapp3.1\myCred.json
 C:\Users\utili\source\repos\ecommerce\NathanIanEcom\bin\Debug\netcoreapp3.1\aws-lambda-tools-defaults.json
 C:\Users\utili\source\repos\ecommerce\NathanIanEcom\bin\Debug\netcoreapp3.1\appsettings.json
 C:\Users\utili\source\repos\ecommerce\NathanIanEcom\bin\Debug\netcoreapp3.1\NathanIanEcom.exe

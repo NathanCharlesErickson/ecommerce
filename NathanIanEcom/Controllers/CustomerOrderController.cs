@@ -24,10 +24,10 @@ namespace NathanIanEcom.Controllers
             return client;
         }
 
-        /*Gets a Product by it's Id*/
+        /*Gets a Order by it's Id*/
 
         [HttpGet("api/order/[action]")]
-        public async Task<Customer> getOrderById([FromBody] PKSKModel myInput)
+        public async Task<Customer> getOrderById([FromBody] QueryOptions myInput)
         {
             using (var context = new DynamoDBContext(createContext()))
             {
@@ -39,7 +39,7 @@ namespace NathanIanEcom.Controllers
 
         /*get products by Order ID*/
         [HttpGet("api/order/[action]")]
-        public async Task<Customer> getProductByOrderId([FromBody] PKSKModel myInput)
+        public async Task<Customer> getProductByOrderId([FromBody] QueryOptions myInput)
         {
             using (var context = new DynamoDBContext(createContext()))
             {
@@ -51,7 +51,7 @@ namespace NathanIanEcom.Controllers
 
         /* gets all products by Order Id */
         [HttpGet("/api/order/[action]")]
-        public void getAllProdByOrderId([FromBody] PKSKModel myInput)
+        public void getAllProdByOrderId([FromBody] QueryOptions myInput)
         {
 
            
@@ -70,7 +70,7 @@ namespace NathanIanEcom.Controllers
 
         /*get invoice by Order ID*/
         [HttpGet("api/order/[action]")]
-        public void getInvoiceByOrder([FromBody] PKSKModel myInput)
+        public void getInvoiceByOrder([FromBody] QueryOptions myInput)
         {
             AmazonDynamoDBClient client = createContext();
             string tableName = "IanNathanCustomersOrders";
@@ -87,7 +87,7 @@ namespace NathanIanEcom.Controllers
 
         /*get order by CUST ID GSI*/
         [HttpGet("api/order/[action]")]
-        public void getOrderByCustId([FromBody] CustIdModel myInput)
+        public void getOrderByCustId([FromBody] QueryOptions myInput)
         {
             AmazonDynamoDBClient client = createContext();
             string tableName = "IanNathanCustomerOrders";
@@ -104,7 +104,7 @@ namespace NathanIanEcom.Controllers
 
         /*get all orders by given customer id*/
         [HttpGet("api/order/[action]")]
-        public void getAllOrder([FromBody] CustIdModel myInput)
+        public void getAllOrder([FromBody] QueryOptions myInput)
         {
             AmazonDynamoDBClient client = createContext();
             string tableName = "IanNathanCustomersOrders";

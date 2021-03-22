@@ -24,10 +24,7 @@ namespace NathanIanEcom.Models
         public String Category { get; set; }
     }
 
-    public class ProductModel
-    {
-        public String ProductID { get; set; }
-    }
+  
 
     
 
