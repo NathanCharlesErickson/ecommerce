@@ -198,5 +198,85 @@ namespace NathanIanEcom.Controllers
 
         }
 
+        [HttpPost("api/loader/[action]")]
+        public async void loadOrders([FromBody] Order myOrder)
+        {
+            using (var context = new DynamoDBContext(createContext()))
+            {
+                Table products = Table.LoadTable(createContext(), "IanNathanOrders");
+                var batchWrite = products.CreateBatchWrite();
+
+                for (int i = 0; i < 100; i++)
+                {
+                    Order tempOrder = new Order();
+                    tempOrder.PK = myOrder.PK + i;
+                    tempOrder.SK = myOrder.SK + i;
+                    tempOrder.EntityType = myOrder.EntityType;
+                    tempOrder.CreatedDate = DateTime.Now.ToString();
+                    tempOrder.Status = myOrder.Status;
+                    tempOrder.CustomerID = myOrder.CustomerID + i;
+                    tempOrder.Address = myOrder.Address + i;
+                    batchWrite.AddDocumentToPut(unwrapOrder(tempOrder));
+                }
+
+                await batchWrite.ExecuteAsync();
+            }
+
+        }
+
+        [HttpPost("api/loader/[action]")]
+        public async void loadOrderCustomers([FromBody] OrderCustomer myOrderCust)
+        {
+            using (var context = new DynamoDBContext(createContext()))
+            {
+                Table products = Table.LoadTable(createContext(), "IanNathanOrders");
+                var batchWrite = products.CreateBatchWrite();
+
+                for (int i = 0; i < 100; i++)
+                {
+                    OrderCustomer tempOrderCust = new OrderCustomer();
+                    tempOrderCust.PK = myOrderCust.PK + i;
+                    tempOrderCust.SK = myOrderCust.SK + i;
+                    tempOrderCust.EntityType = myOrderCust.EntityType;
+                    tempOrderCust.Address = myOrderCust.Address + i;
+                    tempOrderCust.Email = myOrderCust.Email + i;
+                    tempOrderCust.FirstName = myOrderCust.FirstName + i;
+                    tempOrderCust.LastName = myOrderCust.LastName + i;
+                    tempOrderCust.Username = myOrderCust.Username + i;
+                    batchWrite.AddDocumentToPut(unwrapOrderCustomer(tempOrderCust));
+                }
+
+                await batchWrite.ExecuteAsync();
+            }
+
+        }
+
+        [HttpPost("api/loader/[action]")]
+        public async void loadOrderProducts([FromBody] OrderProduct myOrderProd)
+        {
+            using (var context = new DynamoDBContext(createContext()))
+            {
+                Random rand = new Random();
+                Table products = Table.LoadTable(createContext(), "IanNathanOrders");
+                var batchWrite = products.CreateBatchWrite();
+
+                for (int i = 0; i < 200; i++)
+                {
+                    OrderProduct tempOrderProd = new OrderProduct();
+                    tempOrderProd.PK = myOrderProd.PK + (i/2);
+                    tempOrderProd.SK = myOrderProd.SK + i;
+                    tempOrderProd.EntityType = myOrderProd.EntityType;
+                    tempOrderProd.ProductName = myOrderProd.ProductName + i;
+                    tempOrderProd.Quantity = rand.Next(1, 100).ToString();
+                    tempOrderProd.Price = rand.Next(0, 99) + "." + rand.Next(0, 9) + rand.Next(0, 9);
+                    tempOrderProd.ImageLink = myOrderProd.ImageLink + i;
+                    batchWrite.AddDocumentToPut(unwrapOrderProduct(tempOrderProd));
+                }
+
+                await batchWrite.ExecuteAsync();
+            }
+
+        }
+
     }
 }

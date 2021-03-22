@@ -18,9 +18,9 @@ namespace NathanIanEcom.Models
         [DynamoDBProperty]
         public String ProductName { get; set; }
         [DynamoDBProperty]
-        public Int64 Quantity { get; set; }
+        public String Quantity { get; set; }
         [DynamoDBProperty]
-        public Decimal Price { get; set; }
+        public String Price { get; set; }
         [DynamoDBProperty]
         public String ImageLink { get; set; }
     }
