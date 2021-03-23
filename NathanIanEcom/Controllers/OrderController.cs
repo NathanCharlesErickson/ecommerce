@@ -101,8 +101,7 @@ namespace NathanIanEcom.Controllers
 
                     UpdateItemOperationConfig config = new UpdateItemOperationConfig
                     {
-                        ConditionalExpression = expr,
-                        ReturnValues = ReturnValues.AllNewAttributes
+                        ConditionalExpression = expr
                     };
 
                     Document updatedOrder = await orders.UpdateItemAsync(unwrapOrder(myInput), config);
