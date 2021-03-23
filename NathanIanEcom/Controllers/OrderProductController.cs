@@ -48,7 +48,7 @@ namespace NathanIanEcom.Controllers
                 Table order = Table.LoadTable(createContext(), "IanNathanOrders");
                 try
                 {
-                    await order.PutItemAsync(unwarpOrderProduct(myOrder));
+                    await order.PutItemAsync(unwrapOrderProduct(myOrder));
                     return StatusCode(201);
                 }
                 catch (Exception ex)
@@ -84,31 +84,28 @@ namespace NathanIanEcom.Controllers
         {
             using (AmazonDynamoDBClient context = createContext())
             {
-                var data = getOrderProductById(new QueryOptions { PK = myInput.PK, SK = myInput.SK });
-                //Make sure the Order exists or else AsyncPutItem would create a new item. Not sure if this is needed. 
-                if (data == null)
+                try
                 {
-                    return StatusCode(400);
-                }
-                else
-                {
-                    try
-                    {
-                        Dictionary<string, AttributeValue> myDic = orderProductDictionary(myInput);
-                        PutItemRequest myConfg = new PutItemRequest
-                        {
-                            TableName = "IanNathanOrders",
-                            Item = myDic
-                        };
-                        await context.PutItemAsync(myConfg);
-                        return StatusCode(204);
-                    }
-                    catch (Exception ex)
-                    {
-                        return StatusCode(500);
-                    }
-                }
+                    Table orders = Table.LoadTable(createContext(), "IanNathanOrders");
+                    Expression expr = new Expression();
+                    expr.ExpressionStatement = "PK = :PK and SK = :SK";
+                    expr.ExpressionAttributeValues[":PK"] = myInput.PK;
+                    expr.ExpressionAttributeValues[":SK"] = myInput.SK;
 
+                    UpdateItemOperationConfig config = new UpdateItemOperationConfig
+                    {
+                        ConditionalExpression = expr,
+                        ReturnValues = ReturnValues.AllNewAttributes
+                    };
+
+                    Document updatedOrderProduct = await orders.UpdateItemAsync(unwrapOrderProduct(myInput), config);
+                    return StatusCode(200);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error: " + e.Message);
+                    return StatusCode(500);
+                }
 
             }
 
@@ -117,36 +114,27 @@ namespace NathanIanEcom.Controllers
         [HttpGet("/api/orderProduct/[action]")]
         public async Task<List<OrderProduct>> getAllProdByOrderId([FromBody] QueryOptions myInput)
         {
-            AmazonDynamoDBClient client = createContext();
-            DynamoDBContext context = new DynamoDBContext(client);
 
-            Table myTable = Table.LoadTable(client, "IanNathanOrders");
-            var conditions = new QueryFilter();
-            conditions.AddCondition("PK", QueryOperator.Equal, myInput.PK);
-            conditions.AddCondition("SK", QueryOperator.BeginsWith, "p#");
-
-            QueryOperationConfig config = new QueryOperationConfig()
+            using (var context = new DynamoDBContext(createContext()))
             {
-                Filter = conditions
-            };
+                Expression expr = new Expression();
+                expr.ExpressionStatement = "PK = :PK and begins_with(SK, :prodPrefix)";
+                expr.ExpressionAttributeValues[":PK"] = myInput.PK;
+                expr.ExpressionAttributeValues[":prodPrefix"] = "p#";
 
-            Search search = myTable.Query(config);
+                QueryOperationConfig config = new QueryOperationConfig()
+                {
+                    KeyExpression = expr
+                };
 
-            List<Document> docList = new List<Document>();
-            docList = await search.GetRemainingAsync();
+                var associatedProducts = await context.FromQueryAsync<OrderProduct>(config).GetRemainingAsync();
 
-            List < OrderProduct > myList = new List<OrderProduct>();
-
-
-            for(int i =0; i < docList.Count; i++)
-            {
-                myList.Add(warpOrderProduct(docList.ElementAt(i)));
+                return associatedProducts;
             }
 
-            return myList;
         }
 
-        private Document unwarpOrderProduct(OrderProduct myOrder)
+        private Document unwrapOrderProduct(OrderProduct myOrder)
         {
             Document doc = new Document();
 
@@ -175,7 +163,7 @@ namespace NathanIanEcom.Controllers
             return orderDic;
         }
 
-        private OrderProduct warpOrderProduct(Document item)
+        private OrderProduct wrapOrderProduct(Document item)
         {
             OrderProduct myProd = new OrderProduct();
             myProd.PK = item["PK"];

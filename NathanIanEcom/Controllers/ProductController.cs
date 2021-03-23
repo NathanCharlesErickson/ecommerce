@@ -29,23 +29,23 @@ namespace NathanIanEcom.Controllers
         [HttpGet("/api/product/[action]")]
         public async Task<List<Product>> getAllProd()
         {
-            //Create a DynamoDB context, which allows for interaction with the DataModel
-            AmazonDynamoDBClient client = createContext();
-            DynamoDBContext context = new DynamoDBContext(client);
+            using (var context = new DynamoDBContext(createContext()))
+            {
+                //Create a List of ScanConditions (can be left blank, as here, to not filter results whatsoever)
+                var conditions = new List<ScanCondition>();
 
-            //Create a List of ScanConditions (can be left blank, as here, to not filter results whatsoever)
-            var conditions = new List<ScanCondition>();
+                //Run asynchronous Scan on an object, which implicitly picks-up on the item's associated table (outlined in the model)
+                var allDocs = await context.ScanAsync<Product>(conditions).GetRemainingAsync();
 
-            //Run asynchronous Scan on an object, which implicitly picks-up on the item's associated table (outlined in the model)
-            var allDocs = await context.ScanAsync<Product>(conditions).GetRemainingAsync();
+                //Sort function on the list, should be cleaned-up. Since our ID use-case is prevalent, possibly should make a helper function
+                allDocs.Sort(delegate (Product p1, Product p2) {
+                    return Int64.Parse(p1.ProductID.Substring(2))
+                    .CompareTo(Int64.Parse(p2.ProductID.Substring(2)));
+                });
 
-            //Sort function on the list, should be cleaned-up. Since our ID use-case is prevalent, possibly should make a helper function
-            allDocs.Sort(delegate(Product p1, Product p2) { 
-                return Int64.Parse(p1.ProductID.Substring(2))
-                .CompareTo(Int64.Parse(p2.ProductID.Substring(2))); 
-            });
+                return allDocs;
+            }
 
-            return allDocs;
         }
 
         /* gets product by It's ID */

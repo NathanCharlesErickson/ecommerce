@@ -53,7 +53,7 @@ namespace NathanIanEcom.Controllers
                 Table order = Table.LoadTable(createContext(), "IanNathanOrders");
                 try
                 {
-                    await order.PutItemAsync(unwarpOrder(myOrder));
+                    await order.PutItemAsync(unwrapOrder(myOrder));
                     return StatusCode(201);
                 }
                 catch (Exception ex)
@@ -91,31 +91,28 @@ namespace NathanIanEcom.Controllers
         {
             using (AmazonDynamoDBClient context = createContext())
             {
-                var data = getOrderById(new QueryOptions { PK = myInput.PK, SK = myInput.SK});
-                //Make sure the Order exists or else AsyncPutItem would create a new item. Not sure if this is needed. 
-                if (data == null)
+                try
                 {
-                    return StatusCode(400);
-                }
-                else
-                {
-                    try
-                    {
-                        Dictionary<string, AttributeValue> myDic = orderDictionary(myInput);
-                        PutItemRequest myConfg = new PutItemRequest
-                        {
-                            TableName = "IanNathanOrders",
-                            Item = myDic
-                        };
-                        await context.PutItemAsync(myConfg);
-                        return StatusCode(204);
-                    }
-                    catch (Exception ex)
-                    {
-                        return StatusCode(500);
-                    }
-                }
+                    Table orders = Table.LoadTable(createContext(), "IanNathanOrders");
+                    Expression expr = new Expression();
+                    expr.ExpressionStatement = "PK = :PK and SK = :SK";
+                    expr.ExpressionAttributeValues[":PK"] = myInput.PK;
+                    expr.ExpressionAttributeValues[":SK"] = myInput.SK;
 
+                    UpdateItemOperationConfig config = new UpdateItemOperationConfig
+                    {
+                        ConditionalExpression = expr,
+                        ReturnValues = ReturnValues.AllNewAttributes
+                    };
+
+                    Document updatedOrder = await orders.UpdateItemAsync(unwrapOrder(myInput), config);
+                    return StatusCode(200);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error: " + e.Message);
+                    return StatusCode(500);
+                }
 
             }
 
@@ -158,7 +155,7 @@ namespace NathanIanEcom.Controllers
 
 
 
-        private Document unwarpOrder(Order myOrder)
+        private Document unwrapOrder(Order myOrder)
         {
             Document myDoc = new Document();
 

@@ -93,17 +93,6 @@ namespace NathanIanEcom.Controllers
         #endregion
 
         [HttpPost("api/loader/[action]")]
-        public async void loadCustomer([FromBody] Customer myCust)
-        {
-            using (var context = new DynamoDBContext(createContext()))
-            {
-                Table customers = Table.LoadTable(createContext(), "IanNathanCustomers");
-                await customers.PutItemAsync(unwrapCustomer(myCust));
-            }
-
-        }
-
-        [HttpPost("api/loader/[action]")]
         public async void loadCustomers([FromBody] Customer myCust)
         {
             using (var context = new DynamoDBContext(createContext()))
@@ -125,17 +114,6 @@ namespace NathanIanEcom.Controllers
                 }
 
                 await batchWrite.ExecuteAsync();
-            }
-
-        }
-
-        [HttpPost("api/loader/[action]")]
-        public async void loadProduct([FromBody] Product myProd)
-        {
-            using (var context = new DynamoDBContext(createContext()))
-            {
-                Table products = Table.LoadTable(createContext(), "IanNathanProducts");
-                await products.PutItemAsync(unwrapProduct(myProd));
             }
 
         }
@@ -166,34 +144,12 @@ namespace NathanIanEcom.Controllers
         }
 
         [HttpPost("api/loader/[action]")]
-        public async void loadOrder([FromBody] Order myOrder)
-        {
-            using (var context = new DynamoDBContext(createContext()))
-            {
-                Table customers = Table.LoadTable(createContext(), "IanNathanOrders");
-                await customers.PutItemAsync(unwrapOrder(myOrder));
-            }
-
-        }
-
-        [HttpPost("api/loader/[action]")]
         public async void loadOrderCustomer([FromBody] OrderCustomer myOrderCust)
         {
             using (var context = new DynamoDBContext(createContext()))
             {
                 Table customers = Table.LoadTable(createContext(), "IanNathanOrders");
                 await customers.PutItemAsync(unwrapOrderCustomer(myOrderCust));
-            }
-
-        }
-
-        [HttpPost("api/loader/[action]")]
-        public async void loadOrderProduct([FromBody] OrderProduct myOrderProd)
-        {
-            using (var context = new DynamoDBContext(createContext()))
-            {
-                Table customers = Table.LoadTable(createContext(), "IanNathanOrders");
-                await customers.PutItemAsync(unwrapOrderProduct(myOrderProd));
             }
 
         }
