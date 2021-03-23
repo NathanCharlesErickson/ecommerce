@@ -114,6 +114,38 @@ namespace NathanIanEcom.Controllers
 
         }
 
+        [HttpGet("/api/orderProduct/[action]")]
+        public async Task<List<OrderProduct>> getAllProdByOrderId([FromBody] QueryOptions myInput)
+        {
+            AmazonDynamoDBClient client = createContext();
+            DynamoDBContext context = new DynamoDBContext(client);
+
+            Table myTable = Table.LoadTable(client, "IanNathanOrders");
+            var conditions = new QueryFilter();
+            conditions.AddCondition("PK", QueryOperator.Equal, myInput.PK);
+            conditions.AddCondition("SK", QueryOperator.BeginsWith, "p#");
+
+            QueryOperationConfig config = new QueryOperationConfig()
+            {
+                Filter = conditions
+            };
+
+            Search search = myTable.Query(config);
+
+            List<Document> docList = new List<Document>();
+            docList = await search.GetRemainingAsync();
+
+            List < OrderProduct > myList = new List<OrderProduct>();
+
+
+            for(int i =0; i < docList.Count; i++)
+            {
+                myList.Add(warpOrderProduct(docList.ElementAt(i)));
+            }
+
+            return myList;
+        }
+
         private Document unwarpOrderProduct(OrderProduct myOrder)
         {
             Document doc = new Document();
@@ -141,6 +173,21 @@ namespace NathanIanEcom.Controllers
             orderDic["ImageLink"] = new AttributeValue { S = myOrder.ImageLink };
 
             return orderDic;
+        }
+
+        private OrderProduct warpOrderProduct(Document item)
+        {
+            OrderProduct myProd = new OrderProduct();
+            myProd.PK = item["PK"];
+            myProd.SK = item["SK"];
+            myProd.EntityType = item["EntityType"];
+            myProd.ProductName = item["ProductName"];
+            myProd.Quantity = item["Quantity"];
+            myProd.Price = item["Price"];
+            myProd.ImageLink = item["ImageLink"];
+
+            return myProd;
+
         }
 
     }

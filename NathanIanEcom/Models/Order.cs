@@ -19,7 +19,7 @@ namespace NathanIanEcom.Models
         public String CreatedDate { get; set; }
         [DynamoDBProperty]
         public String Status { get; set; }
-        [DynamoDBProperty]
+        [DynamoDBGlobalSecondaryIndexHashKey]
         public String CustomerID { get; set; }
         [DynamoDBProperty]
         public String Address { get; set; }
