@@ -107,31 +107,27 @@ namespace NathanIanEcom.Controllers
         {
             using (AmazonDynamoDBClient context = createContext())
             {
-                var data = getProductById(new QueryOptions { ProductID = myInput.ProductID }); 
-                //Make sure the Product exists or else AsyncPutItem would create a new item. Not sure if this is needed. 
-                if(data == null)
+                try
                 {
-                    return StatusCode(400);
-                } else
-                {
-                    try
-                    {
-                        Dictionary<string, AttributeValue> myDic = productDictionary(myInput);
-                        PutItemRequest myConfg = new PutItemRequest
-                        {
-                            TableName = "IanNathanProducts",
-                            Item = myDic
-                        };
-                        await context.PutItemAsync(myConfg);
-                        return StatusCode(204);
-                    }
-                    catch (Exception ex)
-                    {
-                        return StatusCode(500);
-                    }
-                }
-               
+                    Table products = Table.LoadTable(createContext(), "IanNathanProducts");
+                    Expression expr = new Expression();
+                    expr.ExpressionStatement = "ProductID = :productIDVal";
+                    expr.ExpressionAttributeValues[":productIDVal"] = myInput.ProductID;
 
+                    UpdateItemOperationConfig config = new UpdateItemOperationConfig
+                    {
+                        ConditionalExpression = expr,
+                        ReturnValues = ReturnValues.AllNewAttributes
+                    };
+
+                    Document updatedProduct = await products.UpdateItemAsync(unwrapProduct(myInput), config);
+                    return StatusCode(200);
+                } catch (Exception e)
+                {
+                    Console.WriteLine("Error: " + e.Message);
+                    return StatusCode(500);
+                }
+                
             }
 
         }
