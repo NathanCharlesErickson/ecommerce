@@ -2,6 +2,7 @@
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2.DocumentModel;
+using Amazon.DynamoDBv2.Model;
 using Microsoft.AspNetCore.Mvc;
 using NathanIanEcom.Models;
 using System;
@@ -59,6 +60,8 @@ namespace NathanIanEcom.Controllers
             }
 
         }
+        /*Create, Delete, Update Product */
+
 
         /* Create Product */
         [HttpPost("/api/product/[action]")]
@@ -80,6 +83,59 @@ namespace NathanIanEcom.Controllers
 
         }
 
+        /*delete a product by PK SK */
+        [HttpDelete("api/product/[action]")]
+        public async Task<StatusCodeResult> deleteProduct([FromBody] QueryOptions myInput)
+        {
+            using (var context = new DynamoDBContext(createContext()))
+            {
+               try
+                {
+                    await context.DeleteAsync<Product>(myInput.ProductID);
+                    return StatusCode(204);
+                } catch(Exception ex)
+                {
+                    return StatusCode(500);
+                }
+                   
+            }
+
+        }
+
+        [HttpPut("api/product/[action]")]
+        public async Task<StatusCodeResult> updateProduct([FromBody] Product myInput)
+        {
+            using (AmazonDynamoDBClient context = createContext())
+            {
+                var data = getProductById(new QueryOptions { ProductID = myInput.ProductID }); 
+                //Make sure the Product exists or else AsyncPutItem would create a new item. Not sure if this is needed. 
+                if(data == null)
+                {
+                    return StatusCode(400);
+                } else
+                {
+                    try
+                    {
+                        Dictionary<string, AttributeValue> myDic = productDictionary(myInput);
+                        PutItemRequest myConfg = new PutItemRequest
+                        {
+                            TableName = "IanNathanProducts",
+                            Item = myDic
+                        };
+                        await context.PutItemAsync(myConfg);
+                        return StatusCode(204);
+                    }
+                    catch (Exception ex)
+                    {
+                        return StatusCode(500);
+                    }
+                }
+               
+
+            }
+
+        }
+
         private Document unwrapProduct(Product product)
         {
             Document custDoc = new Document();
@@ -90,6 +146,18 @@ namespace NathanIanEcom.Controllers
             custDoc["Name"] = product.Name;
             custDoc["Price"] = product.Price;
             return custDoc;
+        }
+
+        private Dictionary<string, AttributeValue> productDictionary(Product product)
+        {
+            Dictionary<string, AttributeValue> prodDic = new Dictionary<string, AttributeValue>();
+            prodDic["ProductID"] = new AttributeValue { S = product.ProductID };
+            prodDic["Category"] = new AttributeValue { S = product.Category };
+            prodDic["Description"]= new AttributeValue { S = product.Description };
+            prodDic["ImageLink"] = new AttributeValue { S = product.ImageLink };
+            prodDic["Name"] = new AttributeValue { S = product.Name };
+            prodDic["Price"] = new AttributeValue { S = product.Price };
+            return prodDic;
         }
 
 
