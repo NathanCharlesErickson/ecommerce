@@ -121,31 +121,42 @@ namespace NathanIanEcom.Controllers
 
         }
 
-
-
-
-
-        /* gets all products by Order Id */
+        //Currently a work in progress
         [HttpGet("/api/order/[action]")]
-        public async void getAllProdByOrderId([FromBody] QueryOptions myInput)
+        public async Task<List<OrderProduct>> getOrderByCustId([FromBody] QueryOptions myInput)
         {
             AmazonDynamoDBClient client = createContext();
             DynamoDBContext context = new DynamoDBContext(client);
 
-            var conditions = new List<QueryCondition>();
-            conditions.Add(new QueryCondition("PK", QueryOperator.Equal, myInput.PK));
-            conditions.Add(new QueryCondition("SK", QueryOperator.BeginsWith, myInput.SK));
+            Dictionary<string, Condition> myDic = new Dictionary<string, Condition>();
 
-            List<Order> myLIst = await context.QueryAsync<Order>(conditions).GetRemainingAsync();
+            ComparisonOperator myOp = new ComparisonOperator("EQ");
+
+
+
+            myDic.Add("CustomerID", new Condition { AttributeValueList = { new AttributeValue { S = myInput.CustomerID } }, ComparisonOperator = myOp  });
+
+            QueryRequest config = new QueryRequest()
+            {
+                TableName = "IanNathanOrders",
+                IndexName = "GSI1",
+                ScanIndexForward = false,
+                QueryFilter = myDic,
+
+
+            };
+
+            var data = await client.QueryAsync(config);
             
 
-
-
+            return null;
         }
 
-       
 
-       
+
+
+
+
 
         private Document unwarpOrder(Order myOrder)
         {
