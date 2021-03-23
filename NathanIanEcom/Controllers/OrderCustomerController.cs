@@ -12,27 +12,17 @@ using System.Threading.Tasks;
 
 namespace NathanIanEcom.Controllers
 {
-    public class OrderCustomerController : ControllerBase
+    public class OrderCustomerController : Helper
     {
-        public AmazonDynamoDBClient createContext()
-        {
-            AmazonDynamoDBConfig myConfig = new AmazonDynamoDBConfig();
-            myConfig.RegionEndpoint = RegionEndpoint.USWest2;
-
-            var awsCred = new AwsCredentials();
-            AmazonDynamoDBClient client = new AmazonDynamoDBClient(awsCred, myConfig);
-            return client;
-        }
-
-        //CRUD\
+       
 
 
         /*Gets a Order's Customer by it's Id*/
 
         [HttpGet("api/orderCustomer/[action]")]
-        public async Task<OrderCustomer> getOrderCustomerById([FromBody] QueryOptions myInput)
+        public async Task<OrderCustomer> GetOrderCustomerById([FromBody] QueryOptions myInput)
         {
-            using (var context = new DynamoDBContext(createContext()))
+            using (var context = new DynamoDBContext(CreateContext()))
             {
                 var data = await context.LoadAsync<OrderCustomer>(myInput.PK, myInput.SK);
                 return data;
@@ -43,14 +33,14 @@ namespace NathanIanEcom.Controllers
         /*Create a Order's Customer*/
 
         [HttpPost("/api/orderCustomer/[action]")]
-        public async Task<StatusCodeResult> loadOrderCustomer([FromBody] OrderCustomer myOrder)
+        public async Task<StatusCodeResult> LoadOrderCustomer([FromBody] OrderCustomer myOrder)
         {
-            using (var context = new DynamoDBContext(createContext()))
+            using (var context = new DynamoDBContext(CreateContext()))
             {
-                Table order = Table.LoadTable(createContext(), "IanNathanOrders");
+                Table order = Table.LoadTable(CreateContext(), "IanNathanOrders");
                 try
                 {
-                    await order.PutItemAsync(unwrapOrderCustomer(myOrder));
+                    await order.PutItemAsync(UnwrapOrderCustomer(myOrder));
                     return StatusCode(201);
                 }
                 catch (Exception ex)
@@ -63,9 +53,9 @@ namespace NathanIanEcom.Controllers
         }
 
         [HttpDelete("api/orderCustomer/[action]")]
-        public async Task<StatusCodeResult> deleteOrderCustomer([FromBody] QueryOptions myInput)
+        public async Task<StatusCodeResult> DeleteOrderCustomer([FromBody] QueryOptions myInput)
         {
-            using (var context = new DynamoDBContext(createContext()))
+            using (var context = new DynamoDBContext(CreateContext()))
             {
                 try
                 {
@@ -82,13 +72,13 @@ namespace NathanIanEcom.Controllers
         }
 
         [HttpPut("api/orderCustomer/[action]")]
-        public async Task<StatusCodeResult> updateOrderCustomer([FromBody] OrderCustomer myInput)
+        public async Task<StatusCodeResult> UpdateOrderCustomer([FromBody] OrderCustomer myInput)
         {
-            using (AmazonDynamoDBClient context = createContext())
+            using (AmazonDynamoDBClient context = CreateContext())
             {
                 try
                 {
-                    Table orders = Table.LoadTable(createContext(), "IanNathanOrders");
+                    Table orders = Table.LoadTable(CreateContext(), "IanNathanOrders");
                     Expression expr = new Expression();
                     expr.ExpressionStatement = "PK = :PK and SK = :SK";
                     expr.ExpressionAttributeValues[":PK"] = myInput.PK;
@@ -100,7 +90,7 @@ namespace NathanIanEcom.Controllers
                         ReturnValues = ReturnValues.AllNewAttributes
                     };
 
-                    Document updatedOrderCustomer = await orders.UpdateItemAsync(unwrapOrderCustomer(myInput), config);
+                    Document updatedOrderCustomer = await orders.UpdateItemAsync(UnwrapOrderCustomer(myInput), config);
                     return StatusCode(200);
                 }
                 catch (Exception e)
@@ -113,36 +103,7 @@ namespace NathanIanEcom.Controllers
 
         }
 
-        private Document unwrapOrderCustomer(OrderCustomer myOrder)
-        {
-            Document doc = new Document();
-
-            doc["PK"] = myOrder.PK;
-            doc["SK"] = myOrder.SK;
-            doc["EntityType"] = myOrder.EntityType;
-            doc["Address"] = myOrder.Address;
-            doc["Email"] = myOrder.Email;
-            doc["FirstName"] = myOrder.FirstName;
-            doc["LastName"] = myOrder.LastName;
-            doc["Username"] = myOrder.Username;
-
-            return doc;
-        }
-
-        private Dictionary<string, AttributeValue> orderCustomerDictionary(OrderCustomer myOrder)
-        {
-            Dictionary<string, AttributeValue> orderDic = new Dictionary<string, AttributeValue>();
-            orderDic["PK"] = new AttributeValue { S = myOrder.PK };
-            orderDic["SK"] = new AttributeValue { S = myOrder.SK };
-            orderDic["EntityType"] = new AttributeValue { S = myOrder.EntityType };
-            orderDic["Address"] = new AttributeValue { S = myOrder.Address };
-            orderDic["Email"] = new AttributeValue { S = myOrder.Email };
-            orderDic["FirstName"] = new AttributeValue { S = myOrder.FirstName };
-            orderDic["LastName"] = new AttributeValue { S = myOrder.LastName };
-            orderDic["Username"] = new AttributeValue { S = myOrder.Username };
-
-            return orderDic;
-        }
+        
 
 
     }

@@ -12,18 +12,9 @@ using System.Threading.Tasks;
 
 namespace NathanIanEcom.Controllers
 {
-    public class CustomerController : ControllerBase
+    public class CustomerController : Helper 
     {
-        public AmazonDynamoDBClient createContext()
-        {
-            AmazonDynamoDBConfig myConfig = new AmazonDynamoDBConfig();
-            myConfig.RegionEndpoint = RegionEndpoint.USWest2;
-
-            var awsCred = new AwsCredentials();
-            AmazonDynamoDBClient client = new AmazonDynamoDBClient(awsCred, myConfig);
-            return client;
-        }
-
+        
         //CRUD\
 
 
@@ -32,7 +23,7 @@ namespace NathanIanEcom.Controllers
         [HttpGet("api/customer/[action]")]
         public async Task<Customer> getCustomerById([FromBody] QueryOptions myInput)
         {
-            using (var context = new DynamoDBContext(createContext()))
+            using (var context = new DynamoDBContext(CreateContext()))
             {
                 var data = await context.LoadAsync<Customer>(myInput.Username);
                 return data;
@@ -45,12 +36,12 @@ namespace NathanIanEcom.Controllers
         [HttpPost("/api/customer/[action]")]
         public async Task<StatusCodeResult> loadCustomer([FromBody] Customer myCustomer)
         {
-            using (var context = new DynamoDBContext(createContext()))
+            using (var context = new DynamoDBContext(CreateContext()))
             {
-                Table customers = Table.LoadTable(createContext(), "IanNathanCustomers");
+                Table customers = Table.LoadTable(CreateContext(), "IanNathanCustomers");
                 try
                 {
-                    await customers.PutItemAsync(unwrapCustomer(myCustomer));
+                    await customers.PutItemAsync(UnwrapCustomer(myCustomer));
                     return StatusCode(201);
                 }
                 catch (Exception ex)
@@ -65,7 +56,7 @@ namespace NathanIanEcom.Controllers
         [HttpDelete("api/customer/[action]")]
         public async Task<StatusCodeResult> deleteCustomer([FromBody] QueryOptions myInput)
         {
-            using (var context = new DynamoDBContext(createContext()))
+            using (var context = new DynamoDBContext(CreateContext()))
             {
                 try
                 {
@@ -84,11 +75,11 @@ namespace NathanIanEcom.Controllers
         [HttpPut("api/customer/[action]")]
         public async Task<StatusCodeResult> updateCustomer([FromBody] Customer myInput)
         {
-            using (AmazonDynamoDBClient context = createContext())
+            using (AmazonDynamoDBClient context = CreateContext())
             {
                 try
                 {
-                    Table customers = Table.LoadTable(createContext(), "IanNathanCustomers");
+                    Table customers = Table.LoadTable(CreateContext(), "IanNathanCustomers");
                     Expression expr = new Expression();
                     expr.ExpressionStatement = ":Username = Username";
                     expr.ExpressionAttributeValues[":Username"] = myInput.Username;
@@ -99,7 +90,7 @@ namespace NathanIanEcom.Controllers
                         ReturnValues = ReturnValues.AllNewAttributes
                     };
 
-                    Document updatedCustomer = await customers.UpdateItemAsync(unwrapCustomer(myInput), config);
+                    Document updatedCustomer = await customers.UpdateItemAsync(UnwrapCustomer(myInput), config);
                     return StatusCode(200);
                 }
                 catch (Exception e)
@@ -112,18 +103,7 @@ namespace NathanIanEcom.Controllers
 
         }
 
-        private Document unwrapCustomer(Customer customer)
-        {
-            Document custDoc = new Document();
-            custDoc["Username"] = customer.Username;
-            custDoc["CustomerID"] = customer.CustomerID;
-            custDoc["Address"] = customer.Address;
-            custDoc["Email"] = customer.Email;
-            custDoc["FirstName"] = customer.FirstName;
-            custDoc["LastName"] = customer.LastName;
-            custDoc["PassHash"] = customer.PassHash;
-            return custDoc;
-        }
+       
 
 
     }

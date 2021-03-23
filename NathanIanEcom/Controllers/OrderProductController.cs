@@ -12,25 +12,17 @@ using System.Threading.Tasks;
 
 namespace NathanIanEcom.Controllers
 {
-    public class OrderProductController : ControllerBase
+    public class OrderProductController : Helper
     {
 
-        public AmazonDynamoDBClient createContext()
-        {
-            AmazonDynamoDBConfig myConfig = new AmazonDynamoDBConfig();
-            myConfig.RegionEndpoint = RegionEndpoint.USWest2;
-
-            var awsCred = new AwsCredentials();
-            AmazonDynamoDBClient client = new AmazonDynamoDBClient(awsCred, myConfig);
-            return client;
-        }
+      
 
         /*Gets a Order's Product by it's Id*/
 
         [HttpGet("api/orderProduct/[action]")]
-        public async Task<OrderProduct> getOrderProductById([FromBody] QueryOptions myInput)
+        public async Task<OrderProduct> GetOrderProductById([FromBody] QueryOptions myInput)
         {
-            using (var context = new DynamoDBContext(createContext()))
+            using (var context = new DynamoDBContext(CreateContext()))
             {
                 var data = await context.LoadAsync<OrderProduct>(myInput.PK, myInput.SK);
                 return data;
@@ -41,14 +33,14 @@ namespace NathanIanEcom.Controllers
         /*Create a Order's Product*/
 
         [HttpPost("/api/orderProduct/[action]")]
-        public async Task<StatusCodeResult> loadOrderProduct([FromBody] OrderProduct myOrder)
+        public async Task<StatusCodeResult> LoadOrderProduct([FromBody] OrderProduct myOrder)
         {
-            using (var context = new DynamoDBContext(createContext()))
+            using (var context = new DynamoDBContext(CreateContext()))
             {
-                Table order = Table.LoadTable(createContext(), "IanNathanOrders");
+                Table order = Table.LoadTable(CreateContext(), "IanNathanOrders");
                 try
                 {
-                    await order.PutItemAsync(unwrapOrderProduct(myOrder));
+                    await order.PutItemAsync(UnwrapOrderProduct(myOrder));
                     return StatusCode(201);
                 }
                 catch (Exception ex)
@@ -61,9 +53,9 @@ namespace NathanIanEcom.Controllers
         }
 
         [HttpDelete("api/orderProduct/[action]")]
-        public async Task<StatusCodeResult> deleteOrderPrduct([FromBody] QueryOptions myInput)
+        public async Task<StatusCodeResult> DeleteOrderPrduct([FromBody] QueryOptions myInput)
         {
-            using (var context = new DynamoDBContext(createContext()))
+            using (var context = new DynamoDBContext(CreateContext()))
             {
                 try
                 {
@@ -82,11 +74,11 @@ namespace NathanIanEcom.Controllers
         [HttpPut("api/orderProduct/[action]")]
         public async Task<StatusCodeResult> updateOrderProduct([FromBody] OrderProduct myInput)
         {
-            using (AmazonDynamoDBClient context = createContext())
+            using (AmazonDynamoDBClient context = CreateContext())
             {
                 try
                 {
-                    Table orders = Table.LoadTable(createContext(), "IanNathanOrders");
+                    Table orders = Table.LoadTable(CreateContext(), "IanNathanOrders");
                     Expression expr = new Expression();
                     expr.ExpressionStatement = "PK = :PK and SK = :SK";
                     expr.ExpressionAttributeValues[":PK"] = myInput.PK;
@@ -98,7 +90,7 @@ namespace NathanIanEcom.Controllers
                         ReturnValues = ReturnValues.AllNewAttributes
                     };
 
-                    Document updatedOrderProduct = await orders.UpdateItemAsync(unwrapOrderProduct(myInput), config);
+                    Document updatedOrderProduct = await orders.UpdateItemAsync(UnwrapOrderProduct(myInput), config);
                     return StatusCode(200);
                 }
                 catch (Exception e)
@@ -115,7 +107,7 @@ namespace NathanIanEcom.Controllers
         public async Task<List<OrderProduct>> getAllProdByOrderId([FromBody] QueryOptions myInput)
         {
 
-            using (var context = new DynamoDBContext(createContext()))
+            using (var context = new DynamoDBContext(CreateContext()))
             {
                 Expression expr = new Expression();
                 expr.ExpressionStatement = "PK = :PK and begins_with(SK, :prodPrefix)";
@@ -125,6 +117,7 @@ namespace NathanIanEcom.Controllers
                 QueryOperationConfig config = new QueryOperationConfig()
                 {
                     KeyExpression = expr
+                 
                 };
 
                 var associatedProducts = await context.FromQueryAsync<OrderProduct>(config).GetRemainingAsync();
@@ -134,49 +127,7 @@ namespace NathanIanEcom.Controllers
 
         }
 
-        private Document unwrapOrderProduct(OrderProduct myOrder)
-        {
-            Document doc = new Document();
-
-            doc["PK"] = myOrder.PK;
-            doc["SK"] = myOrder.SK;
-            doc["EntityType"] = myOrder.EntityType;
-            doc["ProductName"] = myOrder.ProductName;
-            doc["Quantity"] = myOrder.Quantity;
-            doc["Price"] = myOrder.Price;
-            doc["ImageLink"] = myOrder.ImageLink;
-
-            return doc;
-        }
-
-        private Dictionary<string, AttributeValue> orderProductDictionary(OrderProduct myOrder)
-        {
-            Dictionary<string, AttributeValue> orderDic = new Dictionary<string, AttributeValue>();
-            orderDic["PK"] = new AttributeValue { S = myOrder.PK };
-            orderDic["SK"] = new AttributeValue { S = myOrder.SK };
-            orderDic["EntityType"] = new AttributeValue { S = myOrder.EntityType };
-            orderDic["ProductName"] = new AttributeValue { S = myOrder.ProductName };
-            orderDic["Quantity"] = new AttributeValue { S = myOrder.Quantity };
-            orderDic["Price"] = new AttributeValue { S = myOrder.Price };
-            orderDic["ImageLink"] = new AttributeValue { S = myOrder.ImageLink };
-
-            return orderDic;
-        }
-
-        private OrderProduct wrapOrderProduct(Document item)
-        {
-            OrderProduct myProd = new OrderProduct();
-            myProd.PK = item["PK"];
-            myProd.SK = item["SK"];
-            myProd.EntityType = item["EntityType"];
-            myProd.ProductName = item["ProductName"];
-            myProd.Quantity = item["Quantity"];
-            myProd.Price = item["Price"];
-            myProd.ImageLink = item["ImageLink"];
-
-            return myProd;
-
-        }
+       
 
     }
 }

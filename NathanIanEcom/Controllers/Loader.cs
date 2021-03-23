@@ -11,93 +11,16 @@ using Amazon.DynamoDBv2.DocumentModel;
 
 namespace NathanIanEcom.Controllers
 {
-    public class Loader : ControllerBase
+    public class Loader : Helper
     {
 
-        public AmazonDynamoDBClient createContext()
-        {
-            AmazonDynamoDBConfig myConfig = new AmazonDynamoDBConfig();
-            myConfig.RegionEndpoint = RegionEndpoint.USWest2;
-
-            var awsCred = new AwsCredentials();
-            AmazonDynamoDBClient client = new AmazonDynamoDBClient(awsCred, myConfig);
-            return client;
-        }
-
-        #region Unwrapping functions
-        private Document unwrapCustomer(Customer customer)
-        {
-            Document custDoc = new Document();
-            custDoc["Username"] = customer.Username;
-            custDoc["CustomerID"] = customer.CustomerID;
-            custDoc["Address"] = customer.Address;
-            custDoc["Email"] = customer.Email;
-            custDoc["FirstName"] = customer.FirstName;
-            custDoc["LastName"] = customer.LastName;
-            custDoc["PassHash"] = customer.PassHash;
-            return custDoc;
-        }
-
-        private Document unwrapProduct(Product product)
-        {
-            Document custDoc = new Document();
-            custDoc["ProductID"] = product.ProductID;
-            custDoc["Category"] = product.Category;
-            custDoc["Description"] = product.Description;
-            custDoc["ImageLink"] = product.ImageLink;
-            custDoc["Name"] = product.Name;
-            custDoc["Price"] = product.Price;
-            return custDoc;
-        }
-
-        private Document unwrapOrder(Order order)
-        {
-            Document custDoc = new Document();
-            custDoc["PK"] = order.PK;
-            custDoc["SK"] = order.SK;
-            custDoc["EntityType"] = order.EntityType;
-            custDoc["CreatedDate"] = order.CreatedDate;
-            custDoc["Status"] = order.Status;
-            custDoc["CustomerID"] = order.CustomerID;
-            custDoc["Address"] = order.Address;
-            return custDoc;
-        }
-
-        private Document unwrapOrderCustomer(OrderCustomer orderCust)
-        {
-            Document custDoc = new Document();
-            custDoc["PK"] = orderCust.PK;
-            custDoc["SK"] = orderCust.SK;
-            custDoc["EntityType"] = orderCust.EntityType;
-            custDoc["Address"] = orderCust.Address;
-            custDoc["Email"] = orderCust.Email;
-            custDoc["FirstName"] = orderCust.FirstName;
-            custDoc["LastName"] = orderCust.LastName;
-            custDoc["Username"] = orderCust.Username;
-            return custDoc;
-        }
-
-        private Document unwrapOrderProduct(OrderProduct orderProd)
-        {
-            Document custDoc = new Document();
-            custDoc["PK"] = orderProd.PK;
-            custDoc["SK"] = orderProd.SK;
-            custDoc["EntityType"] = orderProd.EntityType;
-            custDoc["ProductName"] = orderProd.ProductName;
-            custDoc["ImageLink"] = orderProd.ImageLink;
-            custDoc["Quantity"] = orderProd.Quantity;
-            custDoc["Price"] = orderProd.Price;
-            return custDoc;
-        }
-
-        #endregion
-
+  
         [HttpPost("api/loader/[action]")]
-        public async void loadCustomers([FromBody] Customer myCust)
+        public async void LoadCustomers([FromBody] Customer myCust)
         {
-            using (var context = new DynamoDBContext(createContext()))
+            using (var context = new DynamoDBContext(CreateContext()))
             {
-                Table customers = Table.LoadTable(createContext(), "IanNathanCustomers");
+                Table customers = Table.LoadTable(CreateContext(), "IanNathanCustomers");
                 var batchWrite = customers.CreateBatchWrite();
 
                 for (int i = 0; i < 100; i++)
@@ -110,7 +33,7 @@ namespace NathanIanEcom.Controllers
                     tempCust.FirstName = myCust.FirstName + i;
                     tempCust.LastName = myCust.LastName + i;
                     tempCust.PassHash = myCust.PassHash + i;
-                    batchWrite.AddDocumentToPut(unwrapCustomer(tempCust));
+                    batchWrite.AddDocumentToPut(UnwrapCustomer(tempCust));
                 }
 
                 await batchWrite.ExecuteAsync();
@@ -119,11 +42,11 @@ namespace NathanIanEcom.Controllers
         }
 
         [HttpPost("api/loader/[action]")]
-        public async void loadProducts([FromBody] Product myProd)
+        public async void LoadProducts([FromBody] Product myProd)
         {
-            using (var context = new DynamoDBContext(createContext()))
+            using (var context = new DynamoDBContext(CreateContext()))
             {
-                Table products = Table.LoadTable(createContext(), "IanNathanProducts");
+                Table products = Table.LoadTable(CreateContext(), "IanNathanProducts");
                 var batchWrite = products.CreateBatchWrite();
 
                 for (int i = 0; i < 100; i++)
@@ -135,7 +58,7 @@ namespace NathanIanEcom.Controllers
                     tempProd.ImageLink = myProd.ImageLink + i;
                     tempProd.Name = myProd.Name + i;
                     tempProd.Price = myProd.Price + i;
-                    batchWrite.AddDocumentToPut(unwrapProduct(tempProd));
+                    batchWrite.AddDocumentToPut(UnwrapProduct(tempProd));
                 }
 
                 await batchWrite.ExecuteAsync();
@@ -144,22 +67,22 @@ namespace NathanIanEcom.Controllers
         }
 
         [HttpPost("api/loader/[action]")]
-        public async void loadOrderCustomer([FromBody] OrderCustomer myOrderCust)
+        public async void LoadOrderCustomer([FromBody] OrderCustomer myOrderCust)
         {
-            using (var context = new DynamoDBContext(createContext()))
+            using (var context = new DynamoDBContext(CreateContext()))
             {
-                Table customers = Table.LoadTable(createContext(), "IanNathanOrders");
-                await customers.PutItemAsync(unwrapOrderCustomer(myOrderCust));
+                Table customers = Table.LoadTable(CreateContext(), "IanNathanOrders");
+                await customers.PutItemAsync(UnwrapOrderCustomer(myOrderCust));
             }
 
         }
 
         [HttpPost("api/loader/[action]")]
-        public async void loadOrders([FromBody] Order myOrder)
+        public async void LoadOrders([FromBody] Order myOrder)
         {
-            using (var context = new DynamoDBContext(createContext()))
+            using (var context = new DynamoDBContext(CreateContext()))
             {
-                Table products = Table.LoadTable(createContext(), "IanNathanOrders");
+                Table products = Table.LoadTable(CreateContext(), "IanNathanOrders");
                 var batchWrite = products.CreateBatchWrite();
 
                 for (int i = 0; i < 100; i++)
@@ -172,7 +95,7 @@ namespace NathanIanEcom.Controllers
                     tempOrder.Status = myOrder.Status;
                     tempOrder.CustomerID = myOrder.CustomerID + i;
                     tempOrder.Address = myOrder.Address + i;
-                    batchWrite.AddDocumentToPut(unwrapOrder(tempOrder));
+                    batchWrite.AddDocumentToPut(UnwrapOrder(tempOrder));
                 }
 
                 await batchWrite.ExecuteAsync();
@@ -181,11 +104,11 @@ namespace NathanIanEcom.Controllers
         }
 
         [HttpPost("api/loader/[action]")]
-        public async void loadOrderCustomers([FromBody] OrderCustomer myOrderCust)
+        public async void LoadOrderCustomers([FromBody] OrderCustomer myOrderCust)
         {
-            using (var context = new DynamoDBContext(createContext()))
+            using (var context = new DynamoDBContext(CreateContext()))
             {
-                Table products = Table.LoadTable(createContext(), "IanNathanOrders");
+                Table products = Table.LoadTable(CreateContext(), "IanNathanOrders");
                 var batchWrite = products.CreateBatchWrite();
 
                 for (int i = 0; i < 100; i++)
@@ -199,7 +122,7 @@ namespace NathanIanEcom.Controllers
                     tempOrderCust.FirstName = myOrderCust.FirstName + i;
                     tempOrderCust.LastName = myOrderCust.LastName + i;
                     tempOrderCust.Username = myOrderCust.Username + i;
-                    batchWrite.AddDocumentToPut(unwrapOrderCustomer(tempOrderCust));
+                    batchWrite.AddDocumentToPut(UnwrapOrderCustomer(tempOrderCust));
                 }
 
                 await batchWrite.ExecuteAsync();
@@ -208,12 +131,12 @@ namespace NathanIanEcom.Controllers
         }
 
         [HttpPost("api/loader/[action]")]
-        public async void loadOrderProducts([FromBody] OrderProduct myOrderProd)
+        public async void LoadOrderProducts([FromBody] OrderProduct myOrderProd)
         {
-            using (var context = new DynamoDBContext(createContext()))
+            using (var context = new DynamoDBContext(CreateContext()))
             {
                 Random rand = new Random();
-                Table products = Table.LoadTable(createContext(), "IanNathanOrders");
+                Table products = Table.LoadTable(CreateContext(), "IanNathanOrders");
                 var batchWrite = products.CreateBatchWrite();
 
                 for (int i = 0; i < 200; i++)
@@ -226,7 +149,7 @@ namespace NathanIanEcom.Controllers
                     tempOrderProd.Quantity = rand.Next(1, 100).ToString();
                     tempOrderProd.Price = rand.Next(0, 99) + "." + rand.Next(0, 9) + rand.Next(0, 9);
                     tempOrderProd.ImageLink = myOrderProd.ImageLink + i;
-                    batchWrite.AddDocumentToPut(unwrapOrderProduct(tempOrderProd));
+                    batchWrite.AddDocumentToPut(UnwrapOrderProduct(tempOrderProd));
                 }
 
                 await batchWrite.ExecuteAsync();

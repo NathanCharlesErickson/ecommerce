@@ -12,28 +12,16 @@ using System.Threading.Tasks;
 
 namespace NathanIanEcom.Controllers
 {
-    public class OrderController : ControllerBase
+    public class OrderController : Helper
     {
-
-        public AmazonDynamoDBClient createContext()
-        {
-            AmazonDynamoDBConfig myConfig = new AmazonDynamoDBConfig();
-            myConfig.RegionEndpoint = RegionEndpoint.USWest2;
-
-            var awsCred = new AwsCredentials();
-            AmazonDynamoDBClient client = new AmazonDynamoDBClient(awsCred, myConfig);
-            return client;
-        }
-
-        //CRUD 
-
+        
 
         /*Gets a Order by it's Id*/
 
         [HttpGet("api/order/[action]")]
-        public async Task<Order> getOrderById([FromBody] QueryOptions myInput)
+        public async Task<Order> GetOrderById([FromBody] QueryOptions myInput)
         {
-            using (var context = new DynamoDBContext(createContext()))
+            using (var context = new DynamoDBContext(CreateContext()))
             {
                 var data = await context.LoadAsync<Order>(myInput.PK, myInput.SK);
                 return data;
@@ -46,14 +34,14 @@ namespace NathanIanEcom.Controllers
         /*Create Order */
 
         [HttpPost("/api/order/[action]")]
-        public async Task<StatusCodeResult> loadOrder([FromBody] Order myOrder)
+        public async Task<StatusCodeResult> LoadOrder([FromBody] Order myOrder)
         {
-            using (var context = new DynamoDBContext(createContext()))
+            using (var context = new DynamoDBContext(CreateContext()))
             {
-                Table order = Table.LoadTable(createContext(), "IanNathanOrders");
+                Table order = Table.LoadTable(CreateContext(), "IanNathanOrders");
                 try
                 {
-                    await order.PutItemAsync(unwrapOrder(myOrder));
+                    await order.PutItemAsync(UnwrapOrder(myOrder));
                     return StatusCode(201);
                 }
                 catch (Exception ex)
@@ -68,9 +56,9 @@ namespace NathanIanEcom.Controllers
         //delete order
 
         [HttpDelete("api/order/[action]")]
-        public async Task<StatusCodeResult> deleteOrder([FromBody] QueryOptions myInput)
+        public async Task<StatusCodeResult> DeleteOrder([FromBody] QueryOptions myInput)
         {
-            using (var context = new DynamoDBContext(createContext()))
+            using (var context = new DynamoDBContext(CreateContext()))
             {
                 try
                 {
@@ -87,13 +75,13 @@ namespace NathanIanEcom.Controllers
         }
 
         [HttpPut("api/order/[action]")]
-        public async Task<StatusCodeResult> updateOrder([FromBody] Order myInput)
+        public async Task<StatusCodeResult> UpdateOrder([FromBody] Order myInput)
         {
-            using (AmazonDynamoDBClient context = createContext())
+            using (AmazonDynamoDBClient context = CreateContext())
             {
                 try
                 {
-                    Table orders = Table.LoadTable(createContext(), "IanNathanOrders");
+                    Table orders = Table.LoadTable(CreateContext(), "IanNathanOrders");
                     Expression expr = new Expression();
                     expr.ExpressionStatement = "PK = :PK and SK = :SK";
                     expr.ExpressionAttributeValues[":PK"] = myInput.PK;
@@ -105,7 +93,7 @@ namespace NathanIanEcom.Controllers
                         ReturnValues = ReturnValues.AllNewAttributes
                     };
 
-                    Document updatedOrder = await orders.UpdateItemAsync(unwrapOrder(myInput), config);
+                    Document updatedOrder = await orders.UpdateItemAsync(UnwrapOrder(myInput), config);
                     return StatusCode(200);
                 }
                 catch (Exception e)
@@ -118,70 +106,72 @@ namespace NathanIanEcom.Controllers
 
         }
 
-        //Currently a work in progress
         [HttpGet("/api/order/[action]")]
-        public async Task<List<OrderProduct>> getOrderByCustId([FromBody] QueryOptions myInput)
+        public async Task<List<Order>> GetOrderByCustId([FromBody] QueryOptions myInput)
         {
-            AmazonDynamoDBClient client = createContext();
-            DynamoDBContext context = new DynamoDBContext(client);
-
-            Dictionary<string, Condition> myDic = new Dictionary<string, Condition>();
-
-            ComparisonOperator myOp = new ComparisonOperator("EQ");
-
-
-
-            myDic.Add("CustomerID", new Condition { AttributeValueList = { new AttributeValue { S = myInput.CustomerID } }, ComparisonOperator = myOp  });
-
-            QueryRequest config = new QueryRequest()
+            using (var context = new DynamoDBContext(CreateContext()))
             {
-                TableName = "IanNathanOrders",
-                IndexName = "GSI1",
-                ScanIndexForward = false,
-                QueryFilter = myDic,
+                Expression expr = new Expression();
+                expr.ExpressionStatement = "CustomerID = :CustomerID";
+                expr.ExpressionAttributeValues[":CustomerID"] = myInput.CustomerID;
 
+                
 
-            };
+                QueryOperationConfig config = new QueryOperationConfig()
+                {
+                    KeyExpression = expr,
+                    IndexName = "GSI1",
+                    BackwardSearch = true, //scans backward saw on the doc unsure if needed
+                    AttributesToGet = new List<string> {"CustomerID", "PK", "SK", "EntityType", "CreatedDate", "Status" },
+                    Select = SelectValues.SpecificAttributes,
+                    Limit = 1
 
-            var data = await client.QueryAsync(config);
-            
+                   
+                };
 
-            return null;
+                var associatedProducts = await context.FromQueryAsync<Order>(config).GetNextSetAsync();
+
+                return associatedProducts;
+            }
+
         }
 
-
-
-
-
-
-
-        private Document unwrapOrder(Order myOrder)
+        [HttpGet("/api/order/[action]")]
+        public async Task<List<Order>> GetAllOrderByCustId([FromBody] QueryOptions myInput)
         {
-            Document myDoc = new Document();
+            using (var context = new DynamoDBContext(CreateContext()))
+            {
+                Expression expr = new Expression();
+                expr.ExpressionStatement = "CustomerID = :CustomerID and begins_with(SK, :prefix)";
+                expr.ExpressionAttributeValues[":CustomerID"] = myInput.CustomerID;
+                expr.ExpressionAttributeValues[":prefix"] = "o#";
 
-            myDoc["PK"] = myOrder.PK;
-            myDoc["SK"] = myOrder.SK;
-            myDoc["EntityType"] = myOrder.EntityType;
-            myDoc["CreatedDate"] = myOrder.CreatedDate;
-            myDoc["Status"] = myOrder.Status;
-            myDoc["CustomerID"] = myOrder.CustomerID;
-            myDoc["Address"] = myOrder.Address;
 
-            return myDoc;
+
+                QueryOperationConfig config = new QueryOperationConfig()
+                {
+                    KeyExpression = expr,
+                    IndexName = "GSI1",
+                    AttributesToGet = new List<string> { "CustomerID", "PK", "SK", "EntityType", "CreatedDate", "Status" },
+                    Select = SelectValues.SpecificAttributes
+
+                };
+
+                var associatedProducts = await context.FromQueryAsync<Order>(config).GetNextSetAsync();
+
+                return associatedProducts;
+            }
+
+
         }
 
-        private Dictionary<string, AttributeValue> orderDictionary(Order myOrder)
-        {
-            Dictionary<string, AttributeValue> orderDic = new Dictionary<string, AttributeValue>();
-            orderDic["PK"] = new AttributeValue { S = myOrder.PK };
-            orderDic["SK"] = new AttributeValue { S = myOrder.SK };
-            orderDic["EntityType"] = new AttributeValue { S = myOrder.EntityType };
-            orderDic["CreatedDate"] = new AttributeValue { S = myOrder.CreatedDate };
-            orderDic["Status"] = new AttributeValue { S = myOrder.Status };
-            orderDic["CustomerID"] = new AttributeValue { S = myOrder.CustomerID };
-            orderDic["Address"] = new AttributeValue { S = myOrder.Address };
-            return orderDic;
-        }
+
+
+
+
+
+
+        
     }
 
    

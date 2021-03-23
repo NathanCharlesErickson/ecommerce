@@ -12,24 +12,14 @@ using System.Threading.Tasks;
 
 namespace NathanIanEcom.Controllers
 {
-    public class ProductController : ControllerBase
+    public class ProductController : Helper
     {
-
-        public AmazonDynamoDBClient createContext()
-        {
-            AmazonDynamoDBConfig myConfig = new AmazonDynamoDBConfig();
-            myConfig.RegionEndpoint = RegionEndpoint.USWest2;
-
-            var awsCred = new AwsCredentials();
-            AmazonDynamoDBClient client = new AmazonDynamoDBClient(awsCred, myConfig);
-            return client;
-        }
 
         /* gets all products */
         [HttpGet("/api/product/[action]")]
-        public async Task<List<Product>> getAllProd()
+        public async Task<List<Product>> GetAllProd()
         {
-            using (var context = new DynamoDBContext(createContext()))
+            using (var context = new DynamoDBContext(CreateContext()))
             {
                 //Create a List of ScanConditions (can be left blank, as here, to not filter results whatsoever)
                 var conditions = new List<ScanCondition>();
@@ -51,9 +41,9 @@ namespace NathanIanEcom.Controllers
         /* gets product by It's ID */
 
         [HttpGet("api/product/[action]")]
-        public async Task<Product> getProductById([FromBody] QueryOptions myInput)
+        public async Task<Product> GetProductById([FromBody] QueryOptions myInput)
         {
-            using (var context = new DynamoDBContext(createContext()))
+            using (var context = new DynamoDBContext(CreateContext()))
             {
                 var data = await context.LoadAsync<Product>(myInput.ProductID);
                 return data;
@@ -65,14 +55,14 @@ namespace NathanIanEcom.Controllers
 
         /* Create Product */
         [HttpPost("/api/product/[action]")]
-        public async Task<StatusCodeResult> loadProduct([FromBody] Product myProd)
+        public async Task<StatusCodeResult> LoadProduct([FromBody] Product myProd)
         {
-            using (var context = new DynamoDBContext(createContext()))
+            using (var context = new DynamoDBContext(CreateContext()))
             {
-                Table products = Table.LoadTable(createContext(), "IanNathanProducts");
+                Table products = Table.LoadTable(CreateContext(), "IanNathanProducts");
                 try
                 {
-                    await products.PutItemAsync(unwrapProduct(myProd));
+                    await products.PutItemAsync(UnwrapProduct(myProd));
                     return StatusCode(201);
                 } catch (Exception ex)
                 {
@@ -85,9 +75,9 @@ namespace NathanIanEcom.Controllers
 
         /*delete a product by PK SK */
         [HttpDelete("api/product/[action]")]
-        public async Task<StatusCodeResult> deleteProduct([FromBody] QueryOptions myInput)
+        public async Task<StatusCodeResult> DeleteProduct([FromBody] QueryOptions myInput)
         {
-            using (var context = new DynamoDBContext(createContext()))
+            using (var context = new DynamoDBContext(CreateContext()))
             {
                try
                 {
@@ -103,13 +93,13 @@ namespace NathanIanEcom.Controllers
         }
 
         [HttpPut("api/product/[action]")]
-        public async Task<StatusCodeResult> updateProduct([FromBody] Product myInput)
+        public async Task<StatusCodeResult> UpdateProduct([FromBody] Product myInput)
         {
-            using (AmazonDynamoDBClient context = createContext())
+            using (AmazonDynamoDBClient context = CreateContext())
             {
                 try
                 {
-                    Table products = Table.LoadTable(createContext(), "IanNathanProducts");
+                    Table products = Table.LoadTable(CreateContext(), "IanNathanProducts");
                     Expression expr = new Expression();
                     expr.ExpressionStatement = "ProductID = :productIDVal";
                     expr.ExpressionAttributeValues[":productIDVal"] = myInput.ProductID;
@@ -120,7 +110,7 @@ namespace NathanIanEcom.Controllers
                         ReturnValues = ReturnValues.AllNewAttributes
                     };
 
-                    Document updatedProduct = await products.UpdateItemAsync(unwrapProduct(myInput), config);
+                    Document updatedProduct = await products.UpdateItemAsync(UnwrapProduct(myInput), config);
                     return StatusCode(200);
                 } catch (Exception e)
                 {
@@ -132,29 +122,7 @@ namespace NathanIanEcom.Controllers
 
         }
 
-        private Document unwrapProduct(Product product)
-        {
-            Document custDoc = new Document();
-            custDoc["ProductID"] = product.ProductID;
-            custDoc["Category"] = product.Category;
-            custDoc["Description"] = product.Description;
-            custDoc["ImageLink"] = product.ImageLink;
-            custDoc["Name"] = product.Name;
-            custDoc["Price"] = product.Price;
-            return custDoc;
-        }
-
-        private Dictionary<string, AttributeValue> productDictionary(Product product)
-        {
-            Dictionary<string, AttributeValue> prodDic = new Dictionary<string, AttributeValue>();
-            prodDic["ProductID"] = new AttributeValue { S = product.ProductID };
-            prodDic["Category"] = new AttributeValue { S = product.Category };
-            prodDic["Description"]= new AttributeValue { S = product.Description };
-            prodDic["ImageLink"] = new AttributeValue { S = product.ImageLink };
-            prodDic["Name"] = new AttributeValue { S = product.Name };
-            prodDic["Price"] = new AttributeValue { S = product.Price };
-            return prodDic;
-        }
+       
 
 
 
