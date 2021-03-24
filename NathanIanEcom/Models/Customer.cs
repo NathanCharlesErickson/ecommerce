@@ -11,8 +11,6 @@ namespace NathanIanEcom.Models
     {
         [DynamoDBHashKey]
         public String Username { get; set; }
-        [DynamoDBRangeKey]
-        public String CustomerID { get; set; }
         [DynamoDBProperty]
         public String Address { get; set; }
         [DynamoDBProperty]

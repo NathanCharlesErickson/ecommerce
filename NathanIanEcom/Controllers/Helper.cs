@@ -27,7 +27,6 @@ namespace NathanIanEcom.Controllers
         {
             Document custDoc = new Document();
             custDoc["Username"] = customer.Username;
-            custDoc["CustomerID"] = customer.CustomerID;
             custDoc["Address"] = customer.Address;
             custDoc["Email"] = customer.Email;
             custDoc["FirstName"] = customer.FirstName;
@@ -57,7 +56,7 @@ namespace NathanIanEcom.Controllers
             custDoc["EntityType"] = order.EntityType;
             custDoc["CreatedDate"] = order.CreatedDate;
             custDoc["Status"] = order.Status;
-            custDoc["CustomerID"] = order.CustomerID;
+            custDoc["Username"] = order.Username;
             custDoc["Address"] = order.Address;
             return custDoc;
         }
@@ -99,7 +98,7 @@ namespace NathanIanEcom.Controllers
             orderDic["EntityType"] = new AttributeValue { S = myOrder.EntityType };
             orderDic["CreatedDate"] = new AttributeValue { S = myOrder.CreatedDate };
             orderDic["Status"] = new AttributeValue { S = myOrder.Status };
-            orderDic["CustomerID"] = new AttributeValue { S = myOrder.CustomerID };
+            orderDic["Username"] = new AttributeValue { S = myOrder.Username };
             orderDic["Address"] = new AttributeValue { S = myOrder.Address };
             return orderDic;
         }

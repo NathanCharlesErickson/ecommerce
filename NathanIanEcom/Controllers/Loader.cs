@@ -27,7 +27,6 @@ namespace NathanIanEcom.Controllers
                 {
                     Customer tempCust = new Customer();
                     tempCust.Username = myCust.Username + i;
-                    tempCust.CustomerID = myCust.CustomerID + i;
                     tempCust.Address = myCust.Address + i;
                     tempCust.Email = myCust.Email + i;
                     tempCust.FirstName = myCust.FirstName + i;
@@ -67,17 +66,6 @@ namespace NathanIanEcom.Controllers
         }
 
         [HttpPost("api/loader/[action]")]
-        public async void LoadOrderCustomer([FromBody] OrderCustomer myOrderCust)
-        {
-            using (var context = new DynamoDBContext(CreateContext()))
-            {
-                Table customers = Table.LoadTable(CreateContext(), "IanNathanOrders");
-                await customers.PutItemAsync(UnwrapOrderCustomer(myOrderCust));
-            }
-
-        }
-
-        [HttpPost("api/loader/[action]")]
         public async void LoadOrders([FromBody] Order myOrder)
         {
             using (var context = new DynamoDBContext(CreateContext()))
@@ -93,7 +81,7 @@ namespace NathanIanEcom.Controllers
                     tempOrder.EntityType = myOrder.EntityType;
                     tempOrder.CreatedDate = DateTime.Now.ToString();
                     tempOrder.Status = myOrder.Status;
-                    tempOrder.CustomerID = myOrder.CustomerID + i;
+                    tempOrder.Username = myOrder.Username + i;
                     tempOrder.Address = myOrder.Address + i;
                     batchWrite.AddDocumentToPut(UnwrapOrder(tempOrder));
                 }

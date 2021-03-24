@@ -111,8 +111,8 @@ namespace NathanIanEcom.Controllers
             using (var context = new DynamoDBContext(CreateContext()))
             {
                 Expression expr = new Expression();
-                expr.ExpressionStatement = "CustomerID = :CustomerID";
-                expr.ExpressionAttributeValues[":CustomerID"] = myInput.CustomerID;
+                expr.ExpressionStatement = "Username = :Username";
+                expr.ExpressionAttributeValues[":Username"] = myInput.Username;
 
                 
 
@@ -121,7 +121,7 @@ namespace NathanIanEcom.Controllers
                     KeyExpression = expr,
                     IndexName = "GSI1",
                     BackwardSearch = true, //scans backward saw on the doc unsure if needed
-                    AttributesToGet = new List<string> {"CustomerID", "PK", "SK", "EntityType", "CreatedDate", "Status" },
+                    AttributesToGet = new List<string> {"Username", "Address", "SK", "EntityType", "CreatedDate", "Status" },
                     Select = SelectValues.SpecificAttributes,
                     Limit = 1
 
@@ -141,8 +141,8 @@ namespace NathanIanEcom.Controllers
             using (var context = new DynamoDBContext(CreateContext()))
             {
                 Expression expr = new Expression();
-                expr.ExpressionStatement = "CustomerID = :CustomerID and begins_with(SK, :prefix)";
-                expr.ExpressionAttributeValues[":CustomerID"] = myInput.CustomerID;
+                expr.ExpressionStatement = "Username = :Username and begins_with(SK, :prefix)";
+                expr.ExpressionAttributeValues[":Username"] = myInput.Username;
                 expr.ExpressionAttributeValues[":prefix"] = "o#";
 
 
@@ -151,7 +151,7 @@ namespace NathanIanEcom.Controllers
                 {
                     KeyExpression = expr,
                     IndexName = "GSI1",
-                    AttributesToGet = new List<string> { "CustomerID", "PK", "SK", "EntityType", "CreatedDate", "Status" },
+                    AttributesToGet = new List<string> { "Username", "Address", "SK", "EntityType", "CreatedDate", "Status" },
                     Select = SelectValues.SpecificAttributes
 
                 };
