@@ -29,7 +29,7 @@
           "lib/netcoreapp3.1/Amazon.Lambda.ApplicationLoadBalancerEvents.dll": {}
         }
       },
-      "Amazon.Lambda.AspNetCoreServer/5.3.0": {
+      "Amazon.Lambda.AspNetCoreServer/5.3.1": {
         "type": "package",
         "dependencies": {
           "Amazon.Lambda.APIGatewayEvents": "2.4.0",
@@ -83,6 +83,27 @@
         },
         "runtime": {
           "lib/netcoreapp3.1/Amazon.Lambda.Serialization.SystemTextJson.dll": {}
+        }
+      },
+      "AWSSDK.Core/3.5.3.8": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp3.1/AWSSDK.Core.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/AWSSDK.Core.dll": {}
+        }
+      },
+      "AWSSDK.DynamoDBv2/3.5.4.37": {
+        "type": "package",
+        "dependencies": {
+          "AWSSDK.Core": "[3.5.3.8, 3.6.0)"
+        },
+        "compile": {
+          "lib/netcoreapp3.1/AWSSDK.DynamoDBv2.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/AWSSDK.DynamoDBv2.dll": {}
         }
       },
       "JavaScriptEngineSwitcher.Core/3.1.0": {
@@ -763,14 +784,14 @@
         "lib/netstandard2.0/Amazon.Lambda.ApplicationLoadBalancerEvents.xml"
       ]
     },
-    "Amazon.Lambda.AspNetCoreServer/5.3.0": {
-      "sha512": "b9TCHD4B+s/udRSjmZTfyEZAwLjo6jgr3w81H9QwVYiq6XPT4Qru++/LPFqgOlz8ZOfMjdY5kLUh9i4lhHOEAw==",
+    "Amazon.Lambda.AspNetCoreServer/5.3.1": {
+      "sha512": "kmTsj46dqVn0IN5TIsVncDcLbRlsZo7cp/JZiQyeSXrofE58xDfj6qgsXSFSrofmJM/+5EBKUEQ8pbp9ss+VfA==",
       "type": "package",
-      "path": "amazon.lambda.aspnetcoreserver/5.3.0",
+      "path": "amazon.lambda.aspnetcoreserver/5.3.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "amazon.lambda.aspnetcoreserver.5.3.0.nupkg.sha512",
+        "amazon.lambda.aspnetcoreserver.5.3.1.nupkg.sha512",
         "amazon.lambda.aspnetcoreserver.nuspec",
         "lib/netcoreapp3.1/Amazon.Lambda.AspNetCoreServer.dll",
         "lib/netcoreapp3.1/Amazon.Lambda.AspNetCoreServer.xml",
@@ -817,6 +838,64 @@
         "amazon.lambda.serialization.systemtextjson.nuspec",
         "lib/netcoreapp3.1/Amazon.Lambda.Serialization.SystemTextJson.dll",
         "lib/netcoreapp3.1/Amazon.Lambda.Serialization.SystemTextJson.xml"
+      ]
+    },
+    "AWSSDK.Core/3.5.3.8": {
+      "sha512": "qF5cq1RuE2GD6EQu0Bef1I06yzVTwSlW0FBxMXT1bGd+dF0Rcoa0grH7P6KbRp9HyIzWPOEdlMIx0yX1puTFCA==",
+      "type": "package",
+      "path": "awssdk.core/3.5.3.8",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "awssdk.core.3.5.3.8.nupkg.sha512",
+        "awssdk.core.nuspec",
+        "lib/net35/AWSSDK.Core.dll",
+        "lib/net35/AWSSDK.Core.pdb",
+        "lib/net35/AWSSDK.Core.xml",
+        "lib/net45/AWSSDK.Core.dll",
+        "lib/net45/AWSSDK.Core.pdb",
+        "lib/net45/AWSSDK.Core.xml",
+        "lib/netcoreapp3.1/AWSSDK.Core.dll",
+        "lib/netcoreapp3.1/AWSSDK.Core.pdb",
+        "lib/netcoreapp3.1/AWSSDK.Core.xml",
+        "lib/netstandard1.3/AWSSDK.Core.dll",
+        "lib/netstandard1.3/AWSSDK.Core.pdb",
+        "lib/netstandard1.3/AWSSDK.Core.xml",
+        "lib/netstandard2.0/AWSSDK.Core.dll",
+        "lib/netstandard2.0/AWSSDK.Core.pdb",
+        "lib/netstandard2.0/AWSSDK.Core.xml",
+        "tools/account-management.ps1"
+      ]
+    },
+    "AWSSDK.DynamoDBv2/3.5.4.37": {
+      "sha512": "zlO+QxOQ7PHEzCMNm/ZoyYnxCTawYAX93XSQb4bFyy6aHeqaiKJD8XpN7VY2+V/XuGhiS0Z8OjezBI/SGXmbng==",
+      "type": "package",
+      "path": "awssdk.dynamodbv2/3.5.4.37",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "analyzers/dotnet/cs/AWSSDK.DynamoDBv2.CodeAnalysis.dll",
+        "awssdk.dynamodbv2.3.5.4.37.nupkg.sha512",
+        "awssdk.dynamodbv2.nuspec",
+        "lib/net35/AWSSDK.DynamoDBv2.dll",
+        "lib/net35/AWSSDK.DynamoDBv2.pdb",
+        "lib/net35/AWSSDK.DynamoDBv2.xml",
+        "lib/net45/AWSSDK.DynamoDBv2.dll",
+        "lib/net45/AWSSDK.DynamoDBv2.pdb",
+        "lib/net45/AWSSDK.DynamoDBv2.xml",
+        "lib/netcoreapp3.1/AWSSDK.DynamoDBv2.dll",
+        "lib/netcoreapp3.1/AWSSDK.DynamoDBv2.pdb",
+        "lib/netcoreapp3.1/AWSSDK.DynamoDBv2.xml",
+        "lib/netstandard1.3/AWSSDK.DynamoDBv2.dll",
+        "lib/netstandard1.3/AWSSDK.DynamoDBv2.pdb",
+        "lib/netstandard1.3/AWSSDK.DynamoDBv2.xml",
+        "lib/netstandard2.0/AWSSDK.DynamoDBv2.dll",
+        "lib/netstandard2.0/AWSSDK.DynamoDBv2.pdb",
+        "lib/netstandard2.0/AWSSDK.DynamoDBv2.xml",
+        "tools/install.ps1",
+        "tools/uninstall.ps1"
       ]
     },
     "JavaScriptEngineSwitcher.Core/3.1.0": {
@@ -2851,7 +2930,10 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
-      "Amazon.Lambda.AspNetCoreServer >= 5.3.0",
+      "AWSSDK.Core >= 3.5.3.8",
+      "AWSSDK.DynamoDBv2 >= 3.5.4.37",
+      "Amazon.Lambda.AspNetCoreServer >= 5.3.1",
+      "Newtonsoft.Json >= 12.0.3",
       "React.Core >= 5.2.11"
     ]
   },
@@ -2894,9 +2976,21 @@
       "netcoreapp3.1": {
         "targetAlias": "netcoreapp3.1",
         "dependencies": {
+          "AWSSDK.Core": {
+            "target": "Package",
+            "version": "[3.5.3.8, )"
+          },
+          "AWSSDK.DynamoDBv2": {
+            "target": "Package",
+            "version": "[3.5.4.37, )"
+          },
           "Amazon.Lambda.AspNetCoreServer": {
             "target": "Package",
-            "version": "[5.3.0, )"
+            "version": "[5.3.1, )"
+          },
+          "Newtonsoft.Json": {
+            "target": "Package",
+            "version": "[12.0.3, )"
           },
           "React.Core": {
             "target": "Package",

@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Amazon;
+using Amazon.DynamoDBv2;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -12,14 +14,23 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
+//Take 2 on testing git integration. Ian - 3/16/2021
+
 namespace NathanIanEcom
 {
     public class Startup
     {
+        
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            DynamoDbApiKey = configuration["DynamoDb:ApiKey"];
+            DynamoDbSecret = configuration["DynamoDb:Secret"];
         }
+
+        public static String DynamoDbApiKey { get; set; }
+        public static String DynamoDbSecret { get; set; }
 
         public static IConfiguration Configuration { get; private set; }
 
