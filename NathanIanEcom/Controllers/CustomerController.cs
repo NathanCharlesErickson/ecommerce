@@ -34,7 +34,7 @@ namespace NathanIanEcom.Controllers
         /*Create a Customer*/
 
         [HttpPost("/api/customer/[action]")]
-        public async Task<StatusCodeResult> loadCustomer([FromBody] Customer myCustomer)
+        public async Task<IActionResult> loadCustomer([FromBody] Customer myCustomer)
         {
             using (var context = new DynamoDBContext(CreateContext()))
             {
@@ -42,7 +42,7 @@ namespace NathanIanEcom.Controllers
                 try
                 {
                     await customers.PutItemAsync(UnwrapCustomer(myCustomer));
-                    return StatusCode(201);
+                    return Ok();
                 }
                 catch (Exception ex)
                 {
@@ -54,14 +54,14 @@ namespace NathanIanEcom.Controllers
         }
 
         [HttpDelete("api/customer/[action]")]
-        public async Task<StatusCodeResult> deleteCustomer([FromBody] QueryOptions myInput)
+        public async Task<IActionResult> deleteCustomer([FromBody] QueryOptions myInput)
         {
             using (var context = new DynamoDBContext(CreateContext()))
             {
                 try
                 {
                     await context.DeleteAsync<Customer>(myInput.Username);
-                    return StatusCode(204);
+                    return Ok();
                 }
                 catch (Exception ex)
                 {
@@ -73,7 +73,7 @@ namespace NathanIanEcom.Controllers
         }
 
         [HttpPut("api/customer/[action]")]
-        public async Task<StatusCodeResult> updateCustomer([FromBody] Customer myInput)
+        public async Task<IActionResult> updateCustomer([FromBody] Customer myInput)
         {
             using (AmazonDynamoDBClient context = CreateContext())
             {
@@ -90,7 +90,7 @@ namespace NathanIanEcom.Controllers
                     };
 
                     Document updatedCustomer = await customers.UpdateItemAsync(UnwrapCustomer(myInput), config);
-                    return StatusCode(200);
+                    return Ok();
                 }
                 catch (Exception e)
                 {

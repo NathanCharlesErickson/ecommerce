@@ -55,7 +55,7 @@ namespace NathanIanEcom.Controllers
 
         /* Create Product */
         [HttpPost("/api/product/[action]")]
-        public async Task<StatusCodeResult> LoadProduct([FromBody] Product myProd)
+        public async Task<IActionResult> LoadProduct([FromBody] Product myProd)
         {
             using (var context = new DynamoDBContext(CreateContext()))
             {
@@ -63,7 +63,7 @@ namespace NathanIanEcom.Controllers
                 try
                 {
                     await products.PutItemAsync(UnwrapProduct(myProd));
-                    return StatusCode(201);
+                    return Ok();
                 } catch (Exception ex)
                 {
                    return StatusCode(500);
@@ -75,14 +75,14 @@ namespace NathanIanEcom.Controllers
 
         /*delete a product by PK SK */
         [HttpDelete("api/product/[action]")]
-        public async Task<StatusCodeResult> DeleteProduct([FromBody] QueryOptions myInput)
+        public async Task<IActionResult> DeleteProduct([FromBody] QueryOptions myInput)
         {
             using (var context = new DynamoDBContext(CreateContext()))
             {
                try
                 {
                     await context.DeleteAsync<Product>(myInput.ProductID);
-                    return StatusCode(204);
+                    return Ok();
                 } catch(Exception ex)
                 {
                     return StatusCode(500);
@@ -93,7 +93,7 @@ namespace NathanIanEcom.Controllers
         }
 
         [HttpPut("api/product/[action]")]
-        public async Task<StatusCodeResult> UpdateProduct([FromBody] Product myInput)
+        public async Task<IActionResult> UpdateProduct([FromBody] Product myInput)
         {
             using (AmazonDynamoDBClient context = CreateContext())
             {
@@ -110,7 +110,7 @@ namespace NathanIanEcom.Controllers
                     };
 
                     Document updatedProduct = await products.UpdateItemAsync(UnwrapProduct(myInput), config);
-                    return StatusCode(200);
+                    return Ok();
                 } catch (Exception e)
                 {
                     Console.WriteLine("Error: " + e.Message);

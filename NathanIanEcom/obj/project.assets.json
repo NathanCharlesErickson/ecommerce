@@ -2930,6 +2930,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
+      "AWSSDK.Core >= 3.5.3.8",
       "AWSSDK.DynamoDBv2 >= 3.5.4.37",
       "Amazon.Lambda.AspNetCoreServer >= 5.3.1",
       "Newtonsoft.Json >= 12.0.3",
@@ -2937,23 +2938,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\utili\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\nerickson\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\utili\\source\\repos\\ecommerce\\NathanIanEcom\\NathanIanEcom.csproj",
+      "projectUniqueName": "C:\\Users\\nerickson\\source\\repos\\NathanIanEcom\\NathanIanEcom\\NathanIanEcom.csproj",
       "projectName": "NathanIanEcom",
-      "projectPath": "C:\\Users\\utili\\source\\repos\\ecommerce\\NathanIanEcom\\NathanIanEcom.csproj",
-      "packagesPath": "C:\\Users\\utili\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\utili\\source\\repos\\ecommerce\\NathanIanEcom\\obj\\",
+      "projectPath": "C:\\Users\\nerickson\\source\\repos\\NathanIanEcom\\NathanIanEcom\\NathanIanEcom.csproj",
+      "packagesPath": "C:\\Users\\nerickson\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\nerickson\\source\\repos\\NathanIanEcom\\NathanIanEcom\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\utili\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\nerickson\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -2979,6 +2976,10 @@
       "netcoreapp3.1": {
         "targetAlias": "netcoreapp3.1",
         "dependencies": {
+          "AWSSDK.Core": {
+            "target": "Package",
+            "version": "[3.5.3.8, )"
+          },
           "AWSSDK.DynamoDBv2": {
             "target": "Package",
             "version": "[3.5.4.37, )"

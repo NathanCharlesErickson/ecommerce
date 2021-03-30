@@ -33,7 +33,7 @@ namespace NathanIanEcom.Controllers
         /*Create a Order's Product*/
 
         [HttpPost("/api/orderProduct/[action]")]
-        public async Task<StatusCodeResult> LoadOrderProduct([FromBody] OrderProduct myOrder)
+        public async Task<IActionResult> LoadOrderProduct([FromBody] OrderProduct myOrder)
         {
             using (var context = new DynamoDBContext(CreateContext()))
             {
@@ -41,7 +41,7 @@ namespace NathanIanEcom.Controllers
                 try
                 {
                     await order.PutItemAsync(UnwrapOrderProduct(myOrder));
-                    return StatusCode(201);
+                    return Ok();
                 }
                 catch (Exception ex)
                 {
@@ -53,14 +53,14 @@ namespace NathanIanEcom.Controllers
         }
 
         [HttpDelete("api/orderProduct/[action]")]
-        public async Task<StatusCodeResult> DeleteOrderPrduct([FromBody] QueryOptions myInput)
+        public async Task<IActionResult> DeleteOrderPrduct([FromBody] QueryOptions myInput)
         {
             using (var context = new DynamoDBContext(CreateContext()))
             {
                 try
                 {
                     await context.DeleteAsync<OrderProduct>(myInput.PK, myInput.SK);
-                    return StatusCode(204);
+                    return Ok();
                 }
                 catch (Exception ex)
                 {
@@ -72,7 +72,7 @@ namespace NathanIanEcom.Controllers
         }
 
         [HttpPut("api/orderProduct/[action]")]
-        public async Task<StatusCodeResult> updateOrderProduct([FromBody] OrderProduct myInput)
+        public async Task<IActionResult> updateOrderProduct([FromBody] OrderProduct myInput)
         {
             using (AmazonDynamoDBClient context = CreateContext())
             {
@@ -90,7 +90,7 @@ namespace NathanIanEcom.Controllers
                     };
 
                     Document updatedOrderProduct = await orders.UpdateItemAsync(UnwrapOrderProduct(myInput), config);
-                    return StatusCode(200);
+                    return Ok();
                 }
                 catch (Exception e)
                 {

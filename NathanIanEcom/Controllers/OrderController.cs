@@ -34,7 +34,7 @@ namespace NathanIanEcom.Controllers
         /*Create Order */
 
         [HttpPost("/api/order/[action]")]
-        public async Task<StatusCodeResult> LoadOrder([FromBody] Order myOrder)
+        public async Task<IActionResult> LoadOrder([FromBody] Order myOrder)
         {
             using (var context = new DynamoDBContext(CreateContext()))
             {
@@ -42,11 +42,12 @@ namespace NathanIanEcom.Controllers
                 try
                 {
                     await order.PutItemAsync(UnwrapOrder(myOrder));
-                    return StatusCode(201);
+                    return Ok();
                 }
                 catch (Exception ex)
                 {
-                    return StatusCode(500);
+                    Console.WriteLine(ex.Message);
+                    return StatusCode(400);
                 }
 
             }
@@ -56,18 +57,19 @@ namespace NathanIanEcom.Controllers
         //delete order
 
         [HttpDelete("api/order/[action]")]
-        public async Task<StatusCodeResult> DeleteOrder([FromBody] QueryOptions myInput)
+        public async Task<IActionResult> DeleteOrder([FromBody] QueryOptions myInput)
         {
             using (var context = new DynamoDBContext(CreateContext()))
             {
                 try
                 {
                     await context.DeleteAsync<Order>(myInput.PK, myInput.SK);
-                    return StatusCode(204);
+                    return Ok();
                 }
                 catch (Exception ex)
                 {
-                    return StatusCode(500);
+                    Console.WriteLine(ex.Message);
+                    return StatusCode(400);
                 }
 
             }
@@ -75,7 +77,7 @@ namespace NathanIanEcom.Controllers
         }
 
         [HttpPut("api/order/[action]")]
-        public async Task<StatusCodeResult> UpdateOrder([FromBody] Order myInput)
+        public async Task<IActionResult> UpdateOrder([FromBody] Order myInput)
         {
             using (AmazonDynamoDBClient context = CreateContext())
             {
