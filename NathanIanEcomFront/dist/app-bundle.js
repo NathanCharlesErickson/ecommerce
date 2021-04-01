@@ -36,14 +36,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var bootstrap_dist_css_bootstrap_min_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! bootstrap/dist/css/bootstrap.min.css */ "./node_modules/bootstrap/dist/css/bootstrap.min.css");
-var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var bootstrap_dist_css_bootstrap_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! bootstrap/dist/css/bootstrap.min.css */ "./node_modules/bootstrap/dist/css/bootstrap.min.css");
 
 
 
 var Browse = function Browse() {
-  return /*#__PURE__*/React.createElement("p", null, "Browsing Page");
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    getProducts();
+  }, []);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Browsing Page");
 };
+
+function getProducts() {
+  fetch("https://localhost:5001/api/product/getAllProd", {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }).then(function (response) {
+    if (!response.ok) {
+      console.error('Failed to fetch. Code: ' + response.status + ', reason: ' + response.statusText);
+    } else {
+      console.log('Received response 200 OK');
+      response.json().then(function (data) {
+        console.log('received Serverless APP response...', data);
+      });
+    }
+  });
+}
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Browse);
 

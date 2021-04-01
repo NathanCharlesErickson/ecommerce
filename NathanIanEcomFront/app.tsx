@@ -7,7 +7,6 @@ import Account from './Components/Account';
 import Orders from './Components/Orders';
 import NavBar from './Components/NavBar';
 
-
 export class App extends React.Component {
     render() {
         return (
