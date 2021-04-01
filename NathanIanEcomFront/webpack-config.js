@@ -1,22 +1,17 @@
 module.exports = {
     devtool: 'source-map',
-    entry: "./app.tsx",
+    entry: "./App.tsx",
     mode: "development",
     output: {
         filename: "./app-bundle.js"
     },
     resolve: {
-        extensions: ['.Webpack.js', '.web.js', '.ts', '.js', '.jsx', '.tsx']
+        extensions: ['.Webpack.js', '.web.js', '.ts', '.js', '.jsx', '.tsx', '.css']
     },
     module: {
         rules: [
-            {
-                test: /\.tsx$/,
-                exclude: /(node_modules|bower_components)/,
-                use: {
-                    loader: 'ts-loader'
-                }
-            }
+            { test: /\.css$/, use: ['style-loader', 'css-loader'] },
+            { test: /\.(js|ts|jsx|tsx)$/, use: 'babel-loader'}
         ]
     }
 }

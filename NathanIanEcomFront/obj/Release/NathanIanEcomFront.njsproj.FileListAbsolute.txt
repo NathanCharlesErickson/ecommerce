@@ -1,0 +1,3 @@
+C:\Users\utili\source\repos\ecommerce\NathanIanEcomFront\obj\Release\NathanIanEcomFront.njsproj.CoreCompileInputs.cache
+C:\Users\utili\source\repos\ecommerce\NathanIanEcomFront\bin\Microsoft.NodejsTools.WebRole.dll
+C:\Users\utili\source\repos\ecommerce\NathanIanEcomFront\obj\Release\NathanIanEcomFront.njsprojAssemblyReference.cache

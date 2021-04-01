@@ -1,19 +1,27 @@
-declare var require: any
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Browse from './Components/Browse';
+import Cart from './Components/Cart';
+import Account from './Components/Account';
+import Orders from './Components/Orders';
+import NavBar from './Components/NavBar';
 
-var React = require('react');
-var ReactDOM = require('react-dom');
-var Router = require('react-router-dom')
-var Home = require('./compoents/Home.tsx')
 
-
-
-export class Hello extends React.Component {
+export class App extends React.Component {
     render() {
         return (
-
-            <h1> hello world </h1>
-            );
+            <Router>
+                <div>
+                    <NavBar />
+                    <Route path="/browse" component={Browse} />
+                    <Route path="/cart" component={Cart} />
+                    <Route path="/account" component={Account} />
+                    <Route path="/orders" component={Orders} />
+                </div>
+            </Router>
+        );
     }
 }
 
-ReactDOM.render(<Hello />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
