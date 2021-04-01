@@ -43,6 +43,11 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="App.tsx" />
+    <TypeScriptCompile Include="Components\Account.tsx" />
+    <TypeScriptCompile Include="Components\Browse.tsx" />
+    <TypeScriptCompile Include="Components\Cart.tsx" />
+    <TypeScriptCompile Include="Components\NavBar.tsx" />
+    <TypeScriptCompile Include="Components\Orders.tsx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="dist\" />

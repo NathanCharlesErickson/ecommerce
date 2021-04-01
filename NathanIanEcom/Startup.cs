@@ -38,6 +38,19 @@ namespace NathanIanEcom
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddCors(c =>
+            {
+
+                    c.AddDefaultPolicy(
+                        builder =>
+                        {
+                            builder
+                            .AllowAnyOrigin()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();                       
+                });
+        });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
@@ -53,6 +66,8 @@ namespace NathanIanEcom
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors();
 
             app.UseEndpoints(endpoints =>
             {
