@@ -1,18 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Product } from '../Models/Product';
+import 'regenerator-runtime/runtime'
 
 const Browse = () => {
-    const [products, setProducts] = useState([]);
+    const corn: Product = {
+        "ProductID": "p#corn", "Description": "Delicious corn", "ImageLink": "https://testlink.com", "Name": "Corn", "Price": "2.99", "Category": "Food"}
+    const [products, setProducts] = useState<Product>({
+        "ProductID": "p#corn", "Description": "Delicious corn", "ImageLink": "https://testlink.com", "Name": "Corn", "Price": "2.99", "Category": "Food"
+    });
 
-    useEffect(() => {
-        getProducts();
+    async function clickHandler() {
+        const productArray = await getProducts();
         console.log(products);
-    }, []);
+        setProducts(productArray[0]);
+        console.log(products);
+    }
     
     return (
         <div className="wrapper">
-            <p>Browsing Page</p>
-            <table class="table">
+            <button onClick={clickHandler}>Load Data</button>
+            <table className="table">
                 <thead>
                     <tr>
                         <th scope="col">Name</th>
@@ -21,37 +29,21 @@ const Browse = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {products.map(product =>
-                        <tr key={product.productID}>
-                            <td>{product.name}</td>
-                            <td>{product.description}</td>
-                            <td>${product.price}</td>
-                        </tr>)
-                    }
+                    
                 </tbody>
             </table>
         </div>
     )
 
-    function getProducts() {
-        fetch("https://localhost:5001/api/product/getAllProd",
+    async function getProducts(): Promise<Product[]> {
+        const response = await fetch("https://localhost:5001/api/product/getAllProd",
             {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            })
-            .then(response => {
-                if (!response.ok) {
-                    console.error('Failed to fetch. Code: ' + response.status + ', reason: ' + response.statusText);
-                } else {
-                    console.log('Received response 200 OK');
-                    response.json().then(data => {
-                        console.log('received Serverless APP response...', data);
-                        setProducts(data)
-                    })
-                }
-            })
+            });
+        return await response.json();
     }
 }
 

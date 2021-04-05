@@ -35,6 +35,9 @@
     <Content Include="dist\app-bundle.js" />
     <Content Include="dist\app-bundle.js.map" />
     <Content Include="index.html" />
+    <Content Include="Models\Product.ts">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="server.js" />
     <Content Include="package.json" />
     <Content Include="README.md" />
@@ -52,6 +55,7 @@
   <ItemGroup>
     <Folder Include="dist\" />
     <Folder Include="Components\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
   <ProjectExtensions>

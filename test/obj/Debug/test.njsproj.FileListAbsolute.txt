@@ -1,0 +1,3 @@
+C:\Users\utili\source\repos\ecommerce\test\obj\Debug\test.njsproj.CoreCompileInputs.cache
+C:\Users\utili\source\repos\ecommerce\test\bin\Microsoft.NodejsTools.WebRole.dll
+C:\Users\utili\source\repos\ecommerce\test\obj\Debug\test.njsprojAssemblyReference.cache
