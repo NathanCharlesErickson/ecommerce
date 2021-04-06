@@ -119,9 +119,14 @@ namespace NathanIanEcom.Controllers
                 
             }
 
+
         }
 
-       
+        [HttpPost("api/product/[action]")]
+        public String toUpper([FromBody] QueryOptions input)
+        {
+            return input.PK;
+        }
 
 
 
