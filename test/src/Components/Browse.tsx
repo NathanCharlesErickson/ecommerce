@@ -1,13 +1,8 @@
 import Product from '../Models/Product';
 import { useState } from 'react';
+import getProducts from '../Controllers/ProductController';
 
 const Browse = () => {
-    const corn: Product = {
-        "productID": "p#corn", "description": "Delicious corn", "imageLink": "https://testlink.com", "name": "Corn", "price": "2.99", "category": "Food"
-    }
-    const corn2: Product = {
-        "productID": "p#corn2", "description": "Delicious corn2", "imageLink": "https://testlink.com", "name": "Corn", "price": "3.99", "category": "Food"
-    }
     const [products, setProducts] = useState<Product[]>([]);
 
     async function clickHandler() {
@@ -39,17 +34,6 @@ const Browse = () => {
             </table>
         </div>
     )
-
-    async function getProducts(): Promise<Product[]> {
-        const response = await fetch("https://localhost:5001/api/product/getAllProd",
-            {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-        return await response.json();
-    }
 }
 
 export default Browse;
