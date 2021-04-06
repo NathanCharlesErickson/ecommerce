@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "H95wJtfUxEi04OPNV6/e7rsZiTh7usE38ohpeMFrypR1fjt4mW+qovK4J4er6YUU+4P1Nl6YOyR+7XUX2KJOfQ==",
+  "dgSpecHash": "ARTEX0HXTwSR8p732k+nNnZRAaV5qgjm1FmHvW1kwu/f6KipHXLln6nnWqjonxShf+CK5GPD6lXO8Mc6xr9z5A==",
   "success": true,
   "projectFilePath": "C:\\Users\\nerickson\\source\\repos\\NathanIanEcom\\NathanIanEcom\\NathanIanEcom.csproj",
   "expectedPackageFiles": [
@@ -29,25 +29,7 @@
     "C:\\Users\\nerickson\\.nuget\\packages\\microsoft.netcore.targets\\1.0.1\\microsoft.netcore.targets.1.0.1.nupkg.sha512",
     "C:\\Users\\nerickson\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
     "C:\\Users\\nerickson\\.nuget\\packages\\react.core\\5.2.11\\react.core.5.2.11.nupkg.sha512",
-    "C:\\Users\\nerickson\\.nuget\\packages\\runtime.any.system.collections\\4.0.11\\runtime.any.system.collections.4.0.11.nupkg.sha512",
-    "C:\\Users\\nerickson\\.nuget\\packages\\runtime.any.system.globalization\\4.0.11\\runtime.any.system.globalization.4.0.11.nupkg.sha512",
-    "C:\\Users\\nerickson\\.nuget\\packages\\runtime.any.system.io\\4.1.0\\runtime.any.system.io.4.1.0.nupkg.sha512",
-    "C:\\Users\\nerickson\\.nuget\\packages\\runtime.any.system.reflection\\4.1.0\\runtime.any.system.reflection.4.1.0.nupkg.sha512",
-    "C:\\Users\\nerickson\\.nuget\\packages\\runtime.any.system.reflection.extensions\\4.0.1\\runtime.any.system.reflection.extensions.4.0.1.nupkg.sha512",
-    "C:\\Users\\nerickson\\.nuget\\packages\\runtime.any.system.reflection.primitives\\4.0.1\\runtime.any.system.reflection.primitives.4.0.1.nupkg.sha512",
-    "C:\\Users\\nerickson\\.nuget\\packages\\runtime.any.system.resources.resourcemanager\\4.0.1\\runtime.any.system.resources.resourcemanager.4.0.1.nupkg.sha512",
-    "C:\\Users\\nerickson\\.nuget\\packages\\runtime.any.system.runtime\\4.1.0\\runtime.any.system.runtime.4.1.0.nupkg.sha512",
-    "C:\\Users\\nerickson\\.nuget\\packages\\runtime.any.system.runtime.handles\\4.0.1\\runtime.any.system.runtime.handles.4.0.1.nupkg.sha512",
-    "C:\\Users\\nerickson\\.nuget\\packages\\runtime.any.system.runtime.interopservices\\4.1.0\\runtime.any.system.runtime.interopservices.4.1.0.nupkg.sha512",
-    "C:\\Users\\nerickson\\.nuget\\packages\\runtime.any.system.text.encoding\\4.0.11\\runtime.any.system.text.encoding.4.0.11.nupkg.sha512",
-    "C:\\Users\\nerickson\\.nuget\\packages\\runtime.any.system.text.encoding.extensions\\4.0.11\\runtime.any.system.text.encoding.extensions.4.0.11.nupkg.sha512",
-    "C:\\Users\\nerickson\\.nuget\\packages\\runtime.any.system.threading.tasks\\4.0.11\\runtime.any.system.threading.tasks.4.0.11.nupkg.sha512",
     "C:\\Users\\nerickson\\.nuget\\packages\\runtime.native.system\\4.0.0\\runtime.native.system.4.0.0.nupkg.sha512",
-    "C:\\Users\\nerickson\\.nuget\\packages\\runtime.native.system.security.cryptography\\4.0.0\\runtime.native.system.security.cryptography.4.0.0.nupkg.sha512",
-    "C:\\Users\\nerickson\\.nuget\\packages\\runtime.unix.system.diagnostics.debug\\4.0.11\\runtime.unix.system.diagnostics.debug.4.0.11.nupkg.sha512",
-    "C:\\Users\\nerickson\\.nuget\\packages\\runtime.unix.system.io.filesystem\\4.0.1\\runtime.unix.system.io.filesystem.4.0.1.nupkg.sha512",
-    "C:\\Users\\nerickson\\.nuget\\packages\\runtime.unix.system.private.uri\\4.0.1\\runtime.unix.system.private.uri.4.0.1.nupkg.sha512",
-    "C:\\Users\\nerickson\\.nuget\\packages\\runtime.unix.system.runtime.extensions\\4.1.0\\runtime.unix.system.runtime.extensions.4.1.0.nupkg.sha512",
     "C:\\Users\\nerickson\\.nuget\\packages\\system.appcontext\\4.1.0\\system.appcontext.4.1.0.nupkg.sha512",
     "C:\\Users\\nerickson\\.nuget\\packages\\system.collections\\4.0.11\\system.collections.4.0.11.nupkg.sha512",
     "C:\\Users\\nerickson\\.nuget\\packages\\system.diagnostics.debug\\4.0.11\\system.diagnostics.debug.4.0.11.nupkg.sha512",
@@ -61,7 +43,6 @@
     "C:\\Users\\nerickson\\.nuget\\packages\\system.linq.expressions\\4.1.0\\system.linq.expressions.4.1.0.nupkg.sha512",
     "C:\\Users\\nerickson\\.nuget\\packages\\system.memory\\4.5.0\\system.memory.4.5.0.nupkg.sha512",
     "C:\\Users\\nerickson\\.nuget\\packages\\system.objectmodel\\4.0.12\\system.objectmodel.4.0.12.nupkg.sha512",
-    "C:\\Users\\nerickson\\.nuget\\packages\\system.private.uri\\4.0.1\\system.private.uri.4.0.1.nupkg.sha512",
     "C:\\Users\\nerickson\\.nuget\\packages\\system.reflection\\4.1.0\\system.reflection.4.1.0.nupkg.sha512",
     "C:\\Users\\nerickson\\.nuget\\packages\\system.reflection.emit\\4.0.1\\system.reflection.emit.4.0.1.nupkg.sha512",
     "C:\\Users\\nerickson\\.nuget\\packages\\system.reflection.emit.ilgeneration\\4.0.1\\system.reflection.emit.ilgeneration.4.0.1.nupkg.sha512",
@@ -77,10 +58,8 @@
     "C:\\Users\\nerickson\\.nuget\\packages\\system.runtime.interopservices\\4.1.0\\system.runtime.interopservices.4.1.0.nupkg.sha512",
     "C:\\Users\\nerickson\\.nuget\\packages\\system.runtime.interopservices.runtimeinformation\\4.0.0\\system.runtime.interopservices.runtimeinformation.4.0.0.nupkg.sha512",
     "C:\\Users\\nerickson\\.nuget\\packages\\system.text.encoding\\4.0.11\\system.text.encoding.4.0.11.nupkg.sha512",
-    "C:\\Users\\nerickson\\.nuget\\packages\\system.text.encoding.extensions\\4.0.11\\system.text.encoding.extensions.4.0.11.nupkg.sha512",
     "C:\\Users\\nerickson\\.nuget\\packages\\system.threading\\4.0.11\\system.threading.4.0.11.nupkg.sha512",
-    "C:\\Users\\nerickson\\.nuget\\packages\\system.threading.tasks\\4.0.11\\system.threading.tasks.4.0.11.nupkg.sha512",
-    "C:\\Users\\nerickson\\.nuget\\packages\\microsoft.netcore.app.host.linux-x64\\3.1.12\\microsoft.netcore.app.host.linux-x64.3.1.12.nupkg.sha512"
+    "C:\\Users\\nerickson\\.nuget\\packages\\system.threading.tasks\\4.0.11\\system.threading.tasks.4.0.11.nupkg.sha512"
   ],
   "logs": []
 }

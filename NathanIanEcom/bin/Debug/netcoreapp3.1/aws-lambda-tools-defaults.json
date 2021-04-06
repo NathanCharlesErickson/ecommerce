@@ -14,5 +14,5 @@
     "template"      : "serverless.template",
     "template-parameters" : "",
     "s3-bucket"           : "linfield.nathanian",
-    "stack-name"          : "ecom"
+    "stack-name"          : "nathanIanECom"
 }
