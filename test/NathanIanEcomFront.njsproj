@@ -62,6 +62,15 @@
     <Folder Include="src\Models\" />
     <Folder Include="src\Controllers\" />
   </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="src\Components\Account.tsx" />
+    <TypeScriptCompile Include="src\Components\Browse.tsx" />
+    <TypeScriptCompile Include="src\Components\Cart.tsx" />
+    <TypeScriptCompile Include="src\Components\NavBar.tsx" />
+    <TypeScriptCompile Include="src\Components\Orders.tsx" />
+    <TypeScriptCompile Include="src\Controllers\ProductController.ts" />
+    <TypeScriptCompile Include="src\Models\Product.ts" />
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
   <ProjectExtensions>
     <VisualStudio>

@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\utili\\source\\repos\\ecommerce\\NathanIanEcom\\NathanIanEcom.csproj": {}
+    "C:\\Users\\nerickson\\source\\repos\\NathanIanEcom\\NathanIanEcom\\NathanIanEcom.csproj": {}
   },
   "projects": {
-    "C:\\Users\\utili\\source\\repos\\ecommerce\\NathanIanEcom\\NathanIanEcom.csproj": {
+    "C:\\Users\\nerickson\\source\\repos\\NathanIanEcom\\NathanIanEcom\\NathanIanEcom.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\utili\\source\\repos\\ecommerce\\NathanIanEcom\\NathanIanEcom.csproj",
+        "projectUniqueName": "C:\\Users\\nerickson\\source\\repos\\NathanIanEcom\\NathanIanEcom\\NathanIanEcom.csproj",
         "projectName": "NathanIanEcom",
-        "projectPath": "C:\\Users\\utili\\source\\repos\\ecommerce\\NathanIanEcom\\NathanIanEcom.csproj",
-        "packagesPath": "C:\\Users\\utili\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\utili\\source\\repos\\ecommerce\\NathanIanEcom\\obj\\",
+        "projectPath": "C:\\Users\\nerickson\\source\\repos\\NathanIanEcom\\NathanIanEcom\\NathanIanEcom.csproj",
+        "packagesPath": "C:\\Users\\nerickson\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\nerickson\\source\\repos\\NathanIanEcom\\NathanIanEcom\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\utili\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\nerickson\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

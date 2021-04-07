@@ -4,6 +4,10 @@ import Browse from './Components/Browse'
 import Cart from './Components/Cart'
 import Account from './Components/Account'
 import Orders from './Components/Orders'
+import React, { MouseEvent } from 'react';
+
+
+
 
 function App() {
   return (

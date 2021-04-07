@@ -11,4 +11,6 @@ async function getProducts(): Promise<Product[]> {
     return await response.json();
 }
 
+
+
 export default getProducts;
