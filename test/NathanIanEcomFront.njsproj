@@ -46,7 +46,7 @@
     <Content Include="src\App.css" />
     <Content Include="src\App.js" />
     <Content Include="src\App.test.js" />
-    <Content Include="src\Controllers\ProductController.js">
+    <Content Include="src\appsettings.json">
       <SubType>Code</SubType>
     </Content>
     <Content Include="src\index.css" />
