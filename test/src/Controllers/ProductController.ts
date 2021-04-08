@@ -1,13 +1,17 @@
 import Product from '../Models/Product';
+import config from '../appsettings.json';
+
+var apiPrefix = config.isDev ? config.devURL : config.releaseURL;
 
 async function getProducts(): Promise<Product[]> {
-    const response = await fetch("https://78bih5lho6.execute-api.us-west-2.amazonaws.com/Prod/api/product/getAllProd",
+    const response = await fetch(apiPrefix + "api/product/getAllProd",
         {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
             }
         });
+    console.log(apiPrefix);
     return await response.json();
 }
 

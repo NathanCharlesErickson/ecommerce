@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import { useState } from 'react'
 
 const Account = () => {
     const [counter, setCounter] = useState<number>(5);
