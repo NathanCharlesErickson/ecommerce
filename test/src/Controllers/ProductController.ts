@@ -12,5 +12,5 @@ async function getProducts(): Promise<Product[]> {
 }
 
 
-
 export default getProducts;
+

@@ -21,19 +21,11 @@ const Browse = () => {
         console.log(products);
     }
 
-    function storeCookieBuyNow(productId: String) {
-        var holder = new productJSON(productId);
-        localStorage.setItem("mycart", JSON.stringify(holder))
-        console.log(localStorage.getItem("mycart"));
-        return "Cart";
-    }
-
     function storeCookieAddToCart(productId: String) {
         var holder = new productJSON(productId);
+        localStorage.removeItem("mycart")
         localStorage.setItem("mycart", JSON.stringify(holder))
-        console.log(localStorage.getItem("mycart"));
-        
-        
+               
    
     }
 
