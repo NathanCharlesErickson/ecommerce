@@ -11,6 +11,10 @@ namespace NathanIanEcom.Models
         public String? SK { get; set; }
         public String? ProductID { get; set; }
         public String? Username { get; set; }
+        public String ? Description { get; set; }
+        public String? Category { get; set; }
+        public String? Price { get; set; }
+        public String? Name { get; set; }
 
     }
 }

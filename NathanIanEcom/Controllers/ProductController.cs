@@ -122,11 +122,112 @@ namespace NathanIanEcom.Controllers
 
         }
 
-        [HttpPost("api/product/[action]")]
-        public String toUpper([FromBody] QueryOptions input)
+        [HttpPost("/api/product/[action]")]
+        public async Task<List<Product>> GetProductByDescription([FromBody] QueryOptions myInput)
         {
-            return input.PK;
+            using (var context = new DynamoDBContext(CreateContext()))
+            {
+                Expression expr = new Expression();
+                expr.ExpressionStatement = "Description = :Description";
+                expr.ExpressionAttributeValues[":Description"] = myInput.Description;
+
+                QueryOperationConfig config = new QueryOperationConfig()
+                {
+                    KeyExpression = expr,
+                    IndexName = "Description-index",
+                    AttributesToGet = new List<string> { "ProductID", "Category", "Description", "ImageLink", "Name", "Price" },
+                    Select = SelectValues.SpecificAttributes
+
+                };
+
+                var associatedProducts = await context.FromQueryAsync<Product>(config).GetNextSetAsync();
+
+                return associatedProducts;
+            }
+
         }
+
+        [HttpPost("/api/product/[action]")]
+        public async Task<List<Product>> GetProductByCategory([FromBody] QueryOptions myInput)
+        {
+            using (var context = new DynamoDBContext(CreateContext()))
+            {
+                Expression expr = new Expression();
+                expr.ExpressionStatement = "Category = :Category";
+                expr.ExpressionAttributeValues[":Category"] = myInput.Category;
+
+                QueryOperationConfig config = new QueryOperationConfig()
+                {
+                    KeyExpression = expr,
+                    IndexName = "Category-index",
+                    AttributesToGet = new List<string> { "ProductID", "Category", "Description", "ImageLink", "Name", "Price" },
+                    Select = SelectValues.SpecificAttributes
+
+                };
+
+                var associatedProducts = await context.FromQueryAsync<Product>(config).GetNextSetAsync();
+
+                return associatedProducts;
+            }
+
+        }
+
+        [HttpPost("/api/product/[action]")]
+        public async Task<List<Product>> GetProductByPrice([FromBody] QueryOptions myInput)
+        {
+            using (var context = new DynamoDBContext(CreateContext()))
+            {
+                Expression expr = new Expression();
+                expr.ExpressionStatement = "Price = :Price";
+                expr.ExpressionAttributeValues[":Price"] = myInput.Price;
+
+                QueryOperationConfig config = new QueryOperationConfig()
+                {
+                    KeyExpression = expr,
+                    IndexName = "Price-index",
+                    AttributesToGet = new List<string> { "ProductID", "Category", "Description", "ImageLink", "Name", "Price" },
+                    Select = SelectValues.SpecificAttributes
+
+                };
+
+                var associatedProducts = await context.FromQueryAsync<Product>(config).GetNextSetAsync();
+
+                return associatedProducts;
+            }
+
+        }
+
+        [HttpPost("/api/product/[action]")]
+        public async Task<List<Product>> GetProductByName([FromBody] QueryOptions myInput)
+        {
+           
+            using (var context = new DynamoDBContext(CreateContext()))
+            {
+                Expression expr = new Expression();
+                expr.ExpressionStatement = "#N = :N";
+                expr.ExpressionAttributeValues[":N"] = myInput.Name;
+
+                expr.ExpressionAttributeNames = new Dictionary<string, string> { { "#N", "Name" } };
+
+                QueryOperationConfig config = new QueryOperationConfig()
+                {
+                    KeyExpression = expr,
+                    IndexName = "Name-index",
+                    AttributesToGet = new List<string> { "ProductID", "Category", "Description", "ImageLink", "Name", "Price" },
+                    Select = SelectValues.SpecificAttributes
+
+                };
+
+                var associatedProducts = await context.FromQueryAsync<Product>(config).GetNextSetAsync();
+
+                return associatedProducts;
+            }
+
+        }
+
+
+
+
 
 
 
