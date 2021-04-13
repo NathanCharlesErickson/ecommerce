@@ -1,22 +1,25 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import getProductById from '../Controllers/GetProductByID';
 import Product from '../Models/Product';
-
-const myTest = { helo: "hi" };
-
-function myCookie() {
-    var data = {
-        ProductID : "h"
-    }
-    let test = JSON.stringify(localStorage.getItem("mycart"));
-    data = JSON.parse(test)
-    console.log(data)
-}
 
 const Cart = () => {
 
     const [products, setProducts] = useState<Product[]>([]);
+    const [cart, setCart] = useState<Partial<Product>[]>([]);
+
+    function myCookie() {
+        console.log(cart);
+    }
+
+    function loadCart() {
+        var retrievedCartString = localStorage.getItem("myEcommerceCart");
+        retrievedCartString ? setCart(JSON.parse(retrievedCartString)) : setCart([]);
+    }
+
+    useEffect(() => {
+        loadCart();
+    }, []);
 
     async function clickHandler() {
         const productArray: Product[] = await getProductById();

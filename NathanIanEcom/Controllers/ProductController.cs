@@ -122,6 +122,8 @@ namespace NathanIanEcom.Controllers
 
         }
 
+        // These filtered get queries should be combined into one function, i.e. GetProductsSorted that just checks what options to unwrap
+        // Lessens code maintenance and makes combined filtering easier down the road. - Ian 04/13/2021
         [HttpPost("/api/product/[action]")]
         public async Task<List<Product>> GetProductByDescription([FromBody] QueryOptions myInput)
         {
