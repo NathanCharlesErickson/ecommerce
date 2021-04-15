@@ -1,6 +1,0 @@
-C:\Users\utili\source\repos\ecommerce\NathanIanEcomFront\obj\Debug\NathanIanEcomFront.njsproj.CoreCompileInputs.cache
-C:\Users\utili\source\repos\ecommerce\NathanIanEcomFront\bin\Microsoft.NodejsTools.WebRole.dll
-C:\Users\nerickson\source\repos\NathanIanEcom\NathanIanEcomFront\obj\Debug\NathanIanEcomFront.njsprojAssemblyReference.cache
-C:\Users\nerickson\source\repos\NathanIanEcom\NathanIanEcomFront\obj\Debug\NathanIanEcomFront.njsproj.CoreCompileInputs.cache
-C:\Users\nerickson\source\repos\NathanIanEcom\NathanIanEcomFront\bin\Microsoft.NodejsTools.WebRole.dll
-C:\Users\utili\source\repos\ecommerce\NathanIanEcomFront\obj\Debug\NathanIanEcomFront.njsprojAssemblyReference.cache
