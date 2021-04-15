@@ -71,13 +71,9 @@
     <TypeScriptCompile Include="src\Components\SearchResult.tsx">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Controllers\GetProductBy.ts">
+    <TypeScriptCompile Include="src\Controllers\ProductControllerTest.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Controllers\GetProductByID.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Controllers\ProductController.ts" />
     <TypeScriptCompile Include="src\Models\Product.ts" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />

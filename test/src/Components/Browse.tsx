@@ -1,6 +1,6 @@
 import Product from '../Models/Product';
 import { Component, useState, useEffect } from 'react';
-import getProducts from '../Controllers/ProductController';
+import { getProducts } from '../Controllers/ProductControllerTest';
 import { Redirect } from 'react-router';
 
 const Browse = () => {

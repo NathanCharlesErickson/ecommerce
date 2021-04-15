@@ -1,7 +1,7 @@
 import Product from '../Models/Product';
 import { Component, useState, useEffect } from 'react';
 import { Redirect } from 'react-router';
-import getProductBy from '../Controllers/GetProductBy';
+import { getProductBy } from '../Controllers/ProductControllerTest';
 
 const SearchResult = () => {
     const [products, setProducts] = useState<Product[]>([]);

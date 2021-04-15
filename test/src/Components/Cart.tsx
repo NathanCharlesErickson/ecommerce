@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState, useEffect } from 'react';
-import getProductById from '../Controllers/GetProductByID';
+import { getProductById } from '../Controllers/ProductControllerTest';
 import Product from '../Models/Product';
 
 const Cart = () => {
