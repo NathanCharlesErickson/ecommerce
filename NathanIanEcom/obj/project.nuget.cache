@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "pORBLA2csqbLGHxL+E06Ae7ljX48snWIxGvkNPIQYpXBZDJ3iPEW/FMgS0nDlf2+8EiAbv8xDryv11g+aR31Sw==",
+  "dgSpecHash": "Kl9E/W/eqaXgYpcrGHvC/vFW3t5dpXwtxweM2m86s+kMXaCnBwq/XIKExOiSP5BwzFRt1KKUO4wKSqomVRqfoA==",
   "success": true,
   "projectFilePath": "C:\\Users\\utili\\source\\repos\\ecommerce\\NathanIanEcom\\NathanIanEcom.csproj",
   "expectedPackageFiles": [
@@ -29,7 +29,25 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.targets\\1.0.1\\microsoft.netcore.targets.1.0.1.nupkg.sha512",
     "C:\\Users\\utili\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
     "C:\\Users\\utili\\.nuget\\packages\\react.core\\5.2.11\\react.core.5.2.11.nupkg.sha512",
+    "C:\\Users\\utili\\.nuget\\packages\\runtime.any.system.collections\\4.0.11\\runtime.any.system.collections.4.0.11.nupkg.sha512",
+    "C:\\Users\\utili\\.nuget\\packages\\runtime.any.system.globalization\\4.0.11\\runtime.any.system.globalization.4.0.11.nupkg.sha512",
+    "C:\\Users\\utili\\.nuget\\packages\\runtime.any.system.io\\4.1.0\\runtime.any.system.io.4.1.0.nupkg.sha512",
+    "C:\\Users\\utili\\.nuget\\packages\\runtime.any.system.reflection\\4.1.0\\runtime.any.system.reflection.4.1.0.nupkg.sha512",
+    "C:\\Users\\utili\\.nuget\\packages\\runtime.any.system.reflection.extensions\\4.0.1\\runtime.any.system.reflection.extensions.4.0.1.nupkg.sha512",
+    "C:\\Users\\utili\\.nuget\\packages\\runtime.any.system.reflection.primitives\\4.0.1\\runtime.any.system.reflection.primitives.4.0.1.nupkg.sha512",
+    "C:\\Users\\utili\\.nuget\\packages\\runtime.any.system.resources.resourcemanager\\4.0.1\\runtime.any.system.resources.resourcemanager.4.0.1.nupkg.sha512",
+    "C:\\Users\\utili\\.nuget\\packages\\runtime.any.system.runtime\\4.1.0\\runtime.any.system.runtime.4.1.0.nupkg.sha512",
+    "C:\\Users\\utili\\.nuget\\packages\\runtime.any.system.runtime.handles\\4.0.1\\runtime.any.system.runtime.handles.4.0.1.nupkg.sha512",
+    "C:\\Users\\utili\\.nuget\\packages\\runtime.any.system.runtime.interopservices\\4.1.0\\runtime.any.system.runtime.interopservices.4.1.0.nupkg.sha512",
+    "C:\\Users\\utili\\.nuget\\packages\\runtime.any.system.text.encoding\\4.0.11\\runtime.any.system.text.encoding.4.0.11.nupkg.sha512",
+    "C:\\Users\\utili\\.nuget\\packages\\runtime.any.system.text.encoding.extensions\\4.0.11\\runtime.any.system.text.encoding.extensions.4.0.11.nupkg.sha512",
+    "C:\\Users\\utili\\.nuget\\packages\\runtime.any.system.threading.tasks\\4.0.11\\runtime.any.system.threading.tasks.4.0.11.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\runtime.native.system\\4.0.0\\runtime.native.system.4.0.0.nupkg.sha512",
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\runtime.native.system.security.cryptography\\4.0.0\\runtime.native.system.security.cryptography.4.0.0.nupkg.sha512",
+    "C:\\Users\\utili\\.nuget\\packages\\runtime.unix.system.diagnostics.debug\\4.0.11\\runtime.unix.system.diagnostics.debug.4.0.11.nupkg.sha512",
+    "C:\\Users\\utili\\.nuget\\packages\\runtime.unix.system.io.filesystem\\4.0.1\\runtime.unix.system.io.filesystem.4.0.1.nupkg.sha512",
+    "C:\\Users\\utili\\.nuget\\packages\\runtime.unix.system.private.uri\\4.0.1\\runtime.unix.system.private.uri.4.0.1.nupkg.sha512",
+    "C:\\Users\\utili\\.nuget\\packages\\runtime.unix.system.runtime.extensions\\4.1.0\\runtime.unix.system.runtime.extensions.4.1.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.appcontext\\4.1.0\\system.appcontext.4.1.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.collections\\4.0.11\\system.collections.4.0.11.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.diagnostics.debug\\4.0.11\\system.diagnostics.debug.4.0.11.nupkg.sha512",
@@ -43,6 +61,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.linq.expressions\\4.1.0\\system.linq.expressions.4.1.0.nupkg.sha512",
     "C:\\Users\\utili\\.nuget\\packages\\system.memory\\4.5.0\\system.memory.4.5.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.objectmodel\\4.0.12\\system.objectmodel.4.0.12.nupkg.sha512",
+    "C:\\Users\\utili\\.nuget\\packages\\system.private.uri\\4.0.1\\system.private.uri.4.0.1.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.reflection\\4.1.0\\system.reflection.4.1.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.reflection.emit\\4.0.1\\system.reflection.emit.4.0.1.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.reflection.emit.ilgeneration\\4.0.1\\system.reflection.emit.ilgeneration.4.0.1.nupkg.sha512",
@@ -58,8 +77,10 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.runtime.interopservices\\4.1.0\\system.runtime.interopservices.4.1.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.runtime.interopservices.runtimeinformation\\4.0.0\\system.runtime.interopservices.runtimeinformation.4.0.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.text.encoding\\4.0.11\\system.text.encoding.4.0.11.nupkg.sha512",
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.text.encoding.extensions\\4.0.11\\system.text.encoding.extensions.4.0.11.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.threading\\4.0.11\\system.threading.4.0.11.nupkg.sha512",
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.threading.tasks\\4.0.11\\system.threading.tasks.4.0.11.nupkg.sha512"
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.threading.tasks\\4.0.11\\system.threading.tasks.4.0.11.nupkg.sha512",
+    "C:\\Users\\utili\\.nuget\\packages\\microsoft.netcore.app.host.linux-x64\\3.1.12\\microsoft.netcore.app.host.linux-x64.3.1.12.nupkg.sha512"
   ],
   "logs": []
 }

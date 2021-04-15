@@ -15,6 +15,7 @@ namespace NathanIanEcom.Models
         public String? Category { get; set; }
         public String? Price { get; set; }
         public String? Name { get; set; }
+        public String[]? IDs { get; set; }
 
     }
 }

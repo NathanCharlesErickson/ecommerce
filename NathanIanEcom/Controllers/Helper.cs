@@ -150,7 +150,19 @@ namespace NathanIanEcom.Controllers
 
         }
 
-       
+        protected Product WrapProduct(Document item)
+        {
+            Product myProd = new Product();
+            myProd.ProductID = item["ProductID"];
+            myProd.Name = item["Name"];
+            myProd.Description = item["Description"];
+            myProd.Price = item["Price"];
+            myProd.ImageLink = item["ImageLink"];
+
+            return myProd;
+
+        }
+
         protected Dictionary<string, AttributeValue> ProductDictionary(Product product)
         {
             Dictionary<string, AttributeValue> prodDic = new Dictionary<string, AttributeValue>();

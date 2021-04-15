@@ -200,6 +200,32 @@ namespace NathanIanEcom.Controllers
 
         }
 
+        [HttpPost("/api/product/[action]")]
+        public async Task<List<Product>> GetProductsByIDs([FromBody] QueryOptions myInput)
+        {
+            using (var context = new DynamoDBContext(CreateContext()))
+            {
+                Table products = Table.LoadTable(CreateContext(), "IanNathanProducts");
+                var batchGet = products.CreateBatchGet();
+
+                foreach(String id in myInput.IDs)
+                {
+                    batchGet.AddKey(id);
+                }
+
+                await batchGet.ExecuteAsync();
+
+                List<Product> retProducts = new List<Product>();
+                foreach(Document doc in batchGet.Results)
+                {
+                    retProducts.Add(WrapProduct(doc));
+                }
+                
+                return retProducts;
+            }
+
+        }
+
 
     }
 

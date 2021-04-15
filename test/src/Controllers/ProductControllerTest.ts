@@ -1,4 +1,5 @@
 import Product from '../Models/Product';
+import QueryOptions from '../Models/QueryOptions';
 import config from '../appsettings.json';
 
 var apiPrefix = config.isDev ? config.devURL : config.releaseURL;
@@ -11,7 +12,18 @@ export async function getProducts(): Promise<Product[]> {
                 'Content-Type': 'application/json'
             }
         });
-    console.log(apiPrefix);
+    return await response.json();
+}
+
+export async function getProductsByIDs(myInput: QueryOptions): Promise<Product[]> {
+    const response = await fetch(apiPrefix + "api/product/getProductsByIDs",
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(myInput)
+        });
     return await response.json();
 }
 
