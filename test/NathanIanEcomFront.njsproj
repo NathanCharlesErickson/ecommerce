@@ -68,6 +68,12 @@
     <TypeScriptCompile Include="src\Components\Cart.tsx" />
     <TypeScriptCompile Include="src\Components\NavBar.tsx" />
     <TypeScriptCompile Include="src\Components\Orders.tsx" />
+    <TypeScriptCompile Include="src\Components\SearchResult.tsx">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Controllers\GetProductBy.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="src\Controllers\GetProductByID.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>

@@ -5,6 +5,7 @@ import Cart from './Components/Cart'
 import Account from './Components/Account'
 import Orders from './Components/Orders'
 import React, { MouseEvent } from 'react';
+import SearchResult from './Components/SearchResult';
 
 
 
@@ -18,6 +19,7 @@ function App() {
               <Route path="/cart" component={Cart} />
               <Route path="/account" component={Account} />
               <Route path="/orders" component={Orders} />
+              <Route path="/searchresult" component={SearchResult} />
           </Router>
     </div>
   );

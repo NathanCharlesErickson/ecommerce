@@ -1,8 +1,7 @@
-﻿using Amazon;
+﻿
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2.DocumentModel;
-using Amazon.DynamoDBv2.Model;
 using Microsoft.AspNetCore.Mvc;
 using NathanIanEcom.Models;
 using System;
@@ -150,92 +149,56 @@ namespace NathanIanEcom.Controllers
         }
 
         [HttpPost("/api/product/[action]")]
-        public async Task<List<Product>> GetProductByCategory([FromBody] QueryOptions myInput)
+        public async Task<List<Product>> GetProductBy([FromBody] QueryOptions myInput)
         {
             using (var context = new DynamoDBContext(CreateContext()))
             {
-                Expression expr = new Expression();
-                expr.ExpressionStatement = "Category = :Category";
-                expr.ExpressionAttributeValues[":Category"] = myInput.Category;
-
-                QueryOperationConfig config = new QueryOperationConfig()
+                if(myInput.Price != null)
                 {
-                    KeyExpression = expr,
-                    IndexName = "Category-index",
-                    AttributesToGet = new List<string> { "ProductID", "Category", "Description", "ImageLink", "Name", "Price" },
-                    Select = SelectValues.SpecificAttributes
+                    Expression exprPrice = new Expression();
+                    exprPrice.ExpressionStatement = "Price = :Price";
+                    exprPrice.ExpressionAttributeValues[":Price"] = myInput.Price;
 
-                };
+                    QueryOperationConfig configPrice = new QueryOperationConfig()
+                    {
+                        KeyExpression = exprPrice,
+                        IndexName = "Price-index",
+                        AttributesToGet = new List<string> { "ProductID", "Category", "Description", "ImageLink", "Name", "Price" },
+                        Select = SelectValues.SpecificAttributes
 
-                var associatedProducts = await context.FromQueryAsync<Product>(config).GetNextSetAsync();
+                    };
 
-                return associatedProducts;
+                    var associatedProductsPrice = await context.FromQueryAsync<Product>(configPrice).GetNextSetAsync();
+
+                    return associatedProductsPrice;
+                }
+                else
+                {
+                    Expression expr = new Expression();
+                    expr.ExpressionStatement = "#N = :N";
+                    expr.ExpressionAttributeValues[":N"] = myInput.Name;
+
+                    expr.ExpressionAttributeNames = new Dictionary<string, string> { { "#N", "Name" } };
+
+                    QueryOperationConfig config = new QueryOperationConfig()
+                    {
+                        KeyExpression = expr,
+                        IndexName = "Name-index",
+                        AttributesToGet = new List<string> { "ProductID", "Category", "Description", "ImageLink", "Name", "Price" },
+                        Select = SelectValues.SpecificAttributes
+
+                    };
+
+                    var associatedProducts = await context.FromQueryAsync<Product>(config).GetNextSetAsync();
+                    return associatedProducts;
+
+                }
+
+
             }
+               
 
         }
-
-        [HttpPost("/api/product/[action]")]
-        public async Task<List<Product>> GetProductByPrice([FromBody] QueryOptions myInput)
-        {
-            using (var context = new DynamoDBContext(CreateContext()))
-            {
-                Expression expr = new Expression();
-                expr.ExpressionStatement = "Price = :Price";
-                expr.ExpressionAttributeValues[":Price"] = myInput.Price;
-
-                QueryOperationConfig config = new QueryOperationConfig()
-                {
-                    KeyExpression = expr,
-                    IndexName = "Price-index",
-                    AttributesToGet = new List<string> { "ProductID", "Category", "Description", "ImageLink", "Name", "Price" },
-                    Select = SelectValues.SpecificAttributes
-
-                };
-
-                var associatedProducts = await context.FromQueryAsync<Product>(config).GetNextSetAsync();
-
-                return associatedProducts;
-            }
-
-        }
-
-        [HttpPost("/api/product/[action]")]
-        public async Task<List<Product>> GetProductByName([FromBody] QueryOptions myInput)
-        {
-           
-            using (var context = new DynamoDBContext(CreateContext()))
-            {
-                Expression expr = new Expression();
-                expr.ExpressionStatement = "#N = :N";
-                expr.ExpressionAttributeValues[":N"] = myInput.Name;
-
-                expr.ExpressionAttributeNames = new Dictionary<string, string> { { "#N", "Name" } };
-
-                QueryOperationConfig config = new QueryOperationConfig()
-                {
-                    KeyExpression = expr,
-                    IndexName = "Name-index",
-                    AttributesToGet = new List<string> { "ProductID", "Category", "Description", "ImageLink", "Name", "Price" },
-                    Select = SelectValues.SpecificAttributes
-
-                };
-
-                var associatedProducts = await context.FromQueryAsync<Product>(config).GetNextSetAsync();
-
-                return associatedProducts;
-            }
-
-        }
-
-
-
-
-
-
-
-
-
-
 
 
     }
