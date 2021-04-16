@@ -1,7 +1,8 @@
 import Product from '../Models/Product';
-import { Component, useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { getProducts } from '../Controllers/ProductControllerTest';
-import { Redirect } from 'react-router';
+import Loading from './Loading';
+
 
 const Browse = () => {
     const [products, setProducts] = useState<Product[]>([]);
@@ -45,8 +46,6 @@ const Browse = () => {
 
     return (
         <div className="wrapper">
-            <button onClick={printProducts}>Current Products Value</button>
-            <button onClick={printCart}>Current Cart Value</button>
             <table className="table">
                 <thead>
                     <tr>
@@ -58,20 +57,23 @@ const Browse = () => {
                         <th scope="col">Add to Cart</th>
                     </tr>
                 </thead>
-                <tbody>
-                    {products.map(product => (
-                        <tr key={product.productID}>
-                            <td key={'Image' + product.productID}> <img src={product.imageLink} className="img-thumbnail" width="200" height="100"/>  </td>
-                            <td key={'Name' + product.productID}>{product.name}</td>
-                            <td key={'Description' + product.productID}>{product.description}</td>
-                            <td key={'Price' + product.productID}>{product.price}</td>
-                            <td key={'Buy Now' + product.productID}> <a className="btn btn-success" href="/cart" onClick={() => storeCookieAddToCart({ productID: product.productID })} role="button"> Buy Now</a> </td>
-                            <td key={'Add to Cart' + product.productID}>  <a className="btn btn-danger" onClick={() => storeCookieAddToCart({ productID: product.productID })} role="button"> Add to Cart</a> </td>
+                {products.length > 0 &&
+                    <tbody>
+                        {products.map(product => (
+                            <tr key={product.productID}>
+                                <td key={'Image' + product.productID}> <img src={product.imageLink} className="img-thumbnail" width="200" height="100" />  </td>
+                                <td key={'Name' + product.productID}>{product.name}</td>
+                                <td key={'Description' + product.productID}>{product.description}</td>
+                                <td key={'Price' + product.productID}>{product.price}</td>
+                                <td key={'Buy Now' + product.productID}> <a className="btn btn-success" href="/cart" onClick={() => storeCookieAddToCart({ productID: product.productID })} role="button"> Buy Now</a> </td>
+                                <td key={'Add to Cart' + product.productID}>  <a className="btn btn-danger" onClick={() => storeCookieAddToCart({ productID: product.productID })} role="button"> Add to Cart</a> </td>
 
-                        </tr>
-                    ))}
-                </tbody>
+                            </tr>
+                        ))}
+                    </tbody>
+                }
             </table>
+            {!(products.length > 0) && <Loading />}
         </div>
     )
 }

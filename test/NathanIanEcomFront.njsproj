@@ -53,6 +53,7 @@
     <Content Include="src\index.js" />
     <Content Include="src\logo.svg" />
     <Content Include="src\reportWebVitals.js" />
+    <Content Include="src\Resources\Loading.gif" />
     <Content Include="src\setupTests.js" />
   </ItemGroup>
   <ItemGroup>
@@ -61,11 +62,15 @@
     <Folder Include="src\Components\" />
     <Folder Include="src\Models\" />
     <Folder Include="src\Controllers\" />
+    <Folder Include="src\Resources\" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="src\Components\Account.tsx" />
     <TypeScriptCompile Include="src\Components\Browse.tsx" />
     <TypeScriptCompile Include="src\Components\Cart.tsx" />
+    <TypeScriptCompile Include="src\Components\Loading.tsx">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="src\Components\NavBar.tsx" />
     <TypeScriptCompile Include="src\Components\Orders.tsx" />
     <TypeScriptCompile Include="src\Components\SearchResult.tsx">
