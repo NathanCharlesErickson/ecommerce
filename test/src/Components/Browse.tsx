@@ -1,4 +1,5 @@
 import Product from '../Models/Product';
+import OrderProduct from '../Models/OrderProduct';
 import { useState, useEffect, useRef } from 'react';
 import { getProducts } from '../Controllers/ProductControllerTest';
 import Loading from './Loading';
@@ -6,7 +7,7 @@ import Loading from './Loading';
 
 const Browse = () => {
     const [products, setProducts] = useState<Product[]>([]);
-    const [cart, setCart] = useState<Partial<Product>[]>([]);
+    const [cart, setCart] = useState<Partial<OrderProduct>[]>([]);
 
     async function loadProducts() {
         const productArray: Product[] = await getProducts();
@@ -24,14 +25,14 @@ const Browse = () => {
         loadCart();
     }, []);
 
-    function storeCookieAddToCart(tempProd: Partial<Product>) {
-        if (!cart.some(product => product?.productID == tempProd.productID)) {
-            var newCart: Partial<Product>[] = [...cart, tempProd];
+    function storeCookieAddToCart(tempProd: Partial<OrderProduct>) {
+        if (!cart.some(product => product?.SK == tempProd.SK)) {
+            var newCart: Partial<OrderProduct>[] = [...cart, tempProd];
             //Appears that the set functions for useState are async, so currently using newCart to set both - however, we should eventually make the localStorage setting dependent upon the cart state variable.
             setCart(newCart);
             localStorage.setItem("myEcommerceCart", JSON.stringify(newCart));
         } else {
-            console.warn("Cart already contains selected item: " + tempProd.productID);
+            console.warn("Cart already contains selected item: " + tempProd.SK);
         }
     }
 
@@ -64,9 +65,9 @@ const Browse = () => {
                                 <td key={'Image' + product.productID}> <img src={product.imageLink} className="img-thumbnail" width="200" height="100" />  </td>
                                 <td key={'Name' + product.productID}>{product.name}</td>
                                 <td key={'Description' + product.productID}>{product.description}</td>
-                                <td key={'Price' + product.productID}>{product.price}</td>
-                                <td key={'Buy Now' + product.productID}> <a className="btn btn-success" href="/cart" onClick={() => storeCookieAddToCart({ productID: product.productID })} role="button"> Buy Now</a> </td>
-                                <td key={'Add to Cart' + product.productID}>  <a className="btn btn-danger" onClick={() => storeCookieAddToCart({ productID: product.productID })} role="button"> Add to Cart</a> </td>
+                                <td key={'Price' + product.productID}>${product.price}</td>
+                                <td key={'Buy Now' + product.productID}> <a className="btn btn-success" href="/cart" onClick={() => storeCookieAddToCart({ SK: product.productID, Quantity: "1" })} role="button"> Buy Now</a> </td>
+                                <td key={'Add to Cart' + product.productID}>  <a className="btn btn-danger" onClick={() => storeCookieAddToCart({ SK: product.productID, Quantity: "1" })} role="button"> Add to Cart</a> </td>
 
                             </tr>
                         ))}

@@ -1,29 +1,41 @@
-import { Query } from '@testing-library/dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState, useEffect, useRef } from 'react';
 import { getProductsByIDs } from '../Controllers/ProductControllerTest';
 import Product from '../Models/Product';
+import OrderProduct from '../Models/OrderProduct';
 import QueryOptions from '../Models/QueryOptions';
 import Loading from './Loading';
 
 const Cart = () => {
 
-    const [products, setProducts] = useState<Product[]>([]);
+    const [products, setProducts] = useState<Partial<OrderProduct>[]>([]);
     const [loading, setLoading] = useState<Boolean>(true);
     const isInit = useRef(true);
 
     async function loadPage() {
-        var retrievedCart: Partial<Product>[] = JSON.parse(localStorage.getItem("myEcommerceCart") ?? "");
+        var retrievedCart: Partial<OrderProduct>[] = JSON.parse(localStorage.getItem("myEcommerceCart") ?? "");
 
-        var ids: string[] = retrievedCart.map(cartItem => { return cartItem.productID as string });
+        var ids: string[] = retrievedCart.map(cartItem => { return cartItem.SK as string });
         var query: QueryOptions = { IDs: ids }
         const productArray: Product[] = await getProductsByIDs(query);
-        
-        setProducts(productArray);
+
+        var orderProductArray: Partial<OrderProduct>[] = productArray.map(product => { return { SK: product.productID, ProductName: product.name, Price: product.price, ImageLink: product.imageLink, EntityType: "Product", Quantity: "-1" } as Partial<OrderProduct> });
+
+
+        //This is gross. O(n^2) has to have a better solution, and we should look at it, but I'm gonna leave it messy for now. It's not running even slightly slowly at tests of up to ~10 items, and I haven't tried more. However, I don't want to leave it this way. -Ian 04/16/21
+        orderProductArray.forEach(product => {
+            retrievedCart.forEach(cartItem => {
+                if (product.SK == cartItem.SK) {
+                    product.Quantity = cartItem.Quantity;
+                }
+            })
+        })
+
+        setProducts(orderProductArray);
     }
 
     function removeFromCart(id: string) {
-        setProducts(products.filter(product => product.productID != id));
+        setProducts(products.filter(product => product.SK != id));
     }
 
     useEffect(() => {
@@ -34,8 +46,8 @@ const Cart = () => {
         if (isInit.current) {
             isInit.current = false;
         } else {
-            var cartStore: Partial<Product>[] = products.map(product => {
-                return { productID: product.productID } as Partial<Product>;
+            var cartStore: Partial<OrderProduct>[] = products.map(product => {
+                return { SK: product.SK, Quantity: product.Quantity } as Partial<OrderProduct>;
             });
             localStorage.setItem("myEcommerceCart", JSON.stringify(cartStore));
             setLoading(false);
@@ -49,20 +61,20 @@ const Cart = () => {
                     <tr>
                         <th scope="col">Image</th>
                         <th scope="col">Name</th>
-                        <th scope="col">Description</th>
                         <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
                         <th scope="col">Remove From Cart</th>
                     </tr>
                  </thead>
                  {!loading &&
                      <tbody>
                          {products.map(product => (
-                             <tr key={product.productID}>
-                                 <td key={'Image' + product.productID}> <img src={product.imageLink} className="img-thumbnail" width="200" height="100" />  </td>
-                                 <td key={'Name' + product.productID}>{product.name}</td>
-                                 <td key={'Description' + product.productID}>{product.description}</td>
-                                 <td key={'Price' + product.productID}>{product.price}</td>
-                                 <td key={'Remove' + product.productID}> <button className="btn btn-danger" onClick={() => removeFromCart(product.productID)}> Remove </button> </td>
+                             <tr key={product.SK}>
+                                 <td key={'Image' + product.SK}> <img src={product.ImageLink} className="img-thumbnail" width="200" height="100" />  </td>
+                                 <td key={'Name' + product.SK}>{product.ProductName}</td>
+                                 <td key={'Price' + product.SK}>${product.Price}</td>
+                                 <td key={'Quantity' + product.SK}>{product.Quantity}</td>
+                                 <td key={'Remove' + product.SK}> <button className="btn btn-danger" onClick={() => removeFromCart(product.SK ?? "")}> Remove </button> </td>
                              </tr>
                          ))}
                      </tbody>
