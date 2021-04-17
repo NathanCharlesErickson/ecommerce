@@ -5,6 +5,7 @@ import Product from '../Models/Product';
 import OrderProduct from '../Models/OrderProduct';
 import QueryOptions from '../Models/QueryOptions';
 import Loading from './Loading';
+import Order from '../Models/Order';
 
 const Cart = () => {
 
@@ -36,6 +37,23 @@ const Cart = () => {
 
     function removeFromCart(id: string) {
         setProducts(products.filter(product => product.SK != id));
+    }
+
+    function incrementQuantity(id: string) {
+        var prodArr: Partial<OrderProduct>[] = [...products];
+        const index = prodArr.findIndex(p => p.SK == id);
+        prodArr[index].Quantity = (parseInt(prodArr[index].Quantity ?? "0") + 1).toString();
+        setProducts(prodArr);
+    }
+
+    function decrementQuantity(id: string) {
+        var prodArr: Partial<OrderProduct>[] = [...products];
+        const index = prodArr.findIndex(p => p.SK == id);
+        const targetInt = parseInt(prodArr[index].Quantity ?? "2") - 1
+        if (targetInt > 0) {
+            prodArr[index].Quantity = targetInt.toString();
+            setProducts(prodArr);
+        }
     }
 
     useEffect(() => {
@@ -73,7 +91,16 @@ const Cart = () => {
                                  <td key={'Image' + product.SK}> <img src={product.ImageLink} className="img-thumbnail" width="200" height="100" />  </td>
                                  <td key={'Name' + product.SK}>{product.ProductName}</td>
                                  <td key={'Price' + product.SK}>${product.Price}</td>
-                                 <td key={'Quantity' + product.SK}>{product.Quantity}</td>
+                                 <td key={'Quantity' + product.SK}>
+                                     <div className="input-group mb-3">
+                                         <div className="input-group-prepend">
+                                             <button key={'QuantityMinus' + product.SK} className="btn btn-danger" onClick={() => decrementQuantity(product.SK ?? "")} > -</button>                                       </div>
+                                         <input key={'QuantityField' + product.SK} readOnly type="number" value={product.Quantity} />
+                                         <div className="input-group-prepend">
+                                             <button key={'QuantityMinus' + product.SK} className="btn btn-success" onClick={() => incrementQuantity(product.SK ?? "")}>+</button>
+                                         </div>
+                                     </div>
+                                 </td>
                                  <td key={'Remove' + product.SK}> <button className="btn btn-danger" onClick={() => removeFromCart(product.SK ?? "")}> Remove </button> </td>
                              </tr>
                          ))}
