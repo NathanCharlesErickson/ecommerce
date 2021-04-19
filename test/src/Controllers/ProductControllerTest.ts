@@ -1,6 +1,7 @@
 import Product from '../Models/Product';
 import QueryOptions from '../Models/QueryOptions';
 import config from '../appsettings.json';
+import PagedResult from '../Models/PagedResult';
 
 var apiPrefix = config.isDev ? config.devURL : config.releaseURL;
 
@@ -11,6 +12,18 @@ export async function getProducts(): Promise<Product[]> {
             headers: {
                 'Content-Type': 'application/json'
             }
+        });
+    return await response.json();
+}
+
+export async function getProductsPaged(myInput: QueryOptions): Promise<PagedResult> {
+    const response = await fetch(apiPrefix + "api/product/getAllProdPaged",
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(myInput)
         });
     return await response.json();
 }

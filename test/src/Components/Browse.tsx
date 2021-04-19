@@ -1,17 +1,38 @@
 import Product from '../Models/Product';
 import OrderProduct from '../Models/OrderProduct';
-import { useState, useEffect, useRef } from 'react';
-import { getProducts } from '../Controllers/ProductControllerTest';
+import PagedResult from '../Models/PagedResult';
+import QueryOptions from '../Models/QueryOptions';
+import { useState, useEffect } from 'react';
+import { getProducts, getProductsPaged } from '../Controllers/ProductControllerTest';
 import Loading from './Loading';
 
 
 const Browse = () => {
     const [products, setProducts] = useState<Product[]>([]);
     const [cart, setCart] = useState<Partial<OrderProduct>[]>([]);
+    const [pages, setPages] = useState<(string | null)[]>([null]);
+    const [currentPage, setCurrentPage] = useState <number>(-1)
 
-    async function loadProducts() {
-        const productArray: Product[] = await getProducts();
-        setProducts(productArray);
+    async function loadPage(nextPage: boolean = true) {
+        if (nextPage) {
+            var query: QueryOptions = { PaginationToken: pages[currentPage + 1] }
+            const pagedProducts: PagedResult = await getProductsPaged(query);
+            console.log(query);
+            console.log(pagedProducts);
+            const productArray: Product[] = pagedProducts.productPage ?? [];
+            console.log(productArray);
+            setProducts(productArray);
+            if (!pages.includes(pagedProducts.paginationToken)) {
+                setPages([...pages, pagedProducts.paginationToken]);
+            }
+            setCurrentPage(currentPage + 1);
+        } else {
+            var query: QueryOptions = { PaginationToken: pages[currentPage - 1] }
+            const pagedProducts: PagedResult = await getProductsPaged(query);
+            const productArray: Product[] = pagedProducts.productPage ?? [];
+            setProducts(productArray);
+            setCurrentPage(currentPage - 1);
+        }
     }
 
     function loadCart() {
@@ -21,7 +42,7 @@ const Browse = () => {
 
     //UseEffect hook is called whenever an involved variable is updated, OR whenever a variable specified in its second parameter is updated. Thus, we can target functions based on certain variables being updated like an onUpdate, or we can pass an empty array to act like an onLoad because it doesn't watch any variables.
     useEffect(() => {
-        loadProducts();
+        loadPage();
         loadCart();
     }, []);
 
@@ -36,17 +57,10 @@ const Browse = () => {
         }
     }
 
-    function printProducts() {
-        console.log(products);
-    }
-
-    function printCart() {
-        var retrievedCartString = localStorage.getItem("myEcommerceCart");
-        retrievedCartString ? console.log(JSON.parse(retrievedCartString)) : console.warn("No cart stored in cookie.");
-    }
-
     return (
         <div className="wrapper">
+            <button className="btn btn-danger" onClick={() => loadPage(false)}>Prev</button>
+            <button className="btn btn-success" onClick={() => loadPage()}>Next</button>
             <table className="table">
                 <thead>
                     <tr>

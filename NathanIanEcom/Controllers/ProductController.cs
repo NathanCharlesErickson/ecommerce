@@ -37,6 +37,46 @@ namespace NathanIanEcom.Controllers
 
         }
 
+        /* gets all products paged*/
+        [HttpPost("/api/product/[action]")]
+        public async Task<PagedResult> GetAllProdPaged([FromBody]QueryOptions queryOptions)
+        {
+            using (var context = new DynamoDBContext(CreateContext()))
+            {
+
+                Table products = Table.LoadTable(CreateContext(), "IanNathanProducts");
+
+                //Create a List of ScanConditions (can be left blank, as here, to not filter results whatsoever)
+                var conditions = new List<ScanCondition>();
+
+                ScanOperationConfig config = new ScanOperationConfig()
+                {
+                    PaginationToken = queryOptions.PaginationToken,
+                    Limit = 20
+                };
+
+
+                //Run asynchronous Scan on an object, which implicitly picks-up on the item's associated table (outlined in the model)
+                Search search = products.Scan(config);
+
+                List<Document> documentList = new List<Document>();
+                documentList = await search.GetNextSetAsync();
+
+                List<Product> productList = new List<Product>();
+                foreach(Document d in documentList)
+                {
+                    productList.Add(WrapProduct(d));
+                }
+
+                PagedResult ret = new PagedResult();
+                ret.ProductPage = productList;
+                ret.PaginationToken = search.PaginationToken;
+
+                return ret;
+            }
+
+        }
+
         /* gets product by It's ID */
 
         [HttpPost("api/product/[action]")]

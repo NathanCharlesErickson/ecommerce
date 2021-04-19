@@ -85,6 +85,9 @@
     <TypeScriptCompile Include="src\Models\OrderProduct.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Models\PagedResult.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="src\Models\Product.ts" />
     <TypeScriptCompile Include="src\Models\QueryOptions.ts">
       <SubType>Code</SubType>

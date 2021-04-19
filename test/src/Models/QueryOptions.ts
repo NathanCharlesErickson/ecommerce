@@ -8,4 +8,5 @@ export default interface QueryOptions {
     Price?: string;
     Name?: string;
     IDs?: string[];
+    PaginationToken?: string | null;
 }
