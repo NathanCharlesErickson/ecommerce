@@ -1,3 +1,5 @@
+import OrderProduct from "./OrderProduct";
+
 export default interface QueryOptions {
     PK?: string;
     SK?: string;
@@ -9,4 +11,5 @@ export default interface QueryOptions {
     Name?: string;
     IDs?: string[];
     PaginationToken?: string | null;
+    OrderProducts?: OrderProduct[];
 }

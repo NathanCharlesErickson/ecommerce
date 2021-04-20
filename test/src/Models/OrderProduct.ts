@@ -1,9 +1,9 @@
 export default interface OrderProduct {
-    PK: string;
-    SK: string;
-    EntityType: string;
-    ProductName: string;
-    Quantity: string;
-    Price: string;
-    ImageLink: string;
+    pk: string;
+    sk: string;
+    entityType: string;
+    productName: string;
+    quantity: string;
+    price: string;
+    imageLink: string;
 }

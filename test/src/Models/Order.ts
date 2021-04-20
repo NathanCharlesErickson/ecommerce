@@ -1,9 +1,9 @@
 export default interface Order {
-    PK: string;
-    SK: string;
-    EntityType: string;
-    CreatedDate: string;
-    Status: string;
-    Username: string;
-    Address: string;
+    pk: string;
+    sk: string;
+    entityType: string;
+    createdDate: string;
+    status: string;
+    username: string;
+    address: string;
 }

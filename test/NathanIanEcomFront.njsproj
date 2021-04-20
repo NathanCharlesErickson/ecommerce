@@ -76,6 +76,12 @@
     <TypeScriptCompile Include="src\Components\SearchResult.tsx">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Controllers\OrderController.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Controllers\OrderProductController.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="src\Controllers\ProductControllerTest.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>

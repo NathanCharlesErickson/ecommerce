@@ -126,7 +126,26 @@ namespace NathanIanEcom.Controllers
 
         }
 
-       
+        [HttpPost("api/orderProduct/[action]")]
+        public async void LoadOrderProducts([FromBody] QueryOptions queryOptions)
+        {
+            using (var context = new DynamoDBContext(CreateContext()))
+            {
+                if(queryOptions.OrderProducts != null)
+                {
+                    Table products = Table.LoadTable(CreateContext(), "IanNathanOrders");
+                    var batchWrite = products.CreateBatchWrite();
+
+                    foreach (OrderProduct orderProd in queryOptions.OrderProducts)
+                    {
+                        batchWrite.AddDocumentToPut(UnwrapOrderProduct(orderProd));
+                    }
+
+                    await batchWrite.ExecuteAsync();
+                }
+            }
+
+        }
 
     }
 }
