@@ -3,7 +3,7 @@ import OrderProduct from '../Models/OrderProduct';
 import PagedResult from '../Models/PagedResult';
 import QueryOptions from '../Models/QueryOptions';
 import { useState, useEffect } from 'react';
-import { getProducts, getProductsPaged } from '../Controllers/ProductControllerTest';
+import { getProductBy, getProducts, getProductsPaged } from '../Controllers/ProductControllerTest';
 import Loading from './Loading';
 
 
@@ -16,9 +16,51 @@ const Browse = () => {
     const [backward, setbackward] = useState<boolean>(false);
 
 
-
     async function loadPage(nextPage: boolean = true) {
-        if (nextPage) {
+        if (localStorage.getItem("searchItem") != null && localStorage.getItem("searchTerm") != null) {
+
+            //Super confusing. TODO: better names
+            var mySearchTerm = { //checkboxes
+                searchItem: ""
+            }
+            mySearchTerm = JSON.parse(localStorage.getItem("searchItem") || '{}')
+
+            var mySearchItem = { //What is put in textbox
+                searchTerm: ""
+            }
+            mySearchItem = JSON.parse(localStorage.getItem("searchTerm") || '{}')
+
+           
+                console.log(mySearchItem.searchTerm)
+                if (mySearchTerm.searchItem == "Price") {
+                    console.log("price")
+                    var query: QueryOptions = { PaginationToken: null, Price: mySearchItem.searchTerm }
+                    const pagedProducts: PagedResult = await getProductBy(query);
+                    console.log(query);
+                    console.log(pagedProducts);
+                    const productArray: Product[] = pagedProducts.productPage ?? [];
+                    setProducts(productArray)
+                } else {
+                    var query: QueryOptions = { PaginationToken: null, Name: mySearchItem.searchTerm }
+                    const pagedProducts: PagedResult = await getProductBy(query);
+                    console.log(query);
+                    console.log(pagedProducts);
+                    const productArray: Product[] = pagedProducts.productPage ?? [];
+                    setProducts(productArray)
+            }
+
+            if (products.length < 20) {
+                setForward(true)
+                setbackward(true)
+                localStorage.removeItem("searchTerm")
+                localStorage.removeItem("searchItem")
+            }
+            //TODO: Paging for Search
+            
+            
+        }
+        else if (nextPage) {
+            console.log("next page")
             var query: QueryOptions = { PaginationToken: pages[currentPage + 1] }
             const pagedProducts: PagedResult = await getProductsPaged(query);
             console.log(query);
@@ -36,7 +78,7 @@ const Browse = () => {
                 }
                 setCurrentPage(currentPage + 1);
             }
-            
+
 
         } else {
             if (currentPage < 1) {
@@ -51,10 +93,11 @@ const Browse = () => {
                 setProducts(productArray);
                 setCurrentPage(currentPage - 1);
             }
-            
-            
         }
     }
+
+    
+
 
     function loadCart() {
         var retrievedCartString = localStorage.getItem("myEcommerceCart");
@@ -111,8 +154,8 @@ const Browse = () => {
             </table>
             {!(products.length > 0) && <Loading />}
         </div>
-    )
-}
+)}
+
 
 export default Browse;
   

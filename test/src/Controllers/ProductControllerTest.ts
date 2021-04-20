@@ -55,10 +55,14 @@ export async function getProductById(): Promise<Product[]> {
     return await response.json();
 }
 
-export async function getProductBy(): Promise<Product[]> {
+export async function getProductBy(myInput: QueryOptions): Promise<PagedResult> {
     var data = helper()
 
-    let myBody = JSON.stringify(data)
+    console.log("Controller: " + myInput)
+
+    let myBody = JSON.stringify(myInput)
+
+    console.log(myBody)
 
     const response = await fetch(apiPrefix + "api/product/GetProductBy",
         {

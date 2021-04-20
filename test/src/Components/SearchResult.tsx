@@ -8,8 +8,8 @@ const SearchResult = () => {
     const [cart, setCart] = useState<Partial<Product>[]>([]);
 
     async function loadProducts() {
-        const productArray: Product[] = await getProductBy();
-        setProducts(productArray);
+        //const productArray: Product[] = await getProductBy();
+        //setProducts(productArray);
     }
 
     function loadCart() {

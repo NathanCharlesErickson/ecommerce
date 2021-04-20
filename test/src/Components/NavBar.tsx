@@ -36,7 +36,7 @@ const NavBar = () => {
                 searchTerm: item
             }
             localStorage.setItem("searchTerm", JSON.stringify(myItem))
-            window.location.replace('/searchresult');
+            window.location.replace('/browse');
         }
         
 

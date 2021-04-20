@@ -189,7 +189,7 @@ namespace NathanIanEcom.Controllers
         }
 
         [HttpPost("/api/product/[action]")]
-        public async Task<List<Product>> GetProductBy([FromBody] QueryOptions myInput)
+        public async Task<PagedResult> GetProductBy([FromBody] QueryOptions myInput)
         {
             using (var context = new DynamoDBContext(CreateContext()))
             {
@@ -204,33 +204,75 @@ namespace NathanIanEcom.Controllers
                         KeyExpression = exprPrice,
                         IndexName = "Price-index",
                         AttributesToGet = new List<string> { "ProductID", "Category", "Description", "ImageLink", "Name", "Price" },
-                        Select = SelectValues.SpecificAttributes
+                        Select = SelectValues.SpecificAttributes,
+                        PaginationToken = myInput.PaginationToken,
+                        Limit = 20
 
                     };
 
-                    var associatedProductsPrice = await context.FromQueryAsync<Product>(configPrice).GetNextSetAsync();
+                    Table products = Table.LoadTable(CreateContext(), "IanNathanProducts");
 
-                    return associatedProductsPrice;
+                    var conditions = new List<QueryCondition>();
+
+                    Search search = products.Query(configPrice);
+
+                    List<Document> documentList = new List<Document>();
+                    documentList = await search.GetNextSetAsync();
+
+                    List<Product> productList = new List<Product>();
+                    foreach (Document d in documentList)
+                    {
+                        productList.Add(WrapProduct(d));
+                    }
+
+                    PagedResult ret = new PagedResult();
+                    ret.ProductPage = productList;
+                    ret.PaginationToken = search.PaginationToken;
+
+                    return ret;
                 }
+            
                 else
                 {
-                    Expression expr = new Expression();
-                    expr.ExpressionStatement = "#N = :N";
-                    expr.ExpressionAttributeValues[":N"] = myInput.Name;
+                    
 
-                    expr.ExpressionAttributeNames = new Dictionary<string, string> { { "#N", "Name" } };
+                    Expression exprPrice = new Expression();
+                    exprPrice.ExpressionStatement = "#N = :Name";
+                    exprPrice.ExpressionAttributeValues[":Name"] = myInput.Name;
 
-                    QueryOperationConfig config = new QueryOperationConfig()
+                    exprPrice.ExpressionAttributeNames = new Dictionary<string, string> { { "#N", "Name" } };
+
+                    QueryOperationConfig configPrice = new QueryOperationConfig()
                     {
-                        KeyExpression = expr,
+                        KeyExpression = exprPrice,
                         IndexName = "Name-index",
-                        AttributesToGet = new List<string> { "ProductID", "Category", "Description", "ImageLink", "Name", "Price" },
-                        Select = SelectValues.SpecificAttributes
-
+                        Select = SelectValues.SpecificAttributes,
+                        PaginationToken = myInput.PaginationToken,
+                        Limit = 20,
+                        //required when using ExpressionAttributeNames
+                        AttributesToGet = new List<string> { "ProductID", "Category", "Description", "ImageLink", "Name", "Price" } 
                     };
 
-                    var associatedProducts = await context.FromQueryAsync<Product>(config).GetNextSetAsync();
-                    return associatedProducts;
+                    Table products = Table.LoadTable(CreateContext(), "IanNathanProducts");
+
+                    var conditions = new List<QueryCondition>();
+
+                    Search search = products.Query(configPrice);
+
+                    List<Document> documentList = new List<Document>();
+                    documentList = await search.GetNextSetAsync();
+
+                    List<Product> productList = new List<Product>();
+                    foreach (Document d in documentList)
+                    {
+                        productList.Add(WrapProduct(d));
+                    }
+
+                    PagedResult ret = new PagedResult();
+                    ret.ProductPage = productList;
+                    ret.PaginationToken = search.PaginationToken;
+
+                    return ret;
 
                 }
 
