@@ -166,7 +166,10 @@ const Cart = () => {
                              </tbody>
                          }
                      </table>
-                     {loading && <Loading />}
+                     {(loading && JSON.parse(localStorage.getItem("myEcommerceCart") ?? "").length != 0) && <Loading />}
+                     {(!loading && JSON.parse(localStorage.getItem("myEcommerceCart") ?? "").length == 0) &&
+                         <p>Cart is currently empty. Please browse and find something to buy!</p>
+                     }
                  </div>
                  <div className="d-flex col-2 bg-light flex-column">
                      <div className="row justify-content-center">
@@ -196,17 +199,21 @@ const Cart = () => {
                              <small className="d-flex justify-content-center"><strong>Delivery Address*</strong></small>
                              <input type="text" value={deliveryAddress} onChange={(e) => handleDeliveryAddressChange(e)} />
                          </div>
-                         {(username != "" && firstName != "" && lastName != "" && email != "" && deliveryAddress != "") &&
-                             <div className="w-50 mt-2">
+                         {(username != "" && firstName != "" && lastName != "" && email != "" && deliveryAddress != "" && (JSON.parse(localStorage.getItem("myEcommerceCart") ?? "").length != 0)) &&
+                             <div className="w-50 mt-2 mb-5">
                                 <Link className="btn btn-success w-100" to="/orders" onClick={generateOrder} > Checkout</Link>
                              </div>
                          }
-                         {!(username != "" && firstName != "" && lastName != "" && email != "" && deliveryAddress != "") &&
+                         {(!(username != "" && firstName != "" && lastName != "" && email != "" && deliveryAddress != "") || (JSON.parse(localStorage.getItem("myEcommerceCart") ?? "").length == 0)) &&
                              <div className="w-50 mt-2">
                                 <button className="btn btn-danger w-100" disabled={true}>Checkout</button>
-                                <p>Please fill out required (*) fields</p>
+                             {(!(username != "" && firstName != "" && lastName != "" && email != "" && deliveryAddress != "") && (JSON.parse(localStorage.getItem("myEcommerceCart") ?? "").length != 0)) &&
+                                 <p>Please fill out required (*) fields</p>
+                             }
+                             {(JSON.parse(localStorage.getItem("myEcommerceCart") ?? "").length == 0) &&
+                                 <p>Please add something to your cart before attempting to check out</p>
+                             }
                              </div>
-                             
                          }
                      </div>
                  </div>
