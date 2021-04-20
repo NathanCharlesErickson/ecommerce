@@ -75,8 +75,8 @@ const NavBar = () => {
                     </div>
 
                     <form className="form-inline my-2 my-lg-0" onSubmit={() => loadSearchTerm()}>
-                        <input className="form-control" id="search" placeholder="Search" aria-label="Search" />
-                        <button className="btn btn-danger" onClick={() => loadSearchTerm()} > Search</button>
+                        <input className="form-control" disabled={true} id="search" placeholder="Search Coming Soon..." aria-label="Search" />
+                        <button className="btn btn-danger" disabled={true} onClick={() => loadSearchTerm()} > Search</button>
                     </form>
                 </div>
             </nav>
