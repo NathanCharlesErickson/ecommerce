@@ -11,7 +11,11 @@ const Browse = () => {
     const [products, setProducts] = useState<Product[]>([]);
     const [cart, setCart] = useState<Partial<OrderProduct>[]>([]);
     const [pages, setPages] = useState<(string | null)[]>([null]);
-    const [currentPage, setCurrentPage] = useState <number>(-1)
+    const [currentPage, setCurrentPage] = useState<number>(-1)
+    const [forward, setForward] = useState<boolean>(false);
+    const [backward, setbackward] = useState<boolean>(false);
+
+
 
     async function loadPage(nextPage: boolean = true) {
         if (nextPage) {
@@ -20,18 +24,35 @@ const Browse = () => {
             console.log(query);
             console.log(pagedProducts);
             const productArray: Product[] = pagedProducts.productPage ?? [];
-            console.log(productArray);
-            setProducts(productArray);
-            if (!pages.includes(pagedProducts.paginationToken)) {
-                setPages([...pages, pagedProducts.paginationToken]);
+            if (productArray.length == 0) {
+                alert("This is the last page")
+                setForward(true)
             }
-            setCurrentPage(currentPage + 1);
+            else {
+                setbackward(false)
+                setProducts(productArray);
+                if (!pages.includes(pagedProducts.paginationToken)) {
+                    setPages([...pages, pagedProducts.paginationToken]);
+                }
+                setCurrentPage(currentPage + 1);
+            }
+            
+
         } else {
-            var query: QueryOptions = { PaginationToken: pages[currentPage - 1] }
-            const pagedProducts: PagedResult = await getProductsPaged(query);
-            const productArray: Product[] = pagedProducts.productPage ?? [];
-            setProducts(productArray);
-            setCurrentPage(currentPage - 1);
+            if (currentPage < 1) {
+                alert("Cannot go into negative pages!")
+                setbackward(true)
+            }
+            else {
+                setForward(false)
+                var query: QueryOptions = { PaginationToken: pages[currentPage - 1] }
+                const pagedProducts: PagedResult = await getProductsPaged(query);
+                const productArray: Product[] = pagedProducts.productPage ?? [];
+                setProducts(productArray);
+                setCurrentPage(currentPage - 1);
+            }
+            
+            
         }
     }
 
@@ -59,8 +80,8 @@ const Browse = () => {
 
     return (
         <div className="wrapper">
-            <button className="btn btn-danger" onClick={() => loadPage(false)}>Prev</button>
-            <button className="btn btn-success" onClick={() => loadPage()}>Next</button>
+            <button className="btn btn-danger" disabled={backward} onClick={() => loadPage(false)}>Prev</button>
+            <button className="btn btn-success" disabled={forward} onClick={() => loadPage()}>Next</button>
             <table className="table">
                 <thead>
                     <tr>

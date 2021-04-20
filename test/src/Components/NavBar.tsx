@@ -1,10 +1,23 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 
 
 const NavBar = () => {
 
+    const [checkPrice, setCheckPrice] = useState<boolean>(false);
+    const [checkName, setCheckName] = useState<boolean>(false);
+
     function loadItemCooke(item: String) {
+        if (new String(item).valueOf() == new String("Name").valueOf()) {
+            console.log("name")
+            setCheckPrice(false)
+            setCheckName(true)
+        } else {
+            setCheckPrice(true)
+            setCheckName(false)
+        }
+   
         localStorage.removeItem("searchItem")
         var myItem = {
            searchItem : item
@@ -13,19 +26,21 @@ const NavBar = () => {
         console.log(localStorage.getItem("searchItem"))
     }
 
-    //Will clean up
+    //TODO: clean up
     function loadSearchTerm() {
         var item = (document.getElementById("search") as HTMLInputElement)?.value
-        var myItem = {
-            searchTerm : item
+        if (item === "") { alert("Search field is empty") }
+        else if (localStorage.getItem("searchItem") === null) { alert("search category is empty")}
+        else {
+            var myItem = {
+                searchTerm: item
+            }
+            localStorage.setItem("searchTerm", JSON.stringify(myItem))
+            window.location.replace('/searchresult');
         }
-        localStorage.setItem("searchTerm", JSON.stringify(myItem))
+        
 
     }
-
-    
-
-
 
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -50,18 +65,18 @@ const NavBar = () => {
                         </li>
                     </ul>
                     <div className="form-check">
-                        <input type="checkbox" className="form-check-input" id="NameCheckBox" onClick={() => loadItemCooke("Name")} />
+                        <input type="checkbox" className="form-check-input" id="NameCheckBox" checked={checkName} onClick={() => loadItemCooke("Name")} />
                             <label className="form-check-label" htmlFor="NameCheck">Name</label>
                     </div>
 
                     <div className="form-check">
-                        <input type="checkbox" className="form-check-input" id="PriceCheckBox" onClick={() => loadItemCooke("Price")} />
+                        <input type="checkbox" className="form-check-input" id="PriceCheckBox" checked={checkPrice} onClick={() => loadItemCooke("Price")} />
                         <label className="form-check-label" htmlFor="PriceCheck">Price</label>
                     </div>
 
                     <form className="form-inline my-2 my-lg-0">
                         <input className="form-control" id = "search" placeholder="Search" aria-label="Search" />
-                        <a className="btn btn-danger" href="/searchresult" onClick={() => loadSearchTerm()}  > Search</a>
+                        <a className="btn btn-danger" onClick={() => loadSearchTerm()} > Search</a>
                     </form>
                 </div>
             </nav>
