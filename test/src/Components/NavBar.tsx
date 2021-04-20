@@ -44,7 +44,7 @@ const NavBar = () => {
 
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <a className="navbar-brand" href="#">Navbar</a>
+                <a className="navbar-brand" href="#">The Better Amazon</a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -74,9 +74,9 @@ const NavBar = () => {
                         <label className="form-check-label" htmlFor="PriceCheck">Price</label>
                     </div>
 
-                    <form className="form-inline my-2 my-lg-0">
-                        <input className="form-control" id = "search" placeholder="Search" aria-label="Search" />
-                        <a className="btn btn-danger" onClick={() => loadSearchTerm()} > Search</a>
+                    <form className="form-inline my-2 my-lg-0" onSubmit={() => loadSearchTerm()}>
+                        <input className="form-control" id="search" placeholder="Search" aria-label="Search" />
+                        <button className="btn btn-danger" onClick={() => loadSearchTerm()} > Search</button>
                     </form>
                 </div>
             </nav>
