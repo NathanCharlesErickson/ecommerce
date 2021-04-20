@@ -24,7 +24,12 @@ const Cart = () => {
     const isInit = useRef(true);
 
     async function loadPage() {
-        var retrievedCart: Partial<OrderProduct>[] = JSON.parse(localStorage.getItem("myEcommerceCart") ?? "");
+        if (!localStorage.getItem("myEcommerceCart")) {
+            var emptyCart: Partial<OrderProduct>[] = [];
+            localStorage.setItem("myEcommerceCart", JSON.stringify(emptyCart));
+        }
+
+        var retrievedCart: Partial<OrderProduct>[] = JSON.parse(localStorage.getItem("myEcommerceCart") ?? '{[]}');
 
         var ids: string[] = retrievedCart.map(cartItem => { return cartItem.sk as string });
         var query: QueryOptions = { IDs: ids }
@@ -166,8 +171,8 @@ const Cart = () => {
                              </tbody>
                          }
                      </table>
-                     {(loading && JSON.parse(localStorage.getItem("myEcommerceCart") ?? "").length != 0) && <Loading />}
-                     {(!loading && JSON.parse(localStorage.getItem("myEcommerceCart") ?? "").length == 0) &&
+                     {(loading && JSON.parse(localStorage.getItem("myEcommerceCart") ?? "[]").length != 0) && <Loading />}
+                     {(!loading && JSON.parse(localStorage.getItem("myEcommerceCart") ?? "[]").length == 0) &&
                          <p>Cart is currently empty. Please browse and find something to buy!</p>
                      }
                  </div>
@@ -199,18 +204,18 @@ const Cart = () => {
                              <small className="d-flex justify-content-center"><strong>Delivery Address*</strong></small>
                              <input type="text" value={deliveryAddress} onChange={(e) => handleDeliveryAddressChange(e)} />
                          </div>
-                         {(username != "" && firstName != "" && lastName != "" && email != "" && deliveryAddress != "" && (JSON.parse(localStorage.getItem("myEcommerceCart") ?? "").length != 0)) &&
+                         {(username != "" && firstName != "" && lastName != "" && email != "" && deliveryAddress != "" && (JSON.parse(localStorage.getItem("myEcommerceCart") ?? "[]").length != 0)) &&
                              <div className="w-50 mt-2 mb-5">
                                 <Link className="btn btn-success w-100" to="/orders" onClick={generateOrder} > Checkout</Link>
                              </div>
                          }
-                         {(!(username != "" && firstName != "" && lastName != "" && email != "" && deliveryAddress != "") || (JSON.parse(localStorage.getItem("myEcommerceCart") ?? "").length == 0)) &&
+                         {(!(username != "" && firstName != "" && lastName != "" && email != "" && deliveryAddress != "") || (JSON.parse(localStorage.getItem("myEcommerceCart") ?? "[]").length == 0)) &&
                              <div className="w-50 mt-2">
                                 <button className="btn btn-danger w-100" disabled={true}>Checkout</button>
-                             {(!(username != "" && firstName != "" && lastName != "" && email != "" && deliveryAddress != "") && (JSON.parse(localStorage.getItem("myEcommerceCart") ?? "").length != 0)) &&
+                             {(!(username != "" && firstName != "" && lastName != "" && email != "" && deliveryAddress != "") && (JSON.parse(localStorage.getItem("myEcommerceCart") ?? "[]").length != 0)) &&
                                  <p>Please fill out required (*) fields</p>
                              }
-                             {(JSON.parse(localStorage.getItem("myEcommerceCart") ?? "").length == 0) &&
+                             {(JSON.parse(localStorage.getItem("myEcommerceCart") ?? "[]").length == 0) &&
                                  <p>Please add something to your cart before attempting to check out</p>
                              }
                              </div>

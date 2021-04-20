@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Order from '../Models/Order';
 import QueryOptions from '../Models/QueryOptions';
+import OrderProduct from '../Models/OrderProduct';
 import { getAllOrderByCustId } from '../Controllers/OrderController';
 
 const Orders = () => {

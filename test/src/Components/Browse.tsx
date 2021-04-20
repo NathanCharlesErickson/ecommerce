@@ -34,18 +34,13 @@ const Browse = () => {
            
                 console.log(mySearchItem.searchTerm)
                 if (mySearchTerm.searchItem == "Price") {
-                    console.log("price")
                     var query: QueryOptions = { PaginationToken: null, Price: mySearchItem.searchTerm }
                     const pagedProducts: PagedResult = await getProductBy(query);
-                    console.log(query);
-                    console.log(pagedProducts);
                     const productArray: Product[] = pagedProducts.productPage ?? [];
                     setProducts(productArray)
                 } else {
                     var query: QueryOptions = { PaginationToken: null, Name: mySearchItem.searchTerm }
                     const pagedProducts: PagedResult = await getProductBy(query);
-                    console.log(query);
-                    console.log(pagedProducts);
                     const productArray: Product[] = pagedProducts.productPage ?? [];
                     setProducts(productArray)
             }
@@ -61,11 +56,8 @@ const Browse = () => {
             
         }
         else if (nextPage) {
-            console.log("next page")
             var query: QueryOptions = { PaginationToken: pages[currentPage + 1] }
             const pagedProducts: PagedResult = await getProductsPaged(query);
-            console.log(query);
-            console.log(pagedProducts);
             const productArray: Product[] = pagedProducts.productPage ?? [];
             if (productArray.length == 0) {
                 alert("This is the last page")
