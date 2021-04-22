@@ -20,7 +20,7 @@ namespace NathanIanEcom.Controllers
 
         /*Gets a Customer by it's Id*/
 
-        [HttpGet("api/customer/[action]")]
+        [HttpPost("api/customer/[action]")]
         public async Task<Customer> getCustomerById([FromBody] QueryOptions myInput)
         {
             using (var context = new DynamoDBContext(CreateContext()))

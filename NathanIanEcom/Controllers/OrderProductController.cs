@@ -19,7 +19,7 @@ namespace NathanIanEcom.Controllers
 
         /*Gets a Order's Product by it's Id*/
 
-        [HttpGet("api/orderProduct/[action]")]
+        [HttpPost("api/orderProduct/[action]")]
         public async Task<OrderProduct> GetOrderProductById([FromBody] QueryOptions myInput)
         {
             using (var context = new DynamoDBContext(CreateContext()))
@@ -102,7 +102,7 @@ namespace NathanIanEcom.Controllers
 
         }
 
-        [HttpGet("/api/orderProduct/[action]")]
+        [HttpPost("/api/orderProduct/[action]")]
         public async Task<List<OrderProduct>> getAllProdByOrderId([FromBody] QueryOptions myInput)
         {
 
@@ -126,7 +126,26 @@ namespace NathanIanEcom.Controllers
 
         }
 
-       
+        [HttpPost("api/orderProduct/[action]")]
+        public async void LoadOrderProducts([FromBody] QueryOptions queryOptions)
+        {
+            using (var context = new DynamoDBContext(CreateContext()))
+            {
+                if(queryOptions.OrderProducts != null)
+                {
+                    Table products = Table.LoadTable(CreateContext(), "IanNathanOrders");
+                    var batchWrite = products.CreateBatchWrite();
+
+                    foreach (OrderProduct orderProd in queryOptions.OrderProducts)
+                    {
+                        batchWrite.AddDocumentToPut(UnwrapOrderProduct(orderProd));
+                    }
+
+                    await batchWrite.ExecuteAsync();
+                }
+            }
+
+        }
 
     }
 }

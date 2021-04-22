@@ -1,0 +1,4 @@
+###Project Startup
+On opening the project, TaskRunner should execute the start script, which opens the dev server on port 3000. This handles hot module reloading, and should be used for development purposes. Server can be stopped by closing the tab start(running) under the Task Runner Explorer (next to 'Bindings').
+For production, change build settings to target both Ecom and EcomFront. Ecom will behave pretty much how you expect, EcomFront will use TaskRunner to run npm build based on the package.json file, transpiling the TSX code which the server.js file will serve on port 1337 (default Chrome tab opened by VS).
+Note: Even though EcomFront doesn't require VS debugging to run development, API calls using the local version of the Ecom app (when endpoints aren't on S3) will fail if Ecom isn't actively debugging.

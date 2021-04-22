@@ -18,7 +18,7 @@ namespace NathanIanEcom.Controllers
 
         /*Gets a Order by it's Id*/
 
-        [HttpGet("api/order/[action]")]
+        [HttpPost("api/order/[action]")]
         public async Task<Order> GetOrderById([FromBody] QueryOptions myInput)
         {
             using (var context = new DynamoDBContext(CreateContext()))
@@ -107,7 +107,7 @@ namespace NathanIanEcom.Controllers
 
         }
 
-        [HttpGet("/api/order/[action]")]
+        [HttpPost("/api/order/[action]")]
         public async Task<List<Order>> GetOrderByCustId([FromBody] QueryOptions myInput)
         {
             using (var context = new DynamoDBContext(CreateContext()))
@@ -137,7 +137,7 @@ namespace NathanIanEcom.Controllers
 
         }
 
-        [HttpGet("/api/order/[action]")]
+        [HttpPost("/api/order/[action]")]
         public async Task<List<Order>> GetAllOrderByCustId([FromBody] QueryOptions myInput)
         {
             using (var context = new DynamoDBContext(CreateContext()))

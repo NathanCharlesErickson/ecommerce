@@ -24,9 +24,9 @@
     ".NETCoreApp,Version=v3.1": {
       "NathanIanEcom/1.0.0": {
         "dependencies": {
-          "AWSSDK.Core": "3.5.3.8",
-          "AWSSDK.DynamoDBv2": "3.5.4.37",
-          "Amazon.Lambda.AspNetCoreServer": "5.3.1",
+          "AWSSDK.Core": "3.7.0.11",
+          "AWSSDK.DynamoDBv2": "3.7.0.11",
+          "Amazon.Lambda.AspNetCoreServer": "6.0.0",
           "Newtonsoft.Json": "12.0.3",
           "React.Core": "5.2.11",
           "Microsoft.AspNetCore.Antiforgery": "3.1.0.0",
@@ -351,11 +351,11 @@
           "lib/netcoreapp3.1/Amazon.Lambda.ApplicationLoadBalancerEvents.dll": {}
         }
       },
-      "Amazon.Lambda.AspNetCoreServer/5.3.1": {
+      "Amazon.Lambda.AspNetCoreServer/6.0.0": {
         "dependencies": {
           "Amazon.Lambda.APIGatewayEvents": "2.4.0",
           "Amazon.Lambda.ApplicationLoadBalancerEvents": "2.1.0",
-          "Amazon.Lambda.Core": "1.2.0",
+          "Amazon.Lambda.Core": "2.0.0",
           "Amazon.Lambda.Logging.AspNetCore": "3.1.0",
           "Amazon.Lambda.Serialization.SystemTextJson": "2.1.0",
           "System.IO.Pipelines": "4.7.2"
@@ -370,7 +370,7 @@
           "lib/netcoreapp3.1/Amazon.Lambda.AspNetCoreServer.dll": {}
         }
       },
-      "Amazon.Lambda.Core/1.2.0": {
+      "Amazon.Lambda.Core/2.0.0": {
         "runtime": {
           "lib/netstandard2.0/Amazon.Lambda.Core.dll": {
             "assemblyVersion": "1.0.0.0",
@@ -383,7 +383,7 @@
       },
       "Amazon.Lambda.Logging.AspNetCore/3.1.0": {
         "dependencies": {
-          "Amazon.Lambda.Core": "1.2.0",
+          "Amazon.Lambda.Core": "2.0.0",
           "Microsoft.Extensions.Configuration.Abstractions": "2.1.0",
           "Microsoft.Extensions.Logging": "2.1.0",
           "Microsoft.Extensions.Logging.Abstractions": "2.1.0"
@@ -400,7 +400,7 @@
       },
       "Amazon.Lambda.Serialization.SystemTextJson/2.1.0": {
         "dependencies": {
-          "Amazon.Lambda.Core": "1.2.0"
+          "Amazon.Lambda.Core": "2.0.0"
         },
         "runtime": {
           "lib/netcoreapp3.1/Amazon.Lambda.Serialization.SystemTextJson.dll": {
@@ -412,25 +412,25 @@
           "lib/netcoreapp3.1/Amazon.Lambda.Serialization.SystemTextJson.dll": {}
         }
       },
-      "AWSSDK.Core/3.5.3.8": {
+      "AWSSDK.Core/3.7.0.11": {
         "runtime": {
           "lib/netcoreapp3.1/AWSSDK.Core.dll": {
             "assemblyVersion": "3.3.0.0",
-            "fileVersion": "3.5.3.8"
+            "fileVersion": "3.7.0.11"
           }
         },
         "compile": {
           "lib/netcoreapp3.1/AWSSDK.Core.dll": {}
         }
       },
-      "AWSSDK.DynamoDBv2/3.5.4.37": {
+      "AWSSDK.DynamoDBv2/3.7.0.11": {
         "dependencies": {
-          "AWSSDK.Core": "3.5.3.8"
+          "AWSSDK.Core": "3.7.0.11"
         },
         "runtime": {
           "lib/netcoreapp3.1/AWSSDK.DynamoDBv2.dll": {
             "assemblyVersion": "3.3.0.0",
-            "fileVersion": "3.5.4.37"
+            "fileVersion": "3.7.0.11"
           }
         },
         "compile": {
@@ -2538,19 +2538,19 @@
       "path": "amazon.lambda.applicationloadbalancerevents/2.1.0",
       "hashPath": "amazon.lambda.applicationloadbalancerevents.2.1.0.nupkg.sha512"
     },
-    "Amazon.Lambda.AspNetCoreServer/5.3.1": {
+    "Amazon.Lambda.AspNetCoreServer/6.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-kmTsj46dqVn0IN5TIsVncDcLbRlsZo7cp/JZiQyeSXrofE58xDfj6qgsXSFSrofmJM/+5EBKUEQ8pbp9ss+VfA==",
-      "path": "amazon.lambda.aspnetcoreserver/5.3.1",
-      "hashPath": "amazon.lambda.aspnetcoreserver.5.3.1.nupkg.sha512"
+      "sha512": "sha512-SjmmQr+pkIsbssvaiT8bkUi/m6IO2N5ftf0ptVHTdmw9OxbQAPgt+qwm4rz58fEJvV9h7T33ulYWEUUfKjYDbw==",
+      "path": "amazon.lambda.aspnetcoreserver/6.0.0",
+      "hashPath": "amazon.lambda.aspnetcoreserver.6.0.0.nupkg.sha512"
     },
-    "Amazon.Lambda.Core/1.2.0": {
+    "Amazon.Lambda.Core/2.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-goaq1LaH1UJB18BNG/Apxmn0P7dAlLWFbxU2nKxK+M4lH2KJaZDbtlP2gFEAJ+aENOMBHthaLPEtk3944J2OOg==",
-      "path": "amazon.lambda.core/1.2.0",
-      "hashPath": "amazon.lambda.core.1.2.0.nupkg.sha512"
+      "sha512": "sha512-V4fw3pYuP1LyUJThpbrbLwy2b4TH3CPYh5oId/CgJvGkX7lSAVyOEmkdGvDhpjegxnS4rgw6tP7faftVBO9jwQ==",
+      "path": "amazon.lambda.core/2.0.0",
+      "hashPath": "amazon.lambda.core.2.0.0.nupkg.sha512"
     },
     "Amazon.Lambda.Logging.AspNetCore/3.1.0": {
       "type": "package",
@@ -2566,19 +2566,19 @@
       "path": "amazon.lambda.serialization.systemtextjson/2.1.0",
       "hashPath": "amazon.lambda.serialization.systemtextjson.2.1.0.nupkg.sha512"
     },
-    "AWSSDK.Core/3.5.3.8": {
+    "AWSSDK.Core/3.7.0.11": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-qF5cq1RuE2GD6EQu0Bef1I06yzVTwSlW0FBxMXT1bGd+dF0Rcoa0grH7P6KbRp9HyIzWPOEdlMIx0yX1puTFCA==",
-      "path": "awssdk.core/3.5.3.8",
-      "hashPath": "awssdk.core.3.5.3.8.nupkg.sha512"
+      "sha512": "sha512-uNl0cdPF+C2SJXiaOU8NazSs2sVXu+iZlJZS38Q9p2GIY46PsTboC/cTH6kVPY5TaN3Ez1ST/gNHayeCMpRtkg==",
+      "path": "awssdk.core/3.7.0.11",
+      "hashPath": "awssdk.core.3.7.0.11.nupkg.sha512"
     },
-    "AWSSDK.DynamoDBv2/3.5.4.37": {
+    "AWSSDK.DynamoDBv2/3.7.0.11": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-zlO+QxOQ7PHEzCMNm/ZoyYnxCTawYAX93XSQb4bFyy6aHeqaiKJD8XpN7VY2+V/XuGhiS0Z8OjezBI/SGXmbng==",
-      "path": "awssdk.dynamodbv2/3.5.4.37",
-      "hashPath": "awssdk.dynamodbv2.3.5.4.37.nupkg.sha512"
+      "sha512": "sha512-fO6AYDGYlpJCMHSHpsjp/uypKFdDHZyz68nMDmUXPeKbQh5GQSNGRztvNmiR2l/eUjPbb9i6aMzv+ImoDD1ftA==",
+      "path": "awssdk.dynamodbv2/3.7.0.11",
+      "hashPath": "awssdk.dynamodbv2.3.7.0.11.nupkg.sha512"
     },
     "JavaScriptEngineSwitcher.Core/3.1.0": {
       "type": "package",
